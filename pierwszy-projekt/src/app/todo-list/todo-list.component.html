@@ -8,7 +8,7 @@
     <h4>Zadania:</h4>
     <ul class="list-group todos-list" *ngIf="todos.length > 0; else noTask">
         <li class="list-group-item" *ngFor="let todo of todos; index as i">
-            <input type="checkbox" class="form-check-input my-1" [checked]="todo.isComplete">
+            <input type="checkbox" class="form-check-input my-1" [checked]="todo.isComplete" (change)="changeTodoStatus(todo)">
             <span class="todo-item">{{ i + 1}}. {{todo.name}}</span>
         </li>
     </ul>
