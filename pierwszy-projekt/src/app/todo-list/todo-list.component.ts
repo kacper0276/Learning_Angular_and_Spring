@@ -10,7 +10,13 @@ import { Component } from '@angular/core';
 export class TodoListComponent {
   todos: string[] = [];
 
-  addTodo(): void {
+  addTodo(todo: string): void {
+    if(todo.length <= 3) {
+      alert('Zadanie powinno mieć conajmniej 4 znaki')
+      return;
+    }
+
+    this.todos.push(todo);
     console.log("Aktualna lista todo: ", this.todos)
   }
 }
