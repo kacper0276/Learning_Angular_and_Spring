@@ -12,6 +12,7 @@ import { Todo } from '../shared/interfaces/todo.interface';
 export class TodoListComponent {
   todos: Todo[] = [];
   errorMessage = "";
+  testSwitchCase = 'tak';
 
   addTodo(todo: string): void {
     if(todo.length <= 3) {
