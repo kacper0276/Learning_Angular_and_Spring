@@ -4,7 +4,7 @@
 <input type="text" #name name="todo" class="form-control">
 <button type="button" class="btn btn-primary mt-3" (click)="addTodo(name.value)">Dodaj zadanie</button>
 
-<app-alert *ngIf="errorMessage" [errorMessage]="errorMessage"></app-alert>
+<app-alert *ngIf="errorMessage" [errorMessage]="errorMessage" (clearMessage)="clearErrorMessage()"></app-alert>
 
 <div class="mt-5">
     <h4>Zadania:</h4>

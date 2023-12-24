@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-alert',
@@ -9,4 +9,9 @@ import { Component, Input } from '@angular/core';
 })
 export class AlertComponent {
   @Input() errorMessage!: string; // Input z rodzica do dziecka, Output z dziecka do rodzica
+  @Output() clearMessage = new EventEmitter<void>();
+
+  clearErrorMessage() {
+    this.clearMessage.emit();
+  }
 }
