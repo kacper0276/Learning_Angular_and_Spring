@@ -4,10 +4,7 @@
 <input type="text" #name name="todo" class="form-control">
 <button type="button" class="btn btn-primary mt-3" (click)="addTodo(name.value)">Dodaj zadanie</button>
 
-<div class="alert alert-warning alert-dismissible fade show mt-2" role="alert" *ngIf="errorMessage">
-    {{errorMessage}}
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" (click)="clearErrorMessage()"></button>
-</div>
+<app-alert *ngIf="errorMessage" [errorMessage]="errorMessage"></app-alert>
 
 <div class="mt-5">
     <h4>Zadania:</h4>
@@ -23,10 +20,4 @@
     </ul>
     <!-- <h5 *ngIf="todos.length === 0">Aktualnie brak zadań</h5> -->
     <ng-template #noTask>Aktualnie brak zadań</ng-template>
-</div>
-
-<div [ngSwitch]="testSwitchCase">
-    <p *ngSwitchCase="'tak'">Wyświetlam tak</p>
-    <p *ngSwitchCase="'nie'">Wyświetlam nie</p>
-    <p *ngSwitchDefault>Wyświetlam default</p>
 </div>
