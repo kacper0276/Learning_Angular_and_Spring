@@ -16,7 +16,7 @@
         <ng-container *ngFor="let todo of todos; index as i"> 
             <li class="list-group-item" *ngIf="!todo.isComplete">
                 <input type="checkbox" class="form-check-input my-1" [checked]="todo.isComplete" (change)="changeTodoStatus(todo)">
-                <span class="todo-item">{{ i + 1}}. {{todo.name}}</span>
+                <span class="todo-item" [ngStyle]="{'text-decoration': todo.isComplete ? 'line-through' : 'initial'}">{{ i + 1}}. {{todo.name}}</span>
             </li>
         </ng-container>
     </ul>
