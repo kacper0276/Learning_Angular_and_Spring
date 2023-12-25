@@ -7,11 +7,7 @@
     <ul class="list-group todos-list" *ngIf="todos.length > 0; else noTask">
         <!-- Przydaje się by nie dodawać nowego elementu w drzewie DOM -->
         <ng-container *ngFor="let todo of todos; index as i"> 
-            <li class="list-group-item">
-                <input type="checkbox" class="form-check-input my-1" [checked]="todo.isComplete" (change)="changeTodoStatus(todo)">
-                <!-- [ngStyle]="{'text-decoration': todo.isComplete ? 'line-through' : 'initial'}" -->
-                <span class="todo-item" [ngClass]="{'text-decoration-line-through': todo.isComplete}">{{ i + 1}}. {{todo.name}}</span>
-            </li>
+            <app-todo [todo]="todo" [i]="i"></app-todo>
         </ng-container>
     </ul>
     <!-- <h5 *ngIf="todos.length === 0">Aktualnie brak zadań</h5> -->
