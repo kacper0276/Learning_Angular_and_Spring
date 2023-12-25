@@ -6,4 +6,9 @@
     <button type="button" class="btn btn-danger btn-sm mx-2" (click)="toogleModal()">Usuń</button>
 </li>
 
-<app-modal *ngIf="openModal" (close)="toogleModal()" [title]="'Czy na pewno chcesz usunąć zadanie o numerze' + (i + 1) + '?'"></app-modal>
+<app-modal *ngIf="openModal" (close)="toogleModal()" [title]="'Czy na pewno chcesz usunąć zadanie o numerze' + (i + 1) + '?'">
+    <div class="d-flex justify-content-end">
+        <button class="btn btn-danger btn-sm mx-2">Usuń</button>
+        <button class="btn btn-info btn-sm">Anuluj</button>
+    </div>
+</app-modal>
