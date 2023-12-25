@@ -2,4 +2,8 @@
     <input type="checkbox" class="form-check-input my-1" [checked]="todo.isComplete" (change)="changeTodoStatus(todo)">
     <!-- [ngStyle]="{'text-decoration': todo.isComplete ? 'line-through' : 'initial'}" -->
     <span class="todo-item" [ngClass]="{'text-decoration-line-through': todo.isComplete}">{{ i + 1}}. {{todo.name}}</span>
+
+    <button type="button" class="btn btn-danger btn-sm mx-2" (click)="toogleModal()">Usuń</button>
 </li>
+
+<app-modal *ngIf="openModal" (close)="toogleModal()" [title]="'Czy na pewno chcesz usunąć zadanie o numerze' + (i + 1) + '?'"></app-modal>
