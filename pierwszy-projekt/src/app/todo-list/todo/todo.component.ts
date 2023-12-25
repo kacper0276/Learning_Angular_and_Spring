@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Todo } from '../../shared/interfaces/todo.interface';
 import { CommonModule } from '@angular/common';
 import { ModalComponent } from '../../shared/components/modal/modal.component';
@@ -13,6 +13,7 @@ import { ModalComponent } from '../../shared/components/modal/modal.component';
 export class TodoComponent {
   @Input() todo!: Todo;
   @Input() i!: number;
+  @Output() delete = new EventEmitter<void>();
   openModal = false;
 
   changeTodoStatus(todo: Todo): void {
@@ -21,5 +22,9 @@ export class TodoComponent {
 
   toogleModal(): void {
     this.openModal = !this.openModal;
+  }
+
+  deleteTodo(): void {
+      this.delete.emit();
   }
 }

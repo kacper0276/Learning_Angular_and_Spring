@@ -7,7 +7,7 @@
     <ul class="list-group todos-list" *ngIf="todos.length > 0; else noTask">
         <!-- Przydaje się by nie dodawać nowego elementu w drzewie DOM -->
         <ng-container *ngFor="let todo of todos; index as i"> 
-            <app-todo [todo]="todo" [i]="i"></app-todo>
+            <app-todo [todo]="todo" [i]="i" (delete)="deleteTodo(i)"></app-todo>
         </ng-container>
     </ul>
     <!-- <h5 *ngIf="todos.length === 0">Aktualnie brak zadań</h5> -->
