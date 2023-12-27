@@ -14,10 +14,16 @@ export class TodoComponent implements OnChanges {
   @Input() todo!: Todo;
   @Input() i!: number;
   @Output() delete = new EventEmitter<void>();
+  @Output() changeStatus = new EventEmitter<number>();
   openModal = false;
 
-  changeTodoStatus(todo: Todo): void {
-    todo.isComplete = !todo.isComplete;    
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes);
+    
+  }
+
+  changeTodoStatus(): void {
+    this.changeStatus.emit(this.i);  
   }
 
   toogleModal(): void {
@@ -28,8 +34,4 @@ export class TodoComponent implements OnChanges {
       this.delete.emit();
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
-    
-  }
 }

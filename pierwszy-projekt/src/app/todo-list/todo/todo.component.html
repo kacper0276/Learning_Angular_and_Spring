@@ -1,5 +1,5 @@
 <li class="list-group-item">
-    <input type="checkbox" class="form-check-input my-1" [checked]="todo.isComplete" (change)="changeTodoStatus(todo)">
+    <input type="checkbox" class="form-check-input my-1" [checked]="todo.isComplete" (change)="changeTodoStatus()">
     <!-- [ngStyle]="{'text-decoration': todo.isComplete ? 'line-through' : 'initial'}" -->
     <span class="todo-item" [ngClass]="{'text-decoration-line-through': todo.isComplete}">{{ i + 1}}. {{todo.name}}</span>
 
