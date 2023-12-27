@@ -13,7 +13,7 @@ import { ModalComponent } from '../../shared/components/modal/modal.component';
 export class TodoComponent 
 // implements OnChanges
 // implements OnInit 
-implements DoCheck
+// implements DoCheck
 {
   @Input() todo!: Todo;
   @Input() i!: number;
@@ -33,9 +33,9 @@ implements DoCheck
   //   console.log(this.todo);
   // }
 
-  ngDoCheck(): void {
-    console.log("ngDoCheck został wykonany");
-  }
+  // ngDoCheck(): void {
+  //   console.log("ngDoCheck został wykonany");
+  // }
 
   changeTodoStatus(): void {
     this.changeStatus.emit(this.i);  
