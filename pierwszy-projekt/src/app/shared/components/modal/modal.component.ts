@@ -10,8 +10,8 @@ import { AfterContentChecked, AfterContentInit, Component, ContentChild, Element
 export class ModalComponent implements AfterContentInit, AfterContentChecked{
   @Input() title!: string;
   @Output() close = new EventEmitter<void>();
-  @ContentChild('modalDiv') modalDiv!: ElementRef; 
-  @ContentChild('check') checkBox!: ElementRef;
+  // @ContentChild('modalDiv') modalDiv!: ElementRef; 
+  // @ContentChild('check') checkBox!: ElementRef;
 
   onClose() {
     this.close.emit();
@@ -23,7 +23,7 @@ export class ModalComponent implements AfterContentInit, AfterContentChecked{
   }
 
   ngAfterContentChecked(): void {
-    console.log('ngAfterContentChecked');
-    console.log(this.checkBox.nativeElement.checked);
+    // console.log('ngAfterContentChecked');
+    // console.log(this.checkBox.nativeElement.checked);
   }
 }
