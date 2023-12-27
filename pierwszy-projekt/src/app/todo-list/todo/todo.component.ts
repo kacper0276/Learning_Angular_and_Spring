@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { Todo } from '../../shared/interfaces/todo.interface';
 import { CommonModule } from '@angular/common';
 import { ModalComponent } from '../../shared/components/modal/modal.component';
@@ -10,7 +10,7 @@ import { ModalComponent } from '../../shared/components/modal/modal.component';
   templateUrl: './todo.component.html',
   styleUrl: './todo.component.css'
 })
-export class TodoComponent {
+export class TodoComponent implements OnChanges {
   @Input() todo!: Todo;
   @Input() i!: number;
   @Output() delete = new EventEmitter<void>();
@@ -26,5 +26,10 @@ export class TodoComponent {
 
   deleteTodo(): void {
       this.delete.emit();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes);
+    
   }
 }

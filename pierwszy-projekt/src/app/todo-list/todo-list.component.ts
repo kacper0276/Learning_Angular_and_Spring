@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnChanges, SimpleChanges } from '@angular/core';
 import { Todo } from '../shared/interfaces/todo.interface';
 import { AlertComponent } from '../shared/components/alert/alert.component';
 import { AddTodoFormComponent } from './add-todo-form/add-todo-form.component';
@@ -12,9 +12,13 @@ import { TodoComponent } from './todo/todo.component';
   templateUrl: './todo-list.component.html',
   styleUrl: './todo-list.component.css'
 })
-export class TodoListComponent {
+export class TodoListComponent implements OnChanges {
   todos: Todo[] = [];
   errorMessage = "";
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes);
+  }
 
   addTodo(todo: string): void {
     if(todo.length <= 3) {
