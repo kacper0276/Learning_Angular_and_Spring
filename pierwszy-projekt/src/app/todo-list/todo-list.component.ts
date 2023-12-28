@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewChecked, AfterViewInit, Component, ViewChild, ViewChildren } from '@angular/core';
+import { Component } from '@angular/core';
 import { Todo } from '../shared/interfaces/todo.interface';
 import { AlertComponent } from '../shared/components/alert/alert.component';
 import { AddTodoFormComponent } from './add-todo-form/add-todo-form.component';
@@ -12,19 +12,21 @@ import { TodoComponent } from './todo/todo.component';
   templateUrl: './todo-list.component.html',
   styleUrl: './todo-list.component.css'
 })
-export class TodoListComponent implements AfterViewInit, AfterViewChecked {
-  @ViewChild(TodoComponent) todoComp!: TodoComponent; // Złapie jeden selektor
-  @ViewChildren(TodoComponent) todoComps!: TodoComponent; // Złapie kilka selektorów
+export class TodoListComponent
+//  implements AfterViewInit, AfterViewChecked 
+ {
+  // @ViewChild(TodoComponent) todoComp!: TodoComponent; // Złapie jeden selektor
+  // @ViewChildren(TodoComponent) todoComps!: TodoComponent; // Złapie kilka selektorów
   todos: Todo[] = [];
   errorMessage = "";
 
-  ngAfterViewInit(): void {
-    console.log(this.todoComp);
-  }
+  // ngAfterViewInit(): void {
+  //   console.log(this.todoComp);
+  // }
 
-  ngAfterViewChecked(): void {
-    console.log(this.todoComp);
-  }
+  // ngAfterViewChecked(): void {
+  //   console.log(this.todoComp);
+  // }
 
   addTodo(todo: string): void {
     if(todo.length <= 3) {
