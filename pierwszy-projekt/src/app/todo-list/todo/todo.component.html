@@ -33,7 +33,8 @@
 <p>{{ 10 | currency : 'PLN': 'code': '' }}</p>
 <p> {{ '2023-03-01' | date : 'longDate': '' }}</p> -->
 
-<!-- Własny pipe -->
+<!-- Użycie kilku pipe jednocześnie -->
+<p>{{ 'test manualny' | uppercase | slice: 0 : 3 }}</p>
 
 <app-modal *ngIf="openModal" (close)="toogleModal()" [title]="'Czy na pewno chcesz usunąć zadanie o numerze' + (i + 1) + '?'">
     <p up>Usuń</p>
