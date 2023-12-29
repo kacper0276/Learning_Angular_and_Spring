@@ -23,7 +23,7 @@ export class TodoListComponent
   // ngAfterViewInit(): void {
   //   console.log(this.todoComp);
   // }
-
+ 
   // ngAfterViewChecked(): void {
   //   console.log(this.todoComp);
   // }
