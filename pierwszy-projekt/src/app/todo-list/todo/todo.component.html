@@ -1,7 +1,7 @@
 <li class="list-group-item" #li>
     <input type="checkbox" class="form-check-input my-1" [checked]="todo.isComplete" (change)="changeTodoStatus()">
     <!-- [ngStyle]="{'text-decoration': todo.isComplete ? 'line-through' : 'initial'}" -->
-    <span class="todo-item" [ngClass]="{'text-decoration-line-through': todo.isComplete}">{{ i + 1}}. {{todo.name}}</span>
+    <span class="todo-item" [ngClass]="{'text-decoration-line-through': todo.isComplete}">{{ i + 1}}. {{todo.name | firstLetterUppercase}}</span>
 
     <button type="button" class="btn btn-danger btn-sm mx-2" (click)="toogleModal()">Usuń</button>
 </li>
@@ -28,10 +28,12 @@
 <p>{{ 0.25 | percent : '': 'pl'}}</p>
 <p>{{ 10 | currency : 'PLN': 'code': '': 'pl'}}</p>
 <p> {{ '2023-03-01' | date : 'shortDate': '': 'pl'}}</p> -->
-<p>{{ 1.3 | number: '' }}</p>
+<!-- <p>{{ 1.3 | number: '' }}</p>
 <p>{{ 0.25 | percent : '' }}</p>
 <p>{{ 10 | currency : 'PLN': 'code': '' }}</p>
-<p> {{ '2023-03-01' | date : 'longDate': '' }}</p>
+<p> {{ '2023-03-01' | date : 'longDate': '' }}</p> -->
+
+<!-- Własny pipe -->
 
 <app-modal *ngIf="openModal" (close)="toogleModal()" [title]="'Czy na pewno chcesz usunąć zadanie o numerze' + (i + 1) + '?'">
     <p up>Usuń</p>

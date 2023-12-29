@@ -3,13 +3,14 @@ import { Todo } from '../../shared/interfaces/todo.interface';
 import { CommonModule, registerLocaleData } from '@angular/common';
 import { ModalComponent } from '../../shared/components/modal/modal.component';
 import localePl from '@angular/common/locales/pl'
+import { FirstLetterUppercasePipe } from '../../shared/pipes/first-letter-uppercase.pipe';
 
 registerLocaleData(localePl);
 
 @Component({
   selector: 'app-todo',
   standalone: true,
-  imports: [CommonModule, ModalComponent],
+  imports: [CommonModule, ModalComponent, FirstLetterUppercasePipe],
   templateUrl: './todo.component.html',
   styleUrl: './todo.component.css',
   providers: [
