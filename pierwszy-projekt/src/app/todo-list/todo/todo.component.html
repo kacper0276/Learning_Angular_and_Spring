@@ -6,6 +6,22 @@
     <button type="button" class="btn btn-danger btn-sm mx-2" (click)="toogleModal()">Usuń</button>
 </li>
 
+<!-- <p>{{ todo.name }}</p>
+<p>{{ todo.name | uppercase }}</p> -->
+
+<!-- <p>{{ todo }}</p>
+<p>{{ todo | json }}</p>
+<pre>{{ todo | json }}</pre> -->
+
+<!-- <p>{{ 'test tytułu' | titlecase }}</p> -->
+
+<!-- <p *ngFor="let item of keyValueTest | keyvalue">
+    {{ item.key }}
+    {{ item.value }}
+</p> -->
+
+<!-- <p> {{ 'przytnij' | slice: 0 : 4}}</p> -->
+
 <app-modal *ngIf="openModal" (close)="toogleModal()" [title]="'Czy na pewno chcesz usunąć zadanie o numerze' + (i + 1) + '?'">
     <p up>Usuń</p>
     <div class="d-flex justify-content-end" #modalDiv>

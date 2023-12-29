@@ -23,6 +23,7 @@ export class TodoComponent
   @ViewChild('li') li!: ElementRef;
   openModal = false;
   // timeout!: any;
+  // keyValueTest: {[key: string]: string | number} = { name: 'Test', age: 12 };
 
   // constructor() {
   //   console.log(this.todo);
