@@ -4,6 +4,7 @@ import { Todo } from '../shared/interfaces/todo.interface';
 import { AlertComponent } from '../shared/components/alert/alert.component';
 import { AddTodoFormComponent } from './add-todo-form/add-todo-form.component';
 import { TodoComponent } from './todo/todo.component';
+import { TodoService } from '../core/services/todo.service';
 
 @Component({
   selector: 'app-todo-list',
@@ -27,6 +28,8 @@ export class TodoListComponent
   // ngAfterViewChecked(): void {
   //   console.log(this.todoComp);
   // }
+
+  constructor(private todoService: TodoService) {}
 
   addTodo(todo: string): void {
     if(todo.length <= 3) {
