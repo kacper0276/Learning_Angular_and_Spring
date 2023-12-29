@@ -18,7 +18,7 @@ export class TodoListComponent
  {
   // @ViewChild(TodoComponent) todoComp!: TodoComponent; // Złapie jeden selektor
   // @ViewChildren(TodoComponent) todoComps!: TodoComponent; // Złapie kilka selektorów
-  todos: Todo[] = JSON.parse(localStorage.getItem('todos')!) ?? [];
+  todos: Todo[] = this.todoService.todos;
   errorMessage = "";
 
   // ngAfterViewInit(): void {
@@ -37,9 +37,8 @@ export class TodoListComponent
       return;
     }
 
-    this.todos.push({ name: todo, isComplete: false });
-    localStorage.setItem('todos', JSON.stringify(this.todos));
-    // console.log("Aktualna lista todo: ", this.todos)
+    this.todoService.addTodo(todo);
+    this.todos = this.todoService.todos;
   }
 
   clearErrorMessage(): void {
@@ -47,15 +46,12 @@ export class TodoListComponent
   }
 
   deleteTodo(i: number): void {
-    this.todos = this.todos.filter((todo: Todo, index: number) => index !== i);
-    localStorage.setItem('todos', JSON.stringify(this.todos));
+    this.todoService.deleteTodo(i);
+    this.todos = this.todoService.todos;
   }
 
   changeTodoStatus(index: number): void {
-    this.todos[index] = {
-      ...this.todos[index],
-      isComplete: !this.todos[index].isComplete
-    }
-    localStorage.setItem('todos', JSON.stringify(this.todos));
+    this.todoService.changeTodoStatus(index);
+    this.todos = this.todoService.todos;
   }
 }
