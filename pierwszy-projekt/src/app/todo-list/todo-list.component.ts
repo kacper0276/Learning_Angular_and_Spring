@@ -5,6 +5,7 @@ import { AlertComponent } from '../shared/components/alert/alert.component';
 import { AddTodoFormComponent } from './add-todo-form/add-todo-form.component';
 import { TodoComponent } from './todo/todo.component';
 import { TodoService } from '../core/services/todo.service';
+import { TestService } from '../core/services/test.service';
 
 @Component({
   selector: 'app-todo-list',
@@ -26,9 +27,9 @@ export class TodoListComponent
   // ngAfterViewChecked(): void {
   //   console.log(this.todoComp);
   // }
-
+  
   // Logiki nie wrzucamy do konstruktora
-  constructor(private todoService: TodoService) {}
+  constructor(private todoService: TodoService, private testService: TestService) {}
   // Inny sposób
   // todoService = inject(TodoService);
   todos: Todo[] = this.todoService.todos;

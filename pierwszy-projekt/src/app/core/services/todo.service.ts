@@ -10,6 +10,10 @@ export class TodoService {
 
   constructor() { }
 
+  log() {
+    console.log('Test');
+  }
+
   public get todos() {
     return this._todos.slice(); // Przez slice zwracamy nową referencję, bez slice cały czas tą samą referencję zwracamu
   }
