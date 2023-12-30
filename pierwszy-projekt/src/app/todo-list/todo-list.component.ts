@@ -27,9 +27,10 @@ export class TodoListComponent
   //   console.log(this.todoComp);
   // }
 
-  // constructor(private todoService: TodoService) {}
+  // Logiki nie wrzucamy do konstruktora
+  constructor(private todoService: TodoService) {}
   // Inny sposób
-  todoService = inject(TodoService);
+  // todoService = inject(TodoService);
   todos: Todo[] = this.todoService.todos;
   errorMessage = "";
 
