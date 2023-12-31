@@ -18,7 +18,7 @@ export class TodoListComponent
 //  implements AfterViewInit, AfterViewChecked 
  {
   // @ViewChild(TodoComponent) todoComp!: TodoComponent; // Złapie jeden selektor
-  // @ViewChildren(TodoComponent) todoComps!: TodoComponent; // Złapie kilka selektorów
+  // @ViewChildren(TodoComponent) todoComps!: TodoComponent; // Złapie kilka selektorów 
  
   // ngAfterViewInit(): void {
   //   console.log(this.todoComp);
