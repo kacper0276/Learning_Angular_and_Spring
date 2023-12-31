@@ -1,5 +1,5 @@
 import { AfterContentChecked, AfterContentInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { of } from 'rxjs';
+import { Subscription, of } from 'rxjs';
 
 @Component({
   selector: 'app-modal',
@@ -13,6 +13,7 @@ implements AfterContentInit, AfterContentChecked, OnInit, OnDestroy
 {
   @Input() title!: string;
   @Output() close = new EventEmitter<void>();
+  sub!: Subscription;
   // @ContentChild('modalDiv') modalDiv!: ElementRef; 
   // @ContentChild('check') checkBox!: ElementRef;  
 
@@ -21,15 +22,16 @@ implements AfterContentInit, AfterContentChecked, OnInit, OnDestroy
   }
 
   ngOnInit(): void {
-    of([1, 2, 3], [4, 5], [6, 7]).subscribe({
+    this.sub = of([1, 2, 3], [4, 5], [6, 7]).subscribe({
       next: value => console.log(value),
       error: err => console.log(err),
       complete: () => console.log('Test')
     })
+    console.log(this.sub);
   }
 
   ngOnDestroy(): void {
-
+    console.log(this.sub); // closed: true - oznacza że subskrypcja się zakończyła
   }
 
   ngAfterContentInit(): void {
