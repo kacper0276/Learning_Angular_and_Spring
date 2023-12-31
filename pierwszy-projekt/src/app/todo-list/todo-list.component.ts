@@ -27,7 +27,7 @@ export class TodoListComponent
   // ngAfterViewChecked(): void {
   //   console.log(this.todoComp);
   // }
-  
+   
   // Logiki nie wrzucamy do konstruktora
   constructor(private todoService: TodoService, private testService: TestService) {}
   // Inny sposób
