@@ -19,7 +19,7 @@ export class TodoListComponent
  {
   // @ViewChild(TodoComponent) todoComp!: TodoComponent; // Złapie jeden selektor
   // @ViewChildren(TodoComponent) todoComps!: TodoComponent; // Złapie kilka selektorów
-
+ 
   // ngAfterViewInit(): void {
   //   console.log(this.todoComp);
   // }
