@@ -84,17 +84,17 @@ implements AfterContentInit, AfterContentChecked, OnInit, OnDestroy
     //       next: numb => console.log(numb) 
     //     })
 
-    const subject = new Subject<number>();
-    const bsubject = new BehaviorSubject<number>(5); // Musi mieć wartość początkową
-    this.sub.add(subject.subscribe({
-      next: value => console.log(value)
-    }));
-    this.sub.add(bsubject.subscribe({
-      next: value => console.log(value)
-    }));
-    subject.next(5);
+    // const subject = new Subject<number>();
+    // const bsubject = new BehaviorSubject<number>(5); // Musi mieć wartość początkową
+    // this.sub.add(subject.subscribe({
+    //   next: value => console.log(value)
+    // }));
+    // this.sub.add(bsubject.subscribe({
+    //   next: value => console.log(value)
+    // }));
+    // subject.next(5);
 
-    console.log(this.sub);
+    // console.log(this.sub);
     // console.log(this.sub);
   }
 
@@ -103,7 +103,7 @@ implements AfterContentInit, AfterContentChecked, OnInit, OnDestroy
       this.sub.unsubscribe();
     }
 
-    console.log(this.sub); // closed: true - oznacza że subskrypcja się zakończyła
+    // console.log(this.sub); // closed: true - oznacza że subskrypcja się zakończyła
   }
 
   ngAfterContentInit(): void {
