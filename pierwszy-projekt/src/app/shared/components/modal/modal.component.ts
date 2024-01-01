@@ -1,10 +1,11 @@
+import { CommonModule } from '@angular/common';
 import { AfterContentChecked, AfterContentInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Subscription, interval, of, take } from 'rxjs';
 
 @Component({
   selector: 'app-modal',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './modal.component.html',
   styleUrl: './modal.component.css'
 })
@@ -14,6 +15,7 @@ implements AfterContentInit, AfterContentChecked, OnInit, OnDestroy
   @Input() title!: string;
   @Output() close = new EventEmitter<void>();
   sub!: Subscription;
+  obs$ = interval(1000);
   // @ContentChild('modalDiv') modalDiv!: ElementRef; 
   // @ContentChild('check') checkBox!: ElementRef;  
 
@@ -28,16 +30,17 @@ implements AfterContentInit, AfterContentChecked, OnInit, OnDestroy
     //   complete: () => console.log('Test')
     // })
     // take - bierze pierwsze x wartości i kończy działanie
-    this.sub = interval(1000).pipe(take(5)).subscribe({
-      next: number => console.log(number) 
-    });
-    console.log(this.sub);
+    // this.sub = interval(1000).pipe(take(5)).subscribe({
+    //   next: number => console.log(number) 
+    // });
+    // console.log(this.sub);
+    
   }
 
   ngOnDestroy(): void {
     // this.sub.unsubscribe();
 
-    console.log(this.sub); // closed: true - oznacza że subskrypcja się zakończyła
+    // console.log(this.sub); // closed: true - oznacza że subskrypcja się zakończyła
   }
 
   ngAfterContentInit(): void {

@@ -5,7 +5,8 @@
     </span>
     <!-- <ng-content select=".p-up"></ng-content> -->
     <!-- Lub  -->
-    <ng-content select="[up]"></ng-content>
+    <p>{{ obs$ | async }}</p>
     <h4>{{ title }}</h4>
+    <ng-content select="[up]"></ng-content>
     <ng-content></ng-content>
 </div>
