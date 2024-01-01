@@ -1,5 +1,5 @@
 import { AfterContentChecked, AfterContentInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { Subscription, of } from 'rxjs';
+import { Subscription, interval, of, take } from 'rxjs';
 
 @Component({
   selector: 'app-modal',
@@ -22,15 +22,21 @@ implements AfterContentInit, AfterContentChecked, OnInit, OnDestroy
   }
 
   ngOnInit(): void {
-    this.sub = of([1, 2, 3], [4, 5], [6, 7]).subscribe({
-      next: value => console.log(value),
-      error: err => console.log(err),
-      complete: () => console.log('Test')
-    })
+    // this.sub = of([1, 2, 3], [4, 5], [6, 7]).subscribe({
+    //   next: value => console.log(value),
+    //   error: err => console.log(err),
+    //   complete: () => console.log('Test')
+    // })
+    // take - bierze pierwsze x wartości i kończy działanie
+    this.sub = interval(1000).pipe(take(5)).subscribe({
+      next: number => console.log(number) 
+    });
     console.log(this.sub);
   }
 
   ngOnDestroy(): void {
+    // this.sub.unsubscribe();
+
     console.log(this.sub); // closed: true - oznacza że subskrypcja się zakończyła
   }
 
