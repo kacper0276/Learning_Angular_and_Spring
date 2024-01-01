@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { AfterContentChecked, AfterContentInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { Subscription, filter, from, fromEvent, interval, map, of, take } from 'rxjs';
+import { Subscription, filter, from, fromEvent, interval, map, of, switchMap, take, tap } from 'rxjs';
 
 @Component({
   selector: 'app-modal',
@@ -33,30 +33,51 @@ implements AfterContentInit, AfterContentChecked, OnInit, OnDestroy
     // this.sub = interval(1000).pipe(take(5)).subscribe({
     //   next: number => console.log(number) 
     // });
+
     // from - wartości iterowalne
     // this.sub = from([1, 2, 3]).subscribe({
     //   next: value => console.log(value),
     //   error: err => console.log(err),
     //   complete: () => console.log('Test')
     // })
+
     // this.sub = fromEvent(document, 'click').subscribe({
     //   next: value => console.log(value),
     //   error: err => console.log(err),
     //   complete: () => console.log('Test')
     // })
+
+    // map i filter
     // of(1, 2, 3).pipe(map(numb => numb * 2))
     //   .subscribe({
     //       next: numb => console.log(numb) 
     //     })
+
     // of([1, 2, 3]).pipe(map(arr => {
     //   return arr.map(numb => numb * 2)
     // }))
     // .subscribe({
     //       next: numb => console.log(numb) 
     //     })
-    of(1, 2, 3).pipe(
-      filter(numb => numb % 2 === 0),
-        map(numb => numb * 2)
+
+    // of(1, 2, 3).pipe(
+    //   filter(numb => numb % 2 === 0),
+    //     map(numb => numb * 2)
+    //   )
+    //   .subscribe({
+    //       next: numb => console.log(numb) 
+    //     })
+
+    // Tab (nie zniekształca strumienia) i SwitchMap
+    // of(1).pipe(
+    //     switchMap(numb => of(numb * 2))
+    //   )
+    //   .subscribe({
+    //       next: numb => console.log(numb) 
+    //     })
+
+    of(1).pipe(
+        tap(numb => console.log(numb))
       )
       .subscribe({
           next: numb => console.log(numb) 
