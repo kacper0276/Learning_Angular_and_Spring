@@ -1,24 +1,47 @@
 import { CommonModule } from '@angular/common';
-import { AfterContentChecked, AfterContentInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { BehaviorSubject, Subject, Subscription, defer, filter, from, fromEvent, interval, map, of, switchMap, take, tap } from 'rxjs';
+import {
+  AfterContentChecked,
+  AfterContentInit,
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
+import {
+  BehaviorSubject,
+  Subject,
+  Subscription,
+  defer,
+  filter,
+  from,
+  fromEvent,
+  interval,
+  map,
+  of,
+  switchMap,
+  take,
+  tap,
+} from 'rxjs';
 
 @Component({
   selector: 'app-modal',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './modal.component.html',
-  styleUrl: './modal.component.css'
+  styleUrl: './modal.component.css',
 })
-export class ModalComponent 
-implements AfterContentInit, AfterContentChecked, OnInit, OnDestroy
+export class ModalComponent
+  implements AfterContentInit, AfterContentChecked, OnInit, OnDestroy
 {
   @Input() title!: string;
   @Output() close = new EventEmitter<void>();
   // sub!: Subscription;
   sub: Subscription = new Subscription();
   obs$ = interval(1000);
-  // @ContentChild('modalDiv') modalDiv!: ElementRef; 
-  // @ContentChild('check') checkBox!: ElementRef;  
+  // @ContentChild('modalDiv') modalDiv!: ElementRef;
+  // @ContentChild('check') checkBox!: ElementRef;
 
   onClose() {
     this.close.emit();
@@ -32,7 +55,7 @@ implements AfterContentInit, AfterContentChecked, OnInit, OnDestroy
     // })
     // take - bierze pierwsze x wartości i kończy działanie
     // this.sub = interval(1000).pipe(take(5)).subscribe({
-    //   next: number => console.log(number) 
+    //   next: number => console.log(number)
     // });
 
     // from - wartości iterowalne
@@ -51,14 +74,14 @@ implements AfterContentInit, AfterContentChecked, OnInit, OnDestroy
     // map i filter
     // of(1, 2, 3).pipe(map(numb => numb * 2))
     //   .subscribe({
-    //       next: numb => console.log(numb) 
+    //       next: numb => console.log(numb)
     //     })
 
     // of([1, 2, 3]).pipe(map(arr => {
     //   return arr.map(numb => numb * 2)
     // }))
     // .subscribe({
-    //       next: numb => console.log(numb) 
+    //       next: numb => console.log(numb)
     //     })
 
     // of(1, 2, 3).pipe(
@@ -66,7 +89,7 @@ implements AfterContentInit, AfterContentChecked, OnInit, OnDestroy
     //     map(numb => numb * 2)
     //   )
     //   .subscribe({
-    //       next: numb => console.log(numb) 
+    //       next: numb => console.log(numb)
     //     })
 
     // Tab (nie zniekształca strumienia) i SwitchMap
@@ -74,14 +97,14 @@ implements AfterContentInit, AfterContentChecked, OnInit, OnDestroy
     //     switchMap(numb => of(numb * 2))
     //   )
     //   .subscribe({
-    //       next: numb => console.log(numb) 
+    //       next: numb => console.log(numb)
     //     })
 
     // of(1).pipe(
     //     tap(numb => console.log(numb))
     //   )
     //   .subscribe({
-    //       next: numb => console.log(numb) 
+    //       next: numb => console.log(numb)
     //     })
 
     // const subject = new Subject<number>();
@@ -106,23 +129,23 @@ implements AfterContentInit, AfterContentChecked, OnInit, OnDestroy
     // event.next('Test');
     // console.log(this.sub);
 
-    const promise = () => new Promise((resolve, reject) => {
-      setTimeout(() => {
-        console.log('Test');
-        resolve('Hello world!');
-      }, 1000)
-    })
+    const promise = () =>
+      new Promise((resolve, reject) => {
+        setTimeout(() => {
+          console.log('Test');
+          resolve('Hello world!');
+        }, 1000);
+      });
 
     const obs$ = defer(() => from(promise()));
     this.sub = obs$.subscribe({
-      next: val => console.log(val)
-    })
+      next: (val) => console.log(val),
+    });
     console.log(this.sub);
-    
   }
 
   ngOnDestroy(): void {
-    if(this.sub) {
+    if (this.sub) {
       this.sub.unsubscribe();
     }
 
