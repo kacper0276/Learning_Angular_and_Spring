@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { AfterContentChecked, AfterContentInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { BehaviorSubject, Subject, Subscription, filter, from, fromEvent, interval, map, of, switchMap, take, tap } from 'rxjs';
+import { BehaviorSubject, Subject, Subscription, defer, filter, from, fromEvent, interval, map, of, switchMap, take, tap } from 'rxjs';
 
 @Component({
   selector: 'app-modal',
@@ -98,19 +98,33 @@ implements AfterContentInit, AfterContentChecked, OnInit, OnDestroy
     // console.log(this.sub);
 
     // Event Emmiter jako Observable
-    const event = new EventEmitter<string>();
-    this.sub = event.subscribe({
-      next: (value: string) => console.log(value)
+    // const event = new EventEmitter<string>();
+    // this.sub = event.subscribe({
+    //   next: (value: string) => console.log(value)
+    // })
+
+    // event.next('Test');
+    // console.log(this.sub);
+
+    const promise = () => new Promise((resolve, reject) => {
+      setTimeout(() => {
+        console.log('Test');
+        resolve('Hello world!');
+      }, 1000)
     })
 
-    event.next('Test');
+    const obs$ = defer(() => from(promise()));
+    this.sub = obs$.subscribe({
+      next: val => console.log(val)
+    })
     console.log(this.sub);
+    
   }
 
   ngOnDestroy(): void {
-    // if(this.sub) {
-    //   this.sub.unsubscribe();
-    // }
+    if(this.sub) {
+      this.sub.unsubscribe();
+    }
 
     // console.log(this.sub); // closed: true - oznacza że subskrypcja się zakończyła
   }
