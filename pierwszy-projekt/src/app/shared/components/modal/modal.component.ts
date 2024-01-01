@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { AfterContentChecked, AfterContentInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { Subscription, interval, of, take } from 'rxjs';
+import { Subscription, from, fromEvent, interval, of, take } from 'rxjs';
 
 @Component({
   selector: 'app-modal',
@@ -33,7 +33,18 @@ implements AfterContentInit, AfterContentChecked, OnInit, OnDestroy
     // this.sub = interval(1000).pipe(take(5)).subscribe({
     //   next: number => console.log(number) 
     // });
-    // console.log(this.sub);
+    // from - wartości iterowalne
+    // this.sub = from([1, 2, 3]).subscribe({
+    //   next: value => console.log(value),
+    //   error: err => console.log(err),
+    //   complete: () => console.log('Test')
+    // })
+    this.sub = fromEvent(document, 'click').subscribe({
+      next: value => console.log(value),
+      error: err => console.log(err),
+      complete: () => console.log('Test')
+    })
+    console.log(this.sub);
     
   }
 
