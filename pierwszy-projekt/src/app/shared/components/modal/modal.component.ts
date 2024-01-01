@@ -96,12 +96,21 @@ implements AfterContentInit, AfterContentChecked, OnInit, OnDestroy
 
     // console.log(this.sub);
     // console.log(this.sub);
+
+    // Event Emmiter jako Observable
+    const event = new EventEmitter<string>();
+    this.sub = event.subscribe({
+      next: (value: string) => console.log(value)
+    })
+
+    event.next('Test');
+    console.log(this.sub);
   }
 
   ngOnDestroy(): void {
-    if(this.sub) {
-      this.sub.unsubscribe();
-    }
+    // if(this.sub) {
+    //   this.sub.unsubscribe();
+    // }
 
     // console.log(this.sub); // closed: true - oznacza że subskrypcja się zakończyła
   }
