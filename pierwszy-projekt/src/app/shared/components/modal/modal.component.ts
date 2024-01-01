@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { AfterContentChecked, AfterContentInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { Subscription, filter, from, fromEvent, interval, map, of, switchMap, take, tap } from 'rxjs';
+import { BehaviorSubject, Subject, Subscription, filter, from, fromEvent, interval, map, of, switchMap, take, tap } from 'rxjs';
 
 @Component({
   selector: 'app-modal',
@@ -14,7 +14,8 @@ implements AfterContentInit, AfterContentChecked, OnInit, OnDestroy
 {
   @Input() title!: string;
   @Output() close = new EventEmitter<void>();
-  sub!: Subscription;
+  // sub!: Subscription;
+  sub: Subscription = new Subscription();
   obs$ = interval(1000);
   // @ContentChild('modalDiv') modalDiv!: ElementRef; 
   // @ContentChild('check') checkBox!: ElementRef;  
@@ -76,19 +77,33 @@ implements AfterContentInit, AfterContentChecked, OnInit, OnDestroy
     //       next: numb => console.log(numb) 
     //     })
 
-    of(1).pipe(
-        tap(numb => console.log(numb))
-      )
-      .subscribe({
-          next: numb => console.log(numb) 
-        })
+    // of(1).pipe(
+    //     tap(numb => console.log(numb))
+    //   )
+    //   .subscribe({
+    //       next: numb => console.log(numb) 
+    //     })
+
+    const subject = new Subject<number>();
+    const bsubject = new BehaviorSubject<number>(5); // Musi mieć wartość początkową
+    this.sub.add(subject.subscribe({
+      next: value => console.log(value)
+    }));
+    this.sub.add(bsubject.subscribe({
+      next: value => console.log(value)
+    }));
+    subject.next(5);
+
+    console.log(this.sub);
     // console.log(this.sub);
   }
 
   ngOnDestroy(): void {
-    // this.sub.unsubscribe();
+    if(this.sub) {
+      this.sub.unsubscribe();
+    }
 
-    // console.log(this.sub); // closed: true - oznacza że subskrypcja się zakończyła
+    console.log(this.sub); // closed: true - oznacza że subskrypcja się zakończyła
   }
 
   ngAfterContentInit(): void {
