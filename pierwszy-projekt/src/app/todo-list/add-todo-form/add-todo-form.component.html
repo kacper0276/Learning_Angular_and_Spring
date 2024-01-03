@@ -1,4 +1,4 @@
-<form (ngSubmit)="addNewTodo()">
+<form #form="ngForm" (ngSubmit)="addNewTodo(form)">
   <p class="mt-4">Dodaj nowe zadanie</p>
   <input
     type="text"
