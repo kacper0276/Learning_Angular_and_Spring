@@ -5,24 +5,21 @@
     required
     minlength="4"
     maxlength="50"
-    #name
+    #name="ngModel"
     [(ngModel)]="todoName"
     name="todo"
     class="form-control"
   />
 
   <ng-container
-    *ngIf="
-      form.controls['todo']?.invalid &&
-      (form.controls['todo']?.touched || form.controls['todo']?.dirty)
-    "
+    *ngIf="name.invalid && (name.touched || form.controls['todo']?.dirty)"
   >
     <app-alert
-      *ngIf="form.controls['todo']?.errors?.['required']"
+      *ngIf="name.control.errors?.['required']"
       [errorMessage]="'Ta kontrolka nie może być pusta'"
     ></app-alert>
     <app-alert
-      *ngIf="form.controls['todo']?.errors?.['minlength']"
+      *ngIf="name.control.errors?.['minlength']"
       [errorMessage]="'Ta kontrolka musi mieć minimum 4 znaki'"
     ></app-alert>
     <app-alert
