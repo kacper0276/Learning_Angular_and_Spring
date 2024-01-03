@@ -1,4 +1,4 @@
-<form #form="ngForm" (ngSubmit)="addNewTodo()">
+<form #form="ngForm" (ngSubmit)="addNewTodo(form)">
   <p class="mt-4">Dodaj nowe zadanie</p>
   <input
     type="text"
@@ -10,6 +10,27 @@
     name="todo"
     class="form-control"
   />
+
+  <ng-container
+    *ngIf="
+      form.controls['todo']?.invalid &&
+      (form.controls['todo']?.touched || form.controls['todo']?.dirty)
+    "
+  >
+    <app-alert
+      *ngIf="form.controls['todo']?.errors?.['required']"
+      [errorMessage]="'Ta kontrolka nie może być pusta'"
+    ></app-alert>
+    <app-alert
+      *ngIf="form.controls['todo']?.errors?.['minlength']"
+      [errorMessage]="'Ta kontrolka musi mieć minimum 4 znaki'"
+    ></app-alert>
+    <app-alert
+      *ngIf="form.controls['todo']?.errors?.['maxlength']"
+      [errorMessage]="'Ta kontrolka może mieć maksymalnie 50 znaków'"
+    ></app-alert>
+  </ng-container>
+
   <button type="submit" class="btn btn-primary mt-3" [disabled]="!form.valid">
     Dodaj zadanie
   </button>
