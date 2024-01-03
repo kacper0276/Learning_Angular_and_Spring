@@ -20,6 +20,7 @@ export class AddTodoFormComponent implements AfterViewInit {
   @Output() addTodo = new EventEmitter<string>();
   @ViewChild('form') todoForm!: NgForm;
   todoName = '';
+  person = { name: 'test', surname: 'testowy', role: 'father' };
 
   ngAfterViewInit(): void {
     console.log(this.todoForm);
@@ -27,6 +28,7 @@ export class AddTodoFormComponent implements AfterViewInit {
 
   addNewTodo(form: NgForm) {
     console.log(form);
+    console.log(this.person);
     this.addTodo.emit(this.todoName);
   }
 }

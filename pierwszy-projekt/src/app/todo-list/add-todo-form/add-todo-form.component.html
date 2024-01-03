@@ -28,6 +28,12 @@
     ></app-alert>
   </ng-container>
 
+  <div ngModelGroup="person" #group="ngModelGroup">
+    <input type="text" [(ngModel)]="person.name" name="name" required />
+    <input type="text" [(ngModel)]="person.surname" name="surname" required />
+    <input type="text" [(ngModel)]="person.role" name="role" required />
+  </div>
+
   <button type="submit" class="btn btn-primary mt-3" [disabled]="!form.valid">
     Dodaj zadanie
   </button>
