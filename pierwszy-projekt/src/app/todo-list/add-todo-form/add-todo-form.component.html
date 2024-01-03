@@ -1,11 +1,11 @@
-<p class="mt-4">Dodaj nowe zadanie</p>
-<input
-  type="text"
-  #name
-  [(ngModel)]="todoName"
-  name="todo"
-  class="form-control"
-/>
-<button type="button" class="btn btn-primary mt-3" (click)="addNewTodo()">
-  Dodaj zadanie
-</button>
+<form (ngSubmit)="addNewTodo()">
+  <p class="mt-4">Dodaj nowe zadanie</p>
+  <input
+    type="text"
+    #name
+    [(ngModel)]="todoName"
+    name="todo"
+    class="form-control"
+  />
+  <button type="submit" class="btn btn-primary mt-3">Dodaj zadanie</button>
+</form>
