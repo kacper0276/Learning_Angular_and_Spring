@@ -5,6 +5,7 @@
     required
     minlength="4"
     maxlength="50"
+    appFirstLetter
     #name="ngModel"
     [(ngModel)]="todoName"
     name="todo"
@@ -19,20 +20,24 @@
       [errorMessage]="'Ta kontrolka nie może być pusta'"
     ></app-alert>
     <app-alert
-      *ngIf="name.control.errors?.['minlength']"
+      *ngIf="name.control.errors?.['minlength'] && !name.control.errors?.['firstLetter']"
       [errorMessage]="'Ta kontrolka musi mieć minimum 4 znaki'"
     ></app-alert>
     <app-alert
       *ngIf="form.controls['todo']?.errors?.['maxlength']"
       [errorMessage]="'Ta kontrolka może mieć maksymalnie 50 znaków'"
     ></app-alert>
+    <app-alert
+      *ngIf="name.control.errors?.['firstLetter']"
+      [errorMessage]="'Pierwszy znak musi być literą'"
+    ></app-alert>
   </ng-container>
 
-  <div ngModelGroup="person" #group="ngModelGroup">
+  <!-- <div ngModelGroup="person" #group="ngModelGroup">
     <input type="text" [(ngModel)]="person.name" name="name" required />
     <input type="text" [(ngModel)]="person.surname" name="surname" required />
     <input type="text" [(ngModel)]="person.role" name="role" required />
-  </div>
+  </div> -->
 
   <button type="submit" class="btn btn-primary mt-3" [disabled]="!form.valid">
     Dodaj zadanie
