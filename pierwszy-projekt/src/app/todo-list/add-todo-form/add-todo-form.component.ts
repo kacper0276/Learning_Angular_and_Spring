@@ -12,8 +12,7 @@ export class AddTodoFormComponent {
   @Output() addTodo = new EventEmitter<string>();
   todoName = '';
 
-  addNewTodo(form: NgForm) {
-    console.log(form);
+  addNewTodo() {
     this.addTodo.emit(this.todoName);
   }
 }

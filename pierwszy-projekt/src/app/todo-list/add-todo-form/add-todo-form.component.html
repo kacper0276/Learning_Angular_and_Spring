@@ -1,11 +1,16 @@
-<form #form="ngForm" (ngSubmit)="addNewTodo(form)">
+<form #form="ngForm" (ngSubmit)="addNewTodo()">
   <p class="mt-4">Dodaj nowe zadanie</p>
   <input
     type="text"
+    required
+    minlength="4"
+    maxlength="50"
     #name
     [(ngModel)]="todoName"
     name="todo"
     class="form-control"
   />
-  <button type="submit" class="btn btn-primary mt-3">Dodaj zadanie</button>
+  <button type="submit" class="btn btn-primary mt-3" [disabled]="!form.valid">
+    Dodaj zadanie
+  </button>
 </form>
