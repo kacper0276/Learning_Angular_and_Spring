@@ -9,21 +9,7 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import {
-  BehaviorSubject,
-  Subject,
-  Subscription,
-  defer,
-  filter,
-  from,
-  fromEvent,
-  interval,
-  map,
-  of,
-  switchMap,
-  take,
-  tap,
-} from 'rxjs';
+import { Subscription, defer, from, interval } from 'rxjs';
 
 @Component({
   selector: 'app-modal',
