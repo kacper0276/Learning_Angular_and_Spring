@@ -28,7 +28,7 @@ export class ModalComponent
   obs$ = interval(1000);
   // @ContentChild('modalDiv') modalDiv!: ElementRef;
   // @ContentChild('check') checkBox!: ElementRef;
-
+  //
   onClose() {
     this.close.emit();
   }
