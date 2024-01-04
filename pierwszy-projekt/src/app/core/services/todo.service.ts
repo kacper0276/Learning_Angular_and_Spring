@@ -19,7 +19,7 @@ export class TodoService {
     return this._todos.slice(); // Przez slice zwracamy nową referencję, bez slice cały czas tą samą referencję zwracamu
   }
 
-  getTodo(index: number): Todo {
+  getTodo(index: number): Todo | undefined {
     return this.todos[index];
   }
 
