@@ -6,7 +6,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 export const routes: Routes = [
   //   { path: '', redirectTo: '/home', pathMatch: 'full' },
   //   { path: 'home', component: HomeComponent },
-  { path: '', component: HomeComponent },
-  { path: 'todo', component: TodoListComponent },
-  { path: '**', component: PageNotFoundComponent },
+  { path: '', component: HomeComponent, pathMatch: 'full' },
+  { path: 'todo', component: TodoListComponent, title: 'Dodaj zadanie!' },
+  { path: '**', component: PageNotFoundComponent, title: 'Page not found' },
 ];
