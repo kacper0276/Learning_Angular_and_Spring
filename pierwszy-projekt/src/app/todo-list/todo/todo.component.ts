@@ -1,9 +1,18 @@
-import { Component, ElementRef, EventEmitter, Input, LOCALE_ID, Output, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  LOCALE_ID,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { Todo } from '../../shared/interfaces/todo.interface';
 import { CommonModule, registerLocaleData } from '@angular/common';
 import { ModalComponent } from '../../shared/components/modal/modal.component';
-import localePl from '@angular/common/locales/pl'
+import localePl from '@angular/common/locales/pl';
 import { FirstLetterUppercasePipe } from '../../shared/pipes/first-letter-uppercase.pipe';
+import { Router } from '@angular/router';
 
 registerLocaleData(localePl);
 
@@ -13,16 +22,13 @@ registerLocaleData(localePl);
   imports: [CommonModule, ModalComponent, FirstLetterUppercasePipe],
   templateUrl: './todo.component.html',
   styleUrl: './todo.component.css',
-  providers: [
-    {provide: LOCALE_ID, useValue: 'pl'}
-  ]
+  providers: [{ provide: LOCALE_ID, useValue: 'pl' }],
 })
-export class TodoComponent 
 // implements OnChanges
-// implements OnInit 
+// implements OnInit
 // implements DoCheck
 // implements AfterViewInit, OnDestroy, OnInit
-{
+export class TodoComponent {
   @Input() todo!: Todo;
   @Input() i!: number;
   @Output() delete = new EventEmitter<void>();
@@ -32,9 +38,9 @@ export class TodoComponent
   // timeout!: any;
   // keyValueTest: {[key: string]: string | number} = { name: 'Test', age: 12 };
 
-  // constructor() {
-  //   console.log(this.todo);
-  // }
+  constructor(private router: Router) {
+    // console.log(this.todo);
+  }
 
   // ngOnChanges(changes: SimpleChanges): void {
   //   console.log(changes);
@@ -61,7 +67,7 @@ export class TodoComponent
   // }
 
   changeTodoStatus(): void {
-    this.changeStatus.emit(this.i);  
+    this.changeStatus.emit(this.i);
   }
 
   toogleModal(): void {
@@ -69,7 +75,10 @@ export class TodoComponent
   }
 
   deleteTodo(): void {
-      this.delete.emit();
+    this.delete.emit();
   }
 
+  navigateToDetails() {
+    this.router.navigate(['/todo', this.i]);
+  }
 }
