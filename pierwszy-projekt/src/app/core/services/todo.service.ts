@@ -3,14 +3,13 @@ import { Todo } from '../../shared/interfaces/todo.interface';
 import { Subject } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TodoService {
-
   private _todos: Todo[] = JSON.parse(localStorage.getItem('todos')!) ?? [];
   todoChanged = new Subject<Todo[]>();
 
-  constructor() { }
+  constructor() {}
 
   log() {
     console.log('Test');
@@ -18,6 +17,10 @@ export class TodoService {
 
   public get todos() {
     return this._todos.slice(); // Przez slice zwracamy nową referencję, bez slice cały czas tą samą referencję zwracamu
+  }
+
+  getTodo(index: number): Todo {
+    return this.todos[index];
   }
 
   addTodo(name: string): void {
@@ -35,8 +38,8 @@ export class TodoService {
   changeTodoStatus(index: number): void {
     this._todos[index] = {
       ...this.todos[index],
-      isComplete: !this.todos[index].isComplete
-    }
+      isComplete: !this.todos[index].isComplete,
+    };
     this.saveToLocalStorage();
     this.todoChanged.next(this.todos);
   }
