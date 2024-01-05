@@ -47,4 +47,8 @@ export class TodoDetailsComponent implements OnInit {
   navigateToNextTodo() {
     this.router.navigate(['/todo', this.id + 1]);
   }
+
+  navigateBack() {
+    this.location.back();
+  }
 }

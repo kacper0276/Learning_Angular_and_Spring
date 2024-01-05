@@ -4,7 +4,10 @@
     <p>Treść zadania: {{ todo.name }}</p>
     <p>Czy zadanie ukończone: {{ todo.isComplete ? "Tak" : "Nie" }}</p>
 
-    <p>Przejdź do kolejnego zadania</p>
+    <p>Przejdź do kolejnego zadania lub wróć do poprzedniej strony:</p>
+    <button class="btn btn-sm btn-info mx-2" (click)="navigateBack()">
+      Powrót
+    </button>
     <button class="btn btn-sm btn-info" (click)="navigateToNextTodo()">
       Następne zadanie
     </button>
