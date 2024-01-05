@@ -12,7 +12,7 @@ import { CommonModule, registerLocaleData } from '@angular/common';
 import { ModalComponent } from '../../shared/components/modal/modal.component';
 import localePl from '@angular/common/locales/pl';
 import { FirstLetterUppercasePipe } from '../../shared/pipes/first-letter-uppercase.pipe';
-import { Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 
 registerLocaleData(localePl);
 
@@ -38,7 +38,7 @@ export class TodoComponent {
   // timeout!: any;
   // keyValueTest: {[key: string]: string | number} = { name: 'Test', age: 12 };
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private route: ActivatedRoute) {
     // console.log(this.todo);
   }
 
@@ -79,6 +79,9 @@ export class TodoComponent {
   }
 
   navigateToDetails() {
-    this.router.navigate(['/todo', this.i]);
+    const navigationExtras: NavigationExtras = {
+      relativeTo: this.route,
+    };
+    this.router.navigate([this.i], navigationExtras);
   }
 }
