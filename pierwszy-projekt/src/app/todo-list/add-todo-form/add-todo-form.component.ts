@@ -24,12 +24,12 @@ export class AddTodoFormComponent implements AfterViewInit {
   // person = { name: 'test', surname: 'testowy', role: 'father' };
 
   ngAfterViewInit(): void {
-    console.log(this.todoForm);
+    // console.log(this.todoForm);
   }
 
   addNewTodo(form: NgForm) {
     // console.log(this.person);
-    console.log(form);
+    // console.log(form);
     this.addTodo.emit(this.todoName);
   }
 }

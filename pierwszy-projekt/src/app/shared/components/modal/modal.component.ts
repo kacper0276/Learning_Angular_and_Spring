@@ -118,7 +118,7 @@ export class ModalComponent
     const promise = () =>
       new Promise((resolve, reject) => {
         setTimeout(() => {
-          console.log('Test');
+          // console.log('Test');
           resolve('Hello world!');
         }, 1000);
       });
@@ -127,7 +127,7 @@ export class ModalComponent
     this.sub = obs$.subscribe({
       next: (val) => console.log(val),
     });
-    console.log(this.sub);
+    // console.log(this.sub);
   }
 
   ngOnDestroy(): void {

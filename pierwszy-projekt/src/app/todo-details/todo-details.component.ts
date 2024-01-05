@@ -37,10 +37,10 @@ export class TodoDetailsComponent implements OnInit {
       this.todo = this.todoService.getTodo(this.id);
     });
 
-    console.log(this.location.getState());
+    // console.log(this.location.getState());
 
     this.route.queryParams.subscribe((queryParams) => {
-      console.log(queryParams);
+      // console.log(queryParams);
     });
   }
 
