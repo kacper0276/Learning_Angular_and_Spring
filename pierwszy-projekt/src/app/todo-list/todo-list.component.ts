@@ -7,44 +7,54 @@ import { TodoComponent } from './todo/todo.component';
 import { TodoService } from '../core/services/todo.service';
 import { TestService } from '../core/services/test.service';
 import { Subscription } from 'rxjs';
+import { RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-todo-list',
   standalone: true,
-  imports: [CommonModule, AlertComponent, AddTodoFormComponent, TodoComponent],
+  imports: [
+    CommonModule,
+    AlertComponent,
+    AddTodoFormComponent,
+    TodoComponent,
+    RouterLink,
+    RouterOutlet,
+  ],
   templateUrl: './todo-list.component.html',
-  styleUrl: './todo-list.component.css'
+  styleUrl: './todo-list.component.css',
 })
-export class TodoListComponent implements OnInit, OnDestroy
-//  implements AfterViewInit, AfterViewChecked 
- {
+//  implements AfterViewInit, AfterViewChecked
+export class TodoListComponent implements OnInit, OnDestroy {
   // @ViewChild(TodoComponent) todoComp!: TodoComponent; // Złapie jeden selektor
-  // @ViewChildren(TodoComponent) todoComps!: TodoComponent; // Złapie kilka selektorów 
-  
+  // @ViewChildren(TodoComponent) todoComps!: TodoComponent; // Złapie kilka selektorów
+
   // ngAfterViewInit(): void {
   //   console.log(this.todoComp);
-  // }  
- 
+  // }
+
   // ngAfterViewChecked(): void {
   //   console.log(this.todoComp);
   // }
-   
+
   // Logiki nie wrzucamy do konstruktora
-  constructor(private todoService: TodoService, private testService: TestService) {}
+  constructor(
+    private todoService: TodoService,
+    private testService: TestService
+  ) {}
   // Inny sposób
   // todoService = inject(TodoService);
   todos: Todo[] = this.todoService.todos;
-  errorMessage = "";
+  errorMessage = '';
   sub!: Subscription;
 
   ngOnInit(): void {
     this.sub = this.todoService.todoChanged.subscribe({
-      next: arrTodos => this.todos = arrTodos
-    })
+      next: (arrTodos) => (this.todos = arrTodos),
+    });
   }
 
   addTodo(todo: string): void {
-    if(todo.length <= 3) {
+    if (todo.length <= 3) {
       this.errorMessage = 'Zadanie powinno mieć conajmniej 4 znaki';
       return;
     }
@@ -54,7 +64,7 @@ export class TodoListComponent implements OnInit, OnDestroy
   }
 
   clearErrorMessage(): void {
-    this.errorMessage = "";
+    this.errorMessage = '';
   }
 
   deleteTodo(i: number): void {
