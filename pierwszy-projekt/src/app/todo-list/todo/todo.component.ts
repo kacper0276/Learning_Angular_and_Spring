@@ -81,6 +81,7 @@ export class TodoComponent {
   navigateToDetails() {
     const navigationExtras: NavigationExtras = {
       relativeTo: this.route,
+      queryParams: { id: this.i, test: 'Test' },
     };
     this.router.navigate([this.i], navigationExtras);
   }
