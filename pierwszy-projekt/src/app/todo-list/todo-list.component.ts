@@ -54,11 +54,13 @@ export class TodoListComponent implements OnInit, OnDestroy {
       next: (arrTodos) => (this.todos = arrTodos),
     });
 
-    this.todoApiService.getTodos().subscribe({
-      next: (todos) => {
-        this.todos = todos;
-      },
-    });
+    if (this.todos.length === 0) {
+      this.todoApiService.getTodos().subscribe({
+        next: (todos) => {
+          // this.todos = todos;
+        },
+      });
+    }
   }
 
   addTodo(todo: string): void {
