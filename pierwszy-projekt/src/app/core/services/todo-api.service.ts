@@ -16,10 +16,14 @@ export class TodoApiService {
       TestowyNaglowek: 'test',
     });
 
-    const params = new HttpParams().set('_limit', 1);
+    // const params = new HttpParams().set('_limit', 1);
 
     return this.http
-      .get<Todo[]>('http://localhost:3000/todo', { headers, params })
+      .get<Todo[]>('http://localhost:3000/todo', {
+        headers,
+        // responseType:
+        //  params
+      })
       .pipe(tap((todos) => (this.todoService.todos = todos)));
   }
 
