@@ -16,6 +16,10 @@ export class TodoApiService {
       .pipe(tap((todos) => (this.todoService.todos = todos)));
   }
 
+  getTodo(id: number): Observable<Todo> {
+    return this.http.get<Todo>(`http://localhost:3000/todo/${id}`);
+  }
+
   postTodo(todo: Omit<Todo, 'id'>): Observable<Todo> {
     return this.http
       .post<Todo>('http://localhost:3000/todo', todo)
