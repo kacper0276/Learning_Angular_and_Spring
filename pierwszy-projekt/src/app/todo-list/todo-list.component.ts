@@ -73,15 +73,15 @@ export class TodoListComponent implements OnInit, OnDestroy {
     // }
 
     this.todoApiService.postTodo({ name: todo, isComplete: false }).subscribe({
-      next: (value) => {
-        console.log(value);
-      },
+      // next: (value) => {
+      //   console.log(value);
+      // },
       error: (err) => {
         this.errorMessage = 'Wystąpił błąd. Spróbuj ponownie.';
       },
     });
 
-    this.todoService.addTodo(todo);
+    // this.todoService.addTodo(todo);
     // this.todos = this.todoService.todos;
   }
 
