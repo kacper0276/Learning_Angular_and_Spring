@@ -97,8 +97,15 @@ export class TodoListComponent implements OnInit, OnDestroy {
     // this.todos = this.todoService.todos;
   }
 
-  changeTodoStatus(index: number): void {
-    this.todoService.changeTodoStatus(index);
+  changeTodoStatus(id: number, todo: Todo): void {
+    // this.todoService.changeTodoStatus(id);
+    this.todoApiService
+      .patchTodo(id, { isComplete: !todo.isComplete })
+      .subscribe({
+        next: (value) => console.log(value),
+        error: (err) =>
+          (this.errorMessage = 'Wystąpił błąd. Spróbuj ponownie.'),
+      });
     // this.todos = this.todoService.todos;
   }
 

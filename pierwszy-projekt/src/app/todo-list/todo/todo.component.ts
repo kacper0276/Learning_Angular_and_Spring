@@ -30,6 +30,7 @@ registerLocaleData(localePl);
 // implements AfterViewInit, OnDestroy, OnInit
 export class TodoComponent {
   @Input() todo!: Todo;
+  @Input() id!: number;
   @Input() i!: number;
   @Output() delete = new EventEmitter<void>();
   @Output() changeStatus = new EventEmitter<number>();
@@ -67,7 +68,7 @@ export class TodoComponent {
   // }
 
   changeTodoStatus(): void {
-    this.changeStatus.emit(this.i);
+    this.changeStatus.emit(this.id);
   }
 
   toogleModal(): void {
@@ -82,8 +83,8 @@ export class TodoComponent {
     const navigationExtras: NavigationExtras = {
       relativeTo: this.route,
       state: { example: 'test' },
-      queryParams: { id: this.i, test: 'Test' },
+      queryParams: { id: this.id, test: 'Test' },
     };
-    this.router.navigate([this.i], navigationExtras);
+    this.router.navigate([this.id], navigationExtras);
   }
 }

@@ -61,7 +61,7 @@
 <app-modal
   *ngIf="openModal"
   (close)="toogleModal()"
-  [title]="'Czy na pewno chcesz usunąć zadanie o numerze' + (i + 1) + '?'"
+  [title]="'Czy na pewno chcesz usunąć zadanie o numerze' + id + '?'"
 >
   <p up>Usuń</p>
   <div class="d-flex justify-content-end" #modalDiv>
