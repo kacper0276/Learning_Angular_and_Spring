@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { Todo } from '../../shared/interfaces/todo.interface';
@@ -16,8 +16,10 @@ export class TodoApiService {
       TestowyNaglowek: 'test',
     });
 
+    const params = new HttpParams().set('_limit', 1);
+
     return this.http
-      .get<Todo[]>('http://localhost:3000/todo', { headers })
+      .get<Todo[]>('http://localhost:3000/todo', { headers, params })
       .pipe(tap((todos) => (this.todoService.todos = todos)));
   }
 

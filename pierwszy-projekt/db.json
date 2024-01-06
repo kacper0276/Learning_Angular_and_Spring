@@ -9,6 +9,16 @@
       "name": "Zadanie",
       "isComplete": false,
       "id": 2
+    },
+    {
+      "name": "Test 1",
+      "isComplete": false,
+      "id": 3
+    },
+    {
+      "name": "Test 2",
+      "isComplete": false,
+      "id": 4
     }
   ]
 }
