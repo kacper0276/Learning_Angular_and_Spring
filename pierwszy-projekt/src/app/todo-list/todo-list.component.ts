@@ -102,7 +102,6 @@ export class TodoListComponent implements OnInit, OnDestroy {
     this.todoApiService
       .patchTodo(id, { isComplete: !todo.isComplete })
       .subscribe({
-        next: (value) => console.log(value),
         error: (err) =>
           (this.errorMessage = 'Wystąpił błąd. Spróbuj ponownie.'),
       });

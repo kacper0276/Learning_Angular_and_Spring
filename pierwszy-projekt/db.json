@@ -7,7 +7,7 @@
     },
     {
       "name": "Zadanie",
-      "isComplete": true,
+      "isComplete": false,
       "id": 2
     }
   ]

@@ -43,12 +43,17 @@ export class TodoService {
     this.todoChanged.next(this.todos);
   }
 
-  changeTodoStatus(index: number): void {
-    this._todos[index] = {
-      ...this.todos[index],
-      isComplete: !this.todos[index].isComplete,
-    };
-    this.saveToLocalStorage();
+  changeTodoStatus(id: number, isComplete: boolean): void {
+    // this._todos[index] = {
+    //   ...this.todos[index],
+    //   isComplete: !this.todos[index].isComplete,
+    // };
+
+    const searchTodo = this.todos.find((todo) => todo.id === id);
+    if (searchTodo) {
+      searchTodo.isComplete = isComplete;
+    }
+    // this.saveToLocalStorage();
     this.todoChanged.next(this.todos);
   }
 

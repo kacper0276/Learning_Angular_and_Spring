@@ -28,7 +28,13 @@ export class TodoApiService {
       .pipe(tap(() => this.todoService.deleteTodo(id)));
   }
 
-  patchTodo(id: number, todo: Omit<Todo, 'id' | 'name'>): Observable<any> {
-    return this.http.patch(`http://localhost:3000/todo/${id}`, todo);
+  patchTodo(id: number, todo: Omit<Todo, 'id' | 'name'>): Observable<Todo> {
+    return this.http
+      .patch<Todo>(`http://localhost:3000/todo/${id}`, todo)
+      .pipe(
+        tap((todo) =>
+          this.todoService.changeTodoStatus(todo.id, todo.isComplete)
+        )
+      );
   }
 }
