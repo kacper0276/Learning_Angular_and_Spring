@@ -22,7 +22,9 @@ export class TodoApiService {
       .pipe(tap((todo) => this.todoService.addTodo(todo)));
   }
 
-  deleteTodo(id: number): Observable<any> {
-    return this.http.delete(`http://localhost:3000/todo/${id}`);
+  deleteTodo(id: number): Observable<{}> {
+    return this.http
+      .delete<{}>(`http://localhost:3000/todo/${id}`)
+      .pipe(tap(() => this.todoService.deleteTodo(id)));
   }
 }
