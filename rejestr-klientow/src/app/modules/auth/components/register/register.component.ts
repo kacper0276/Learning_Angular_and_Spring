@@ -15,6 +15,7 @@ export class RegisterComponent {
   });
 
   onRegister() {
+    //
     console.log(this.registerForm.value);
   }
 }
