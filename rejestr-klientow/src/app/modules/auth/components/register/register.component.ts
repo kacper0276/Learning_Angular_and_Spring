@@ -15,9 +15,15 @@ export class RegisterComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    this.registerForm.controls.email.valueChanges.subscribe((text) => {
-      console.log(text);
-    });
+    // this.registerForm.controls.email.valueChanges.subscribe((text) => {
+    //   console.log(text);
+    // });
+    console.log('');
+    this.registerForm.controls.email.disable();
+  }
+
+  enableControl() {
+    this.registerForm.controls.email.enable();
   }
 
   onRegister() {
