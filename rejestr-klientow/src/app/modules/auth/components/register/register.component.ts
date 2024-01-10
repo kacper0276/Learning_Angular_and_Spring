@@ -19,15 +19,15 @@ export class RegisterComponent implements OnInit {
     //   console.log(text);
     // });
     console.log('');
-    this.registerForm.controls.email.disable();
+    // this.registerForm.controls.email.disable();
   }
 
-  enableControl() {
-    this.registerForm.controls.email.enable();
-  }
+  // enableControl() {
+  //   this.registerForm.controls.email.enable();
+  // }
 
   onRegister() {
-    //
-    console.log(this.registerForm.value);
+    // console.log(this.registerForm.value); // email - wylączona zawiera:  password: "", username: ""
+    // console.log(this.registerForm.getRawValue()); // Jeśli kontrolka jest wyłączona to nadal jej pole jest w obiekcie
   }
 }
