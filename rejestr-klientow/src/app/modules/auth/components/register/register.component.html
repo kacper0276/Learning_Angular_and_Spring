@@ -5,12 +5,18 @@
       <mat-form-field>
         <mat-label>Adres email</mat-label>
         <input matInput placeholder="test@gmail.com" formControlName="email" />
+        @if (controls.email.invalid) {
+          <mat-error>{{ getErrorMessage(controls.email) }}</mat-error>
+        }
       </mat-form-field>
     </div>
     <div>
       <mat-form-field>
         <mat-label>Nazwa użytkownika</mat-label>
         <input matInput [formControl]="registerForm.controls.username" />
+        @if (controls.username.invalid) {
+          <mat-error>{{ getErrorMessage(controls.username) }}</mat-error>
+        }
       </mat-form-field>
     </div>
     <div>
@@ -21,6 +27,9 @@
           [type]="hide ? 'password' : 'text'"
           formControlName="password"
         />
+        @if (controls.password.invalid) {
+          <mat-error>{{ getErrorMessage(controls.password) }}</mat-error>
+        }
         <button
           mat-icon-button
           matSuffix
