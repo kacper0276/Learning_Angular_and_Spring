@@ -2,7 +2,13 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, map, tap } from 'rxjs';
-import { GetUsersResponse, User, UserLoginData } from '../models/user.model';
+import {
+  GetUsersResponse,
+  PostUser,
+  PostUsersResponse,
+  User,
+  UserLoginData,
+} from '../models/user.model';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -31,6 +37,10 @@ export class AuthService {
       ),
       tap((userArr) => this.handleAuthentication(userArr)),
     );
+  }
+
+  register(userData: PostUser): Observable<PostUsersResponse> {
+    return this.http.post<PostUsersResponse>(`${this.apiUrl}/users`, userData);
   }
 
   logout() {
