@@ -8,15 +8,20 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class RegisterComponent implements OnInit {
   hide = true;
-  registerForm = new FormGroup({
-    email: new FormControl('', [
-      Validators.email,
-      Validators.minLength(5),
-      Validators.maxLength(50),
-    ]),
-    username: new FormControl('', [Validators.required]),
-    password: new FormControl('', { validators: [Validators.required] }),
-  });
+  registerForm = new FormGroup(
+    {
+      email: new FormControl('', [
+        Validators.email,
+        Validators.minLength(5),
+        Validators.maxLength(50),
+      ]),
+      username: new FormControl('', [Validators.required]),
+      password: new FormControl('', { validators: [Validators.required] }),
+    },
+    {
+      updateOn: 'submit',
+    },
+  );
 
   get controls() {
     return this.registerForm.controls;
