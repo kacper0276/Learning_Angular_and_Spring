@@ -27,6 +27,9 @@ export class RegisterComponent implements OnInit {
     //   console.log(text);
     // });
     console.log('');
+    this.controls.username.addValidators(Validators.minLength(5)); // Dodaje do obecnych validatorów
+    // Starszy sposób
+    // this.controls.username.setValidators([Validators.minLength(5), Validators.required]); // Nadpisuje stare validatory
 
     // this.registerForm.controls.email.disable();
   }
