@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../../core/services/auth.service';
 import { PostUser } from '../../../core/models/user.model';
 import { Router } from '@angular/router';
@@ -29,6 +29,7 @@ export class RegisterComponent implements OnInit {
       validators: [Validators.required],
       nonNullable: true,
     }),
+    hobbies: new FormArray([new FormControl('')]),
   });
 
   constructor(
@@ -38,6 +39,18 @@ export class RegisterComponent implements OnInit {
 
   get controls() {
     return this.registerForm.controls;
+  }
+
+  get hobbies() {
+    return this.registerForm.get('hobbies') as FormArray;
+  }
+
+  addControl() {
+    this.hobbies.push(new FormControl(''));
+  }
+
+  removeControl(index: number) {
+    this.hobbies.removeAt(index);
   }
 
   ngOnInit(): void {
