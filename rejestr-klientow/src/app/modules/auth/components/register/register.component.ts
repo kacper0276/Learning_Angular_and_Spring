@@ -29,7 +29,7 @@ export class RegisterComponent implements OnInit {
       validators: [Validators.required],
       nonNullable: true,
     }),
-    hobbies: new FormArray([new FormControl('')]),
+    // hobbies: new FormArray([new FormControl('')]),
   });
 
   constructor(
@@ -41,17 +41,17 @@ export class RegisterComponent implements OnInit {
     return this.registerForm.controls;
   }
 
-  get hobbies() {
-    return this.registerForm.get('hobbies') as FormArray;
-  }
+  // get hobbies() {
+  //   return this.registerForm.get('hobbies') as FormArray;
+  // }
 
-  addControl() {
-    this.hobbies.push(new FormControl(''));
-  }
+  // addControl() {
+  //   this.hobbies.push(new FormControl(''));
+  // }
 
-  removeControl(index: number) {
-    this.hobbies.removeAt(index);
-  }
+  // removeControl(index: number) {
+  //   this.hobbies.removeAt(index);
+  // }
 
   ngOnInit(): void {
     // this.registerForm.controls.email.valueChanges.subscribe((text) => {
