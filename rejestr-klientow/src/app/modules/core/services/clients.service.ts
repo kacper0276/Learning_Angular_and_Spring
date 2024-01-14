@@ -22,18 +22,20 @@ export class ClientsService {
     itemsPerPage: number,
     sortDirection: string,
     sortColumnName: string,
+    value = '',
   ): Observable<GetClientsResponse> {
-    let params;
+    let params = new HttpParams()
+      .append('_page', pageIndex)
+      .append('_limit', itemsPerPage);
+
     if (sortColumnName) {
-      params = new HttpParams()
-        .append('_page', pageIndex)
-        .append('_limit', itemsPerPage)
+      params = params
         .append('_sort', sortColumnName)
         .append('_order', sortDirection);
-    } else {
-      params = new HttpParams()
-        .append('_page', pageIndex)
-        .append('_limit', itemsPerPage);
+    }
+
+    if (value) {
+      params = params.append('firstname_like', value);
     }
 
     return this.http

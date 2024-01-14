@@ -3,7 +3,7 @@
     <mat-label>Filtrowanie</mat-label>
     <input
       matInput
-      (keyup)="applyFilter($event)"
+      [formControl]="filterValue"
       placeholder="Wpisz frazę"
       #input
     />
