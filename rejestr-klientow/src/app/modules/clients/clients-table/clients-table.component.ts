@@ -11,8 +11,15 @@ import { MatSort } from '@angular/material/sort';
   styleUrl: './clients-table.component.scss',
 })
 export class ClientsTableComponent implements AfterViewInit {
-  displayedColumns: string[] = ['lp', 'firstname', 'surname', 'email', 'buttons'];
+  displayedColumns: string[] = [
+    'lp',
+    'firstname',
+    'surname',
+    'email',
+    'buttons',
+  ];
   dataSource!: MatTableDataSource<Client>;
+  totalCount = 0;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -21,11 +28,13 @@ export class ClientsTableComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.clientsService.getClients().subscribe({
-      next: (clients) => {
-        this.dataSource = new MatTableDataSource<Client>(clients);
+      next: (response) => {
+        this.totalCount = response.totalCount;
+        this.dataSource = new MatTableDataSource<Client>(response.clients);
 
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        console.log(response);
       },
       error: (err) => {
         console.log(err);
