@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ClientsService } from '../../../core/services/clients.service';
 import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs';
+import { Client } from '../../../core/models/client.model';
 
 @Component({
   selector: 'app-client',
@@ -9,6 +10,7 @@ import { switchMap } from 'rxjs';
   styleUrl: './client.component.scss',
 })
 export class ClientComponent implements OnInit {
+  client!: Client;
   // ActivatedRoute - pobieranie parametrów
   constructor(
     private clientsService: ClientsService,
@@ -20,7 +22,7 @@ export class ClientComponent implements OnInit {
       .pipe(switchMap((params) => this.clientsService.getClient(+params['id'])))
       .subscribe({
         next: (client) => {
-          console.log(client);
+          this.client = client;
         },
       });
   }
