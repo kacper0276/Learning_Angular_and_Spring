@@ -90,4 +90,10 @@ export class ClientsService {
         ),
       );
   }
+
+  deleteClient(id: number): Observable<Record<string, never>> {
+    return this.http.delete<Record<string, never>>(
+      `${this.apiUrl}/clients/${id}`,
+    );
+  }
 }
