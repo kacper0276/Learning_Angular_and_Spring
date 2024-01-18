@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PostClientForm } from '../../../core/models/client.model';
 import { FormsService } from '../../../core/services/forms.service';
+import { ClientsService } from '../../../core/services/clients.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-client-form',
@@ -10,8 +12,13 @@ import { FormsService } from '../../../core/services/forms.service';
 })
 export class ClientFormComponent implements OnInit {
   clientForm!: FormGroup<PostClientForm>;
+  errorMessage = '';
 
-  constructor(private formsService: FormsService) {}
+  constructor(
+    private formsService: FormsService,
+    private clientsService: ClientsService,
+    private router: Router,
+  ) {}
 
   get controls() {
     return this.clientForm.controls;
@@ -22,7 +29,15 @@ export class ClientFormComponent implements OnInit {
   }
 
   onAddClient() {
-    console.log(this.clientForm.value);
+    this.clientsService.postClient(this.clientForm.getRawValue()).subscribe({
+      next: () => {
+        this.errorMessage = '';
+        this.router.navigate(['/klienci']);
+      },
+      error: (err) => {
+        this.errorMessage = 'Wystąpił błąd';
+      },
+    });
   }
 
   getErrorMessage(control: FormControl) {
