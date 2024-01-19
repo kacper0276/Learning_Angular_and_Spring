@@ -96,4 +96,15 @@ export class ClientsService {
       `${this.apiUrl}/clients/${id}`,
     );
   }
+
+  putClient(clientData: PostClient, id: number): Observable<Client> {
+    return this.http
+      .put<ClientResponse>(`${this.apiUrl}/clients/${id}`, clientData)
+      .pipe(
+        map(
+          ({ id, firstname, surname, email, phone, address, postcode }) =>
+            new Client(id, firstname, surname, email, phone, address, postcode),
+        ),
+      );
+  }
 }
