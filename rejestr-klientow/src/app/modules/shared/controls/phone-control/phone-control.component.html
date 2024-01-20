@@ -1,14 +1,14 @@
 <mat-form-field class="prefix">
   <mat-label>Kierunkowy</mat-label>
-  <input matInput [formControl]="registerForm.controls.username" />
-  <!-- @if (controls.username.invalid) { -->
-  <!-- <mat-error>{{ getErrorMessage(controls.username) }}</mat-error> -->
-  <!-- } -->
+  <input matInput [formControl]="numberPrefixControl" />
+  @if (numberPrefixControl.errors) {
+    <mat-error>Zły numer kierunkowy</mat-error>
+  }
 </mat-form-field>
 <mat-form-field class="number">
   <mat-label>Numer telefonu</mat-label>
-  <input matInput [formControl]="registerForm.controls.username" />
-  <!-- @if (controls.username.invalid) { -->
-  <!-- <mat-error>{{ getErrorMessage(controls.username) }}</mat-error> -->
-  <!-- } -->
+  <input matInput [formControl]="numberControl" />
+  @if (numberControl.errors) {
+    <mat-error>Numer powinien mieć 9 znaków</mat-error>
+  }
 </mat-form-field>

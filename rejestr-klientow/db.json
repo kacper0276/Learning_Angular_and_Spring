@@ -40,6 +40,15 @@
       "phone": "123456789",
       "address": "Miasto ul. Testowa 12",
       "postcode": "11-111"
+    },
+    {
+      "firstname": "Test",
+      "surname": "Testowy",
+      "email": "test@test.com",
+      "phone": "+48123456789",
+      "address": "Warszawa ul.testowa",
+      "postcode": "10-111",
+      "id": 4
     }
   ]
 }
