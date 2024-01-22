@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ClientsComponent } from './clients.component';
 import { ClientComponent } from './components/client/client.component';
 import { ClientFormComponent } from './components/client-form/client-form.component';
+import { clientFormDeactivateGuard } from '../core/guards/client-form-deactivate.guard';
 // import { authGuardActivate } from '../core/guards/auth-activate.function.guard';
 
 const routes: Routes = [
@@ -11,7 +12,11 @@ const routes: Routes = [
     component: ClientsComponent,
     // canActivate: [authGuardActivate]
   },
-  { path: 'dodaj', component: ClientFormComponent },
+  {
+    path: 'dodaj',
+    component: ClientFormComponent,
+    canDeactivate: [clientFormDeactivateGuard],
+  },
   { path: ':id', component: ClientComponent },
 ];
 
