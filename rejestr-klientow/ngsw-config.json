@@ -12,7 +12,8 @@
           "/manifest.webmanifest",
           "/*.css",
           "/*.js"
-        ]
+        ],
+        "urls": ["https://fonts.googleapis.com/icon?family=Material+Icons"]
       }
     },
     {
@@ -24,6 +25,19 @@
           "/assets/**",
           "/media/*.(svg|cur|jpg|jpeg|png|apng|webp|avif|gif|otf|ttf|woff|woff2)"
         ]
+      }
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "httpResponses",
+      "urls": ["**/clients*"],
+      "version": 1,
+      "cacheConfig": {
+        "maxSize": 60,
+        "maxAge": "3d",
+        "timeout": "5s",
+        "strategy": "freshness"
       }
     }
   ]
