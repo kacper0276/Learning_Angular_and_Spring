@@ -4,14 +4,14 @@ import { MaterialModule } from './material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AlertComponent } from './components/alert/alert.component';
 import { PhoneControlComponent } from './controls/phone-control/phone-control.component';
-import { HighlightDirective } from './directives/highlight.directive';
+// import { HighlightDirective } from './directives/highlight.directive';
 import { UnlessDirective } from './directives/unless.directive';
 
 @NgModule({
   declarations: [
     AlertComponent,
     PhoneControlComponent,
-    HighlightDirective,
+    // HighlightDirective,
     UnlessDirective,
   ],
   imports: [CommonModule, ReactiveFormsModule, MaterialModule],
@@ -22,7 +22,7 @@ import { UnlessDirective } from './directives/unless.directive';
     ReactiveFormsModule,
     AlertComponent,
     PhoneControlComponent,
-    HighlightDirective,
+    // HighlightDirective,
     UnlessDirective,
   ],
 })
