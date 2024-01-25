@@ -15,3 +15,8 @@ export const changeTodoStatus = createAction(
   '[Todo List] Change Status Todo',
   props<{ id: number }>()
 );
+
+export const fetchTodosSuccess = createAction(
+  '[Todo List] Fetch Todos',
+  props<{ todos: Todo[] }>()
+);

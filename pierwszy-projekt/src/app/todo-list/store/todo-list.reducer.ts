@@ -41,6 +41,10 @@ const _todoListReducer = createReducer(
     todos: state.todos.map((todo) =>
       todo.id === action.id ? { ...todo, isComplete: !todo.isComplete } : todo
     ),
+  })),
+  on(TodoListActions.fetchTodosSuccess, (state, action) => ({
+    ...state,
+    todos: [...action.todos],
   }))
 );
 
