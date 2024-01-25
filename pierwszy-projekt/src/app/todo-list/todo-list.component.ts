@@ -45,25 +45,25 @@ export class TodoListComponent implements OnInit, OnDestroy {
   ) {}
   // Inny sposób
   // todoService = inject(TodoService);
-  todos: Todo[] = this.todoService.todos;
+  // todos: Todo[] = this.todoService.todos;
+  todos: Todo[] = [];
   errorMessage = '';
   sub!: Subscription;
 
   ngOnInit(): void {
-    this.sub = this.todoService.todoChanged.subscribe({
-      next: (arrTodos) => (this.todos = arrTodos),
-    });
-
-    if (this.todos.length === 0) {
-      this.todoApiService.getTodos().subscribe({
-        next: (todos) => {
-          // this.todos = todos;
-        },
-        error: (err) => {
-          this.errorMessage = 'Wystąpił błąd. Spróbuj ponownie.';
-        },
-      });
-    }
+    // this.sub = this.todoService.todoChanged.subscribe({
+    //   next: (arrTodos) => (this.todos = arrTodos),
+    // });
+    // if (this.todos.length === 0) {
+    //   this.todoApiService.getTodos().subscribe({
+    //     next: (todos) => {
+    //       // this.todos = todos;
+    //     },
+    //     error: (err) => {
+    //       this.errorMessage = 'Wystąpił błąd. Spróbuj ponownie.';
+    //     },
+    //   });
+    // }
   }
 
   addTodo(todo: string): void {
@@ -71,16 +71,14 @@ export class TodoListComponent implements OnInit, OnDestroy {
     //   this.errorMessage = 'Zadanie powinno mieć conajmniej 4 znaki';
     //   return;
     // }
-
-    this.todoApiService.postTodo({ name: todo, isComplete: false }).subscribe({
-      // next: (value) => {
-      //   console.log(value);
-      // },
-      error: (err) => {
-        this.errorMessage = 'Wystąpił błąd. Spróbuj ponownie.';
-      },
-    });
-
+    // this.todoApiService.postTodo({ name: todo, isComplete: false }).subscribe({
+    //   // next: (value) => {
+    //   //   console.log(value);
+    //   // },
+    //   error: (err) => {
+    //     this.errorMessage = 'Wystąpił błąd. Spróbuj ponownie.';
+    //   },
+    // });
     // this.todoService.addTodo(todo);
     // this.todos = this.todoService.todos;
   }
@@ -90,21 +88,21 @@ export class TodoListComponent implements OnInit, OnDestroy {
   }
 
   deleteTodo(id: number): void {
-    this.todoApiService.deleteTodo(id).subscribe({
-      error: (err) => (this.errorMessage = 'Wystąpił błąd. Spróbuj ponownie.'),
-    });
+    // this.todoApiService.deleteTodo(id).subscribe({
+    //   error: (err) => (this.errorMessage = 'Wystąpił błąd. Spróbuj ponownie.'),
+    // });
     // this.todoService.deleteTodo(id);
     // this.todos = this.todoService.todos;
   }
 
   changeTodoStatus(id: number, todo: Todo): void {
     // this.todoService.changeTodoStatus(id);
-    this.todoApiService
-      .patchTodo(id, { isComplete: !todo.isComplete })
-      .subscribe({
-        error: (err) =>
-          (this.errorMessage = 'Wystąpił błąd. Spróbuj ponownie.'),
-      });
+    // this.todoApiService
+    //   .patchTodo(id, { isComplete: !todo.isComplete })
+    //   .subscribe({
+    //     error: (err) =>
+    //       (this.errorMessage = 'Wystąpił błąd. Spróbuj ponownie.'),
+    //   });
     // this.todos = this.todoService.todos;
   }
 
