@@ -31,6 +31,16 @@ const _todoListReducer = createReducer(
   on(TodoListActions.addTodo, (state, action) => ({
     ...state,
     todos: state.todos.concat({ ...action.todo }),
+  })),
+  on(TodoListActions.deleteTodo, (state, action) => ({
+    ...state,
+    todos: state.todos.filter((todo) => todo.id !== action.id),
+  })),
+  on(TodoListActions.changeTodoStatus, (state, action) => ({
+    ...state,
+    todos: state.todos.map((todo) =>
+      todo.id === action.id ? { ...todo, isComplete: !todo.isComplete } : todo
+    ),
   }))
 );
 
