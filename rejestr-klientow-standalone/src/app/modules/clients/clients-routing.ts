@@ -1,5 +1,4 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 import { ClientsComponent } from './clients.component';
 import { ClientComponent } from './components/client/client.component';
 import { ClientFormComponent } from './components/client-form/client-form.component';
@@ -7,7 +6,7 @@ import { clientFormDeactivateGuard } from '../core/guards/client-form-deactivate
 import { clientResolver } from '../core/resolvers/client.resolver';
 // import { authGuardActivate } from '../core/guards/auth-activate.function.guard';
 
-const routes: Routes = [
+export const ROUTES_CLIENTS: Routes = [
   {
     path: '',
     component: ClientsComponent,
@@ -21,9 +20,3 @@ const routes: Routes = [
   },
   { path: ':id', component: ClientComponent },
 ];
-
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
-})
-export class ClientsRoutingModule {}
