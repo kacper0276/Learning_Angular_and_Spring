@@ -9,9 +9,10 @@ import { TestService } from '../core/services/test.service';
 import { Subscription } from 'rxjs';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { TodoApiService } from '../core/services/todo-api.service';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { AppState } from '../store/app.reducer';
 import * as TodoListActions from './store/todo-list.action';
+import { selectTodoListTodos } from './store/todo-list.selector';
 
 @Component({
   selector: 'app-todo-list',
@@ -69,12 +70,14 @@ export class TodoListComponent implements OnInit, OnDestroy {
     //   });
     // }
 
-    this.store.select('todos').subscribe({
-      next: ({ todos }) => {
+    this.sub = this.store.select(selectTodoListTodos).subscribe({
+      next: (todos) => {
         console.log(todos);
         this.todos = [...todos];
       },
     });
+    // Lub
+    // this.store.pipe(select(selectTodoListTodos))
   }
 
   addTodo(todo: string): void {
