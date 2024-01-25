@@ -5,8 +5,8 @@ import { authMatchGuard } from './modules/core/guards/auth-match.guard';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () =>
-      import('./modules/home/home-routing').then((m) => m.ROUTES_HOME),
+    loadComponent: () =>
+      import('./modules/home/home.component').then((m) => m.HomeComponent),
   },
   {
     path: 'klienci',
