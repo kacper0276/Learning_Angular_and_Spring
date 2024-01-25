@@ -6,7 +6,7 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () =>
-      import('./modules/home/home.module').then((m) => m.HomeModule),
+      import('./modules/home/home-routing').then((m) => m.ROUTES_HOME),
   },
   {
     path: 'klienci',
