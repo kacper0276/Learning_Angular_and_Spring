@@ -1,5 +1,6 @@
-import { Action, createReducer } from '@ngrx/store';
+import { Action, createReducer, on } from '@ngrx/store';
 import { Todo } from '../../shared/interfaces/todo.interface';
+import * as TodoListActions from './todo-list.action';
 
 export interface TodoListState {
   todos: Todo[];
@@ -25,7 +26,13 @@ const initialState: TodoListState = {
   ],
 };
 
-const _todoListReducer = createReducer(initialState);
+const _todoListReducer = createReducer(
+  initialState,
+  on(TodoListActions.addTodo, (state, action) => ({
+    ...state,
+    todos: state.todos.concat({ ...action.todo }),
+  }))
+);
 
 export function todoListReducer(
   state: TodoListState | undefined,
