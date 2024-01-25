@@ -1,8 +1,7 @@
-import { NgModule } from '@angular/core';
-import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 import { authMatchGuard } from './modules/core/guards/auth-match.guard';
 
-const routes: Routes = [
+export const APP_ROUTES: Routes = [
   {
     path: '',
     loadComponent: () =>
@@ -15,13 +14,3 @@ const routes: Routes = [
     canMatch: [authMatchGuard],
   },
 ];
-
-@NgModule({
-  imports: [
-    RouterModule.forRoot(routes, {
-      preloadingStrategy: PreloadAllModules,
-    }),
-  ],
-  exports: [RouterModule],
-})
-export class AppRoutingModule {}

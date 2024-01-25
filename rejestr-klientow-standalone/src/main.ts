@@ -4,18 +4,22 @@ import { AppComponent } from './app/app.component';
 import { isDevMode, importProvidersFrom } from '@angular/core';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { AuthModule } from './app/modules/auth/auth.module';
-import { AppRoutingModule } from './app/app-routing.module';
 import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { SpinnerInterseptor } from './app/modules/core/interceptors/spinner.interceptor';
 import { HeaderClassInterseptor } from './app/modules/core/interceptors/header.class.interceptor';
+import {
+  PreloadAllModules,
+  provideRouter,
+  withPreloading,
+} from '@angular/router';
+import { APP_ROUTES } from './app/app-routes';
 
 bootstrapApplication(AppComponent, {
   providers: [
     importProvidersFrom(
       BrowserModule,
-      AppRoutingModule,
       BrowserAnimationsModule,
       HttpClientModule,
       AuthModule,
@@ -26,6 +30,7 @@ bootstrapApplication(AppComponent, {
         registrationStrategy: 'registerWhenStable:30000',
       }),
     ),
+    provideRouter(APP_ROUTES, withPreloading(PreloadAllModules)),
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HeaderClassInterseptor,
