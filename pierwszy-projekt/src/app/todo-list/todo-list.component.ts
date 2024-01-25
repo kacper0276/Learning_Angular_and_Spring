@@ -9,6 +9,8 @@ import { TestService } from '../core/services/test.service';
 import { Subscription } from 'rxjs';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { TodoApiService } from '../core/services/todo-api.service';
+import { Store } from '@ngrx/store';
+import { AppState } from '../store/app.reducer';
 
 @Component({
   selector: 'app-todo-list',
@@ -41,7 +43,8 @@ export class TodoListComponent implements OnInit, OnDestroy {
   constructor(
     private todoService: TodoService,
     // private testService: TestService
-    private todoApiService: TodoApiService
+    private todoApiService: TodoApiService,
+    private store: Store<AppState>
   ) {}
   // Inny sposób
   // todoService = inject(TodoService);
@@ -64,6 +67,12 @@ export class TodoListComponent implements OnInit, OnDestroy {
     //     },
     //   });
     // }
+
+    this.store.select('todos').subscribe({
+      next: ({ todos }) => {
+        console.log(todos);
+      },
+    });
   }
 
   addTodo(todo: string): void {
