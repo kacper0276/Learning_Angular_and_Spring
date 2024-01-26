@@ -59,16 +59,16 @@ export class TodoListComponent implements OnInit, OnDestroy {
     // this.sub = this.todoService.todoChanged.subscribe({
     //   next: (arrTodos) => (this.todos = arrTodos),
     // });
-    // if (this.todos.length === 0) {
-    //   this.todoApiService.getTodos().subscribe({
-    //     next: (todos) => {
-    //       // this.todos = todos;
-    //     },
-    //     error: (err) => {
-    //       this.errorMessage = 'Wystąpił błąd. Spróbuj ponownie.';
-    //     },
-    //   });
-    // }
+    if (this.todos.length === 0) {
+      this.todoApiService.getTodos().subscribe({
+        next: (todos) => {
+          // this.todos = todos;
+        },
+        error: (err) => {
+          this.errorMessage = 'Wystąpił błąd. Spróbuj ponownie.';
+        },
+      });
+    }
 
     this.sub = this.store.select(selectTodoListTodos).subscribe({
       next: (todos) => {

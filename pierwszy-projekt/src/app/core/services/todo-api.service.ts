@@ -3,12 +3,19 @@ import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { Todo } from '../../shared/interfaces/todo.interface';
 import { TodoService } from './todo.service';
+import * as TodosActions from '../../todo-list/store/todo-list.action';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../store/app.reducer';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TodoApiService {
-  constructor(private http: HttpClient, private todoService: TodoService) {}
+  constructor(
+    private http: HttpClient,
+    private todoService: TodoService,
+    private store: Store<AppState>
+  ) {}
 
   getTodos(): Observable<Todo[]> {
     const headers = new HttpHeaders({
@@ -24,7 +31,11 @@ export class TodoApiService {
         // responseType:
         //  params
       })
-      .pipe(tap((todos) => (this.todoService.todos = todos)));
+      .pipe(
+        tap((todos) =>
+          this.store.dispatch(TodosActions.fetchTodosSuccess({ todos }))
+        )
+      );
   }
 
   getTodo(id: number): Observable<Todo> {
