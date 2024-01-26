@@ -24,6 +24,24 @@ export class TodoListEffects {
     )
   );
 
+  addTodo$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(TodoListActions.addTodo),
+      switchMap((action) => {
+        return this.todoApiService.postTodo(action.todo).pipe(
+          map((todo) => TodoListActions.addTodoSuccess({ todo })),
+          catchError((err) =>
+            of(
+              TodoListActions.addTodoFailed({
+                errorMessage: 'Wystąpił błąd',
+              })
+            )
+          )
+        );
+      })
+    )
+  );
+
   constructor(
     private actions$: Actions,
     private todoApiService: TodoApiService
