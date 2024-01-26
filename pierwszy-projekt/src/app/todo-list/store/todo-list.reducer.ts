@@ -4,26 +4,14 @@ import * as TodoListActions from './todo-list.action';
 
 export interface TodoListState {
   todos: Todo[];
+  fetchTodoErrorMessage: string | null;
+  loading: boolean;
 }
 
 const initialState: TodoListState = {
-  todos: [
-    // {
-    //   id: 1,
-    //   isComplete: true,
-    //   name: 'Umyj naczynia',
-    // },
-    // {
-    //   id: 2,
-    //   isComplete: false,
-    //   name: 'Wyjdź z psem',
-    // },
-    // {
-    //   id: 3,
-    //   isComplete: false,
-    //   name: 'Jakieś zadanie',
-    // },
-  ],
+  todos: [],
+  fetchTodoErrorMessage: null,
+  loading: false,
 };
 
 const _todoListReducer = createReducer(
@@ -45,6 +33,17 @@ const _todoListReducer = createReducer(
   on(TodoListActions.fetchTodosSuccess, (state, action) => ({
     ...state,
     todos: [...action.todos],
+    loading: false,
+    fetchTodoErrorMessage: null,
+  })),
+  on(TodoListActions.fetchTodos, (state, action) => ({
+    ...state,
+    loading: true,
+  })),
+  on(TodoListActions.fetchTodosFailed, (state, action) => ({
+    ...state,
+    loading: false,
+    fetchTodoErrorMessage: action.errorMessage,
   }))
 );
 
