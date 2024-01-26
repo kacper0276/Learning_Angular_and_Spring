@@ -14,7 +14,6 @@ const routes: Routes = [
       import('./modules/clients/clients.module').then((m) => m.ClientsModule),
     canMatch: [authMatchGuard],
   },
-  //
 ];
 
 @NgModule({
