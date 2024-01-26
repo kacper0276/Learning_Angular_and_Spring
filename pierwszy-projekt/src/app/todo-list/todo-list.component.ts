@@ -12,7 +12,10 @@ import { TodoApiService } from '../core/services/todo-api.service';
 import { Store, select } from '@ngrx/store';
 import { AppState } from '../store/app.reducer';
 import * as TodoListActions from './store/todo-list.action';
-import { selectTodoListTodos } from './store/todo-list.selector';
+import {
+  selectTodoListTodos,
+  selectTodoListTodosState,
+} from './store/todo-list.selector';
 
 @Component({
   selector: 'app-todo-list',
@@ -52,28 +55,21 @@ export class TodoListComponent implements OnInit, OnDestroy {
   // todoService = inject(TodoService);
   // todos: Todo[] = this.todoService.todos;
   todos: Todo[] = [];
-  errorMessage = '';
+  errorMessage: null | string = '';
   sub!: Subscription;
 
   ngOnInit(): void {
     // this.sub = this.todoService.todoChanged.subscribe({
     //   next: (arrTodos) => (this.todos = arrTodos),
     // });
-    if (this.todos.length === 0) {
-      this.todoApiService.getTodos().subscribe({
-        next: (todos) => {
-          // this.todos = todos;
-        },
-        error: (err) => {
-          this.errorMessage = 'Wystąpił błąd. Spróbuj ponownie.';
-        },
-      });
-    }
+    this.store.dispatch(TodoListActions.fetchTodos());
 
-    this.sub = this.store.select(selectTodoListTodos).subscribe({
-      next: (todos) => {
+    this.sub = this.store.select(selectTodoListTodosState).subscribe({
+      next: ({ todos, errorMsg, loading }) => {
         console.log(todos);
         this.todos = [...todos];
+        this.errorMessage = errorMsg;
+        // loading
       },
     });
     // Lub

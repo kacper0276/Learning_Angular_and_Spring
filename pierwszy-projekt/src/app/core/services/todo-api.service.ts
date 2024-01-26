@@ -25,17 +25,16 @@ export class TodoApiService {
 
     // const params = new HttpParams().set('_limit', 1);
 
-    return this.http
-      .get<Todo[]>('http://localhost:3000/todo', {
-        headers,
-        // responseType:
-        //  params
-      })
-      .pipe(
-        tap((todos) =>
-          this.store.dispatch(TodosActions.fetchTodosSuccess({ todos }))
-        )
-      );
+    return this.http.get<Todo[]>('http://localhost:3000/todo', {
+      headers,
+      // responseType:
+      //  params
+    });
+    // .pipe(
+    //   tap((todos) =>
+    //     this.store.dispatch(TodosActions.fetchTodosSuccess({ todos }))
+    //   )
+    // );
   }
 
   getTodo(id: number): Observable<Todo> {

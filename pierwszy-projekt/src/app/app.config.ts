@@ -6,6 +6,7 @@ import { provideHttpClient, withFetch } from '@angular/common/http';
 import { StoreModule, provideStore } from '@ngrx/store';
 import { todoListReducer } from './todo-list/store/todo-list.reducer';
 import { EffectsModule, provideEffects } from '@ngrx/effects';
+import { TodoListEffects } from './todo-list/store/todo-list.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -14,7 +15,7 @@ export const appConfig: ApplicationConfig = {
     provideStore(),
     importProvidersFrom(
       StoreModule.forRoot({ todos: todoListReducer }),
-      EffectsModule.forRoot([])
+      EffectsModule.forRoot([TodoListEffects])
     ),
     provideEffects(),
   ],
