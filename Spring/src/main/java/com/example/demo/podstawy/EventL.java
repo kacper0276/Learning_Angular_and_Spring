@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.podstawy;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.ContextRefreshedEvent;

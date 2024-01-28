@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.podstawy;
 
 public class Call {
     private String name;
