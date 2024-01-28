@@ -13,6 +13,15 @@ public class NaukaApplication {
 
 	@Bean
 	public Call call() {
-		return new Call();
+		Call call = new Call();
+		call.setName("Adam");
+		return call;
+	}
+
+	@Bean(name = "callKacper")
+	Call call2() {
+		Call call = new Call();
+		call.setName("Kacper");
+		return call;
 	}
 }
