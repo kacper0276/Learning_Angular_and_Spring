@@ -84,4 +84,16 @@ public class FamilyController {
             }
         }
     }
+
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+    public void delete(@PathVariable String id, HttpServletResponse response) throws IOException {
+        Optional<Family> familyOptional = families.stream().filter(value -> value.getUid().equals(id)).findFirst();
+        if(familyOptional.isPresent()) {
+            families.remove(familyOptional.get());
+            response.sendError(HttpServletResponse.SC_OK);
+            return;
+        }
+
+        response.sendError(HttpServletResponse.SC_CONFLICT, "Family doesn't exist");
+    }
 }
