@@ -70,5 +70,18 @@ public class FamilyController {
         response.sendError(HttpServletResponse.SC_NO_CONTENT, "Family doesn't exist");
     }
 
-
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
+    public void updateFamily(@PathVariable String id, @RequestBody Family family, HttpServletResponse response) throws IOException {
+        for(int i = 0; i < families.size(); i++) {
+            if(families.get(i).getUid().equals(id)) {
+                families.set(i, family);
+                response.sendError(HttpServletResponse.SC_OK, "Value updated");
+                break;
+            }
+            if(families.size() - 1 == i) {
+                families.add(family);
+                response.sendError(HttpServletResponse.SC_OK, "Value has been created");
+            }
+        }
+    }
 }
