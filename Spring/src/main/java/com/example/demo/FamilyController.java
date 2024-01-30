@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.web.bind.annotation.*;
@@ -14,29 +15,25 @@ public class FamilyController {
     ArrayList<Family> families = new ArrayList<>();
     ArrayList<Member> members = new ArrayList<>();
 
-//  @GetMapping("/getall")
-    // Lub
-    @RequestMapping(value = "/getall", method = RequestMethod.GET)
-    public ArrayList<Family> getAll() {
+    @PostConstruct
+    public void loadFamily() {
         members.add(new Member("Adam", 12, "M"));
         members.add(new Member("Wojtek", 16, "M"));
         members.add(new Member("Kasia", 24, "K"));
 
         families.add(new Family(UUID.randomUUID().toString(), "Kowalski", members));
         families.add(new Family(UUID.randomUUID().toString(), "Nowak", members));
+    }
 
+//  @GetMapping("/getall")
+    // Lub
+    @RequestMapping(value = "/getall", method = RequestMethod.GET)
+    public ArrayList<Family> getAll() {
         return families;
     }
 
     @GetMapping("/getByName")
     public Family getByName(@RequestParam String familyName) {
-        members.add(new Member("Adam", 12, "M"));
-        members.add(new Member("Wojtek", 16, "M"));
-        members.add(new Member("Kasia", 24, "K"));
-
-        families.add(new Family(UUID.randomUUID().toString(), "Kowalski", members));
-        families.add(new Family(UUID.randomUUID().toString(), "Nowak", members));
-
         return families.stream().filter(family -> family.getName().equals(familyName)).findFirst().orElseThrow();
     }
 
