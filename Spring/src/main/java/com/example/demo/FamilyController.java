@@ -2,11 +2,14 @@ package com.example.demo;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.net.URI;
 import java.util.*;
 
 @RestController
@@ -92,5 +95,12 @@ public class FamilyController {
         }
 
         response.sendError(HttpServletResponse.SC_CONFLICT, "Family doesn't exist");
+    }
+
+    @RequestMapping(value = "/google", method = RequestMethod.GET)
+    public ResponseEntity<Void> getGoogle() {
+        URI location = URI.create("https://google.com");
+        URI location1 = URI.create("/api/v1/family/getall");
+        return ResponseEntity.status(HttpStatus.FOUND).location(location1).build();
     }
 }
