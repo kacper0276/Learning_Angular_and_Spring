@@ -1,6 +1,8 @@
 package com.example.demo;
 
 import jakarta.annotation.PostConstruct;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -97,10 +99,28 @@ public class FamilyController {
         response.sendError(HttpServletResponse.SC_CONFLICT, "Family doesn't exist");
     }
 
-    @RequestMapping(value = "/google", method = RequestMethod.GET)
+    @RequestMapping(value = "/getALLRD", method = RequestMethod.GET)
     public ResponseEntity<Void> getGoogle() {
         URI location = URI.create("https://google.com");
         URI location1 = URI.create("/api/v1/family/getall");
         return ResponseEntity.status(HttpStatus.FOUND).location(location1).build();
+    }
+
+    @RequestMapping(value = "/getHeader", method = RequestMethod.GET)
+    public void getHeader(HttpServletRequest request) {
+        Enumeration<String> headerNames = request.getHeaderNames();
+        while (headerNames.hasMoreElements()) {
+            String headerName = headerNames.nextElement();
+            String headerValue = request.getHeader(headerName);
+            System.out.println(headerName + ": " + headerValue);
+        }
+
+        // Pobieranie wszystkich ciasteczek z żądania
+        Cookie[] cookies = request.getCookies();
+        if(cookies != null) {
+            for(Cookie cookie: cookies) {
+                System.out.println(cookie.getName() + ": " + cookie.getValue());
+            }
+        }
     }
 }
