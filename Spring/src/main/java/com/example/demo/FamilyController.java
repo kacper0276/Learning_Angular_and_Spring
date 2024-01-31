@@ -62,6 +62,10 @@ public class FamilyController {
            response.sendError(HttpServletResponse.SC_OK, "Dodano do listy");
            return;
         }
+        if(family.getName() == null) {
+            throw new FamilyLengthException("Pusta nazwa", new NullPointerException());
+        }
+
         response.sendError(HttpServletResponse.SC_CONFLICT, "Nazwa rodziny nie może być pusta");
     }
 
