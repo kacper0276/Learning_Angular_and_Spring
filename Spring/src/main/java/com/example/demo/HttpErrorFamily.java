@@ -5,6 +5,9 @@ public class HttpErrorFamily {
     private String message;
     private long timestamp;
 
+    public HttpErrorFamily() {
+    }
+
     public HttpErrorFamily(int status, String message, long timestamp) {
         this.status = status;
         this.message = message;
@@ -21,5 +24,17 @@ public class HttpErrorFamily {
 
     public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public long getTimestamp() {
+        return timestamp;
     }
 }

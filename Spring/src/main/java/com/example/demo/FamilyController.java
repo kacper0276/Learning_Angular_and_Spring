@@ -57,14 +57,16 @@ public class FamilyController {
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public void createFamily(@RequestBody Family family, HttpServletResponse response) throws IOException {
+        if(family.getName().length() < 2) {
+            throw new FamilyLengthException("Pusta nazwa");
+        }
+
         if(family.getName() != null && !family.getMembers().isEmpty()) {
            families.add(family);
            response.sendError(HttpServletResponse.SC_OK, "Dodano do listy");
            return;
         }
-        if(family.getName() == null) {
-            throw new FamilyLengthException("Pusta nazwa", new NullPointerException());
-        }
+
 
         response.sendError(HttpServletResponse.SC_CONFLICT, "Nazwa rodziny nie może być pusta");
     }
@@ -165,5 +167,15 @@ public class FamilyController {
             }
             videoFileStream.close();
         };
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<HttpErrorFamily> errorFamilyResponseEntity(FamilyLengthException e) {
+        HttpErrorFamily httpErrorFamily = new HttpErrorFamily();
+        httpErrorFamily.setStatus(HttpStatus.FORBIDDEN.value());
+        httpErrorFamily.setMessage(e.getMessage());
+        httpErrorFamily.setTimestamp(System.currentTimeMillis());
+
+        return new ResponseEntity<>(httpErrorFamily, HttpStatus.FORBIDDEN);
     }
 }
