@@ -10,3 +10,7 @@ foreign key (family_id) references family(id)
 
 Aktualizacja parametrów tabeli (ALTER)
 alter table family add constraint FK_family_head foreign key (head) references members(id)
+
+Wprowadzenie przykładowych danych (INSERT)
+insert into family("name", origin, head) values ('Kowalski', 'Polskie', null)
+insert into members(name, age, gender, family_id) values ('Adam', 54, 'M', 1)
