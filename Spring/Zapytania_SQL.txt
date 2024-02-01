@@ -42,3 +42,8 @@ Grupowanie danych
 select name, sum(age) from members group by name;
 select name, sum(age) from members group by name having sum(age) > 50;
 select name, sum(age) from members group by rollup(name, age);
+
+Sortowanie
+select * from members order by age asc;
+select * from members order by age desc;
+select * from members order by name asc, age desc;
