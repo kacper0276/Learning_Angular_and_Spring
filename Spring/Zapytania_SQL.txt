@@ -47,3 +47,7 @@ Sortowanie
 select * from members order by age asc;
 select * from members order by age desc;
 select * from members order by name asc, age desc;
+
+Usuwanie danych DROP oraz DELETE
+drop table test
+delete from members where name = 'Adam'
