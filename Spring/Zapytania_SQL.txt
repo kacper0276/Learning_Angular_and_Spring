@@ -14,3 +14,6 @@ alter table family add constraint FK_family_head foreign key (head) references m
 Wprowadzenie przykładowych danych (INSERT)
 insert into family("name", origin, head) values ('Kowalski', 'Polskie', null)
 insert into members(name, age, gender, family_id) values ('Adam', 54, 'M', 1)
+
+Aktualizowanie danych tabeli (UPDATE)
+update family set name = 'Nowak', origin = 'Niemieckie' where name = 'Kowalski'
