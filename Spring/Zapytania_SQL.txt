@@ -1,0 +1,9 @@
+Tworzenie relacji
+create table members(
+id SERIAL primary key,
+name varchar(50) not null,
+age INTEGER not null,
+gender varchar not null,
+family_id INTEGER,
+foreign key (family_id) references family(id)
+);
