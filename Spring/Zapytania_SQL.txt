@@ -27,3 +27,6 @@ select * from members where name like '%a'
 select * from members where name like '%a%'
 select * from members where name like 'A%m'
 select * from members where family_id is not null
+
+Inner join
+select members.name, family."name" from members inner join family on members.family_id = family.id
