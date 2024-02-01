@@ -21,3 +21,9 @@ update family set name = 'Nowak', origin = 'Niemieckie' where name = 'Kowalski'
 Wyświetlanie danych z tabeli (SELECT)
 select * from family
 select name, age, gender from members
+
+Klauzula WHERE
+select * from members where name like '%a'
+select * from members where name like '%a%'
+select * from members where name like 'A%m'
+select * from members where family_id is not null
