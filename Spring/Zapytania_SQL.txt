@@ -37,3 +37,8 @@ select avg(age) as "Średnia wieku" from members;
 select max(age) as "Najstarszy" from members;
 select min(age) as "Najmłodszy" from members;
 select count(name) as "Zlicz członków" from members where family_id = 1;
+
+Grupowanie danych
+select name, sum(age) from members group by name;
+select name, sum(age) from members group by name having sum(age) > 50;
+select name, sum(age) from members group by rollup(name, age);
