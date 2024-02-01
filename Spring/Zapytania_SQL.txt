@@ -30,3 +30,10 @@ select * from members where family_id is not null
 
 Inner join
 select members.name, family."name" from members inner join family on members.family_id = family.id
+
+Metody agregujące
+select sum(age) as "Suma wieku" from members;
+select avg(age) as "Średnia wieku" from members;
+select max(age) as "Najstarszy" from members;
+select min(age) as "Najmłodszy" from members;
+select count(name) as "Zlicz członków" from members where family_id = 1;
