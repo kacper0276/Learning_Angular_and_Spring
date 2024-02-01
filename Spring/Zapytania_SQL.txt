@@ -7,3 +7,6 @@ gender varchar not null,
 family_id INTEGER,
 foreign key (family_id) references family(id)
 );
+
+Aktualizacja parametrów tabeli (ALTER)
+alter table family add constraint FK_family_head foreign key (head) references members(id)
