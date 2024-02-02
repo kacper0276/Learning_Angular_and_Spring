@@ -9,6 +9,7 @@ import java.util.ArrayList;
 //@AllArgsConstructor
 //@NoArgsConstructor
 @Data // - tworzy wszystkie 4 rzeczy w jednej
+@AllArgsConstructor
 @ToString
 public class Family {
     private final String uid;

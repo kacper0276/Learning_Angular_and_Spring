@@ -5,6 +5,7 @@ import jakarta.annotation.Resource;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
@@ -28,6 +29,14 @@ import java.util.*;
 public class FamilyController {
     ArrayList<Family> families = new ArrayList<>();
     ArrayList<Member> members = new ArrayList<>();
+//    @Autowired - zamiast konstruktora
+    FamilyRepository familyRepository;
+
+    // LUB
+    public FamilyController(FamilyRepository familyRepository) {
+        this.familyRepository = familyRepository;
+    }
+
 
     @PostConstruct
     public void loadFamily() {
@@ -168,6 +177,5 @@ public class FamilyController {
             videoFileStream.close();
         };
     }
-
 
 }
