@@ -4,6 +4,7 @@ import com.example.demo.podstawy.Call;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 public class NaukaApplication {
@@ -24,5 +25,10 @@ public class NaukaApplication {
 		Call call = new Call();
 		call.setName("Kacper");
 		return call;
+	}
+
+	@Bean
+	public RestTemplate restTemplate() {
+		return new RestTemplate();
 	}
 }

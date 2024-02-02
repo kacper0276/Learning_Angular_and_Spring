@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.*;
 
 @RestController
@@ -33,11 +34,13 @@ public class FamilyController {
     ArrayList<Member> members = new ArrayList<>();
 //    @Autowired - zamiast konstruktora
     FamilyRepository familyRepository;
+    RestTemplateApi restTemplateApi;
 //    private static final Logger logger = LogManager.getLogger(FamilyController.class);
 
     // LUB
-    public FamilyController(FamilyRepository familyRepository) {
+    public FamilyController(FamilyRepository familyRepository, RestTemplateApi restTemplateApi) {
         this.familyRepository = familyRepository;
+        this.restTemplateApi = restTemplateApi;
     }
 
 
@@ -192,8 +195,9 @@ public class FamilyController {
     }
 
     @GetMapping("getFamilyDB")
-    public List<FamilyDB> getFamilyDB() {
-        return familyRepository.findByname("Mostowiak","Polska");
+    public String getFamilyDB() throws URISyntaxException {
+          return restTemplateApi.getQuotes();
+//        return familyRepository.findByname("Mostowiak","Polska");
     }
 
     @GetMapping("removeFamilyDB")
