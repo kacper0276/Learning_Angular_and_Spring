@@ -185,8 +185,8 @@ public class FamilyController {
     }
 
     @GetMapping("getFamilyDB")
-    public FamilyDB getFamilyDB() {
-        return familyRepository.findById(5L).orElseGet(null);
+    public List<FamilyDB> getFamilyDB() {
+        return familyRepository.findByname("Mostowiak","Polska");
     }
 
     @GetMapping("removeFamilyDB")
