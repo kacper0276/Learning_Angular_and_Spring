@@ -5,6 +5,7 @@ import jakarta.annotation.Resource;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.InputStreamResource;
@@ -179,9 +180,11 @@ public class FamilyController {
     }
 
     @GetMapping("createFamilyDB")
+    @Transactional // Albo wykona się wszystko, albo zmiany zostaną wycofane
     public void craeteFamilyDB() {
         FamilyDB familyDB = new FamilyDB(13, "Mostowiak", "Polska", null);
         familyRepository.save(familyDB);
+        throw new RuntimeException("Error");
     }
 
     @GetMapping("getFamilyDB")
