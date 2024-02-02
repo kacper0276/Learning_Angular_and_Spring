@@ -183,7 +183,7 @@ public class FamilyController {
     @Transactional // Albo wykona się wszystko, albo zmiany zostaną wycofane
     public void craeteFamilyDB() {
         logger.info("Tworzenie rodziny");
-        FamilyDB familyDB = new FamilyDB(13, "Mostowiak", "Polska", null);
+        FamilyDB familyDB = new FamilyDB(13, "Mostowiak", "Polska", null); //
         logger.info("Utworzono rodzinę o id: {} oraz o nazwie: {}", familyDB.getId(), familyDB.getName());
         familyRepository.save(familyDB);
         logger.warn("Zapisano rodzine");
