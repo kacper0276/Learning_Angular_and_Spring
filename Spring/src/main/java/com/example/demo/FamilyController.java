@@ -1,13 +1,12 @@
 package com.example.demo;
 
 import jakarta.annotation.PostConstruct;
-import jakarta.annotation.Resource;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.FileSystemResource;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -32,6 +31,7 @@ public class FamilyController {
     ArrayList<Member> members = new ArrayList<>();
 //    @Autowired - zamiast konstruktora
     FamilyRepository familyRepository;
+    private static final Logger logger = LogManager.getLogger(FamilyController.class);
 
     // LUB
     public FamilyController(FamilyRepository familyRepository) {
@@ -182,9 +182,11 @@ public class FamilyController {
     @GetMapping("createFamilyDB")
     @Transactional // Albo wykona się wszystko, albo zmiany zostaną wycofane
     public void craeteFamilyDB() {
+        logger.info("Tworzenie rodziny");
         FamilyDB familyDB = new FamilyDB(13, "Mostowiak", "Polska", null);
+        logger.info("Utworzono rodzinę");
         familyRepository.save(familyDB);
-        throw new RuntimeException("Error");
+        logger.warn("Zapisano rodzine");
     }
 
     @GetMapping("getFamilyDB")
