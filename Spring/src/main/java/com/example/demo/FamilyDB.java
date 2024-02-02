@@ -1,9 +1,6 @@
 package com.example.demo;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,6 +18,7 @@ public class FamilyDB {
     private String name;
     @Column(name = "origin")
     private String origin;
-    @Column(name = "head")
-    private long head;
+    @Column(name = "head", nullable = true)
+    @OneToOne(mappedBy = "id")
+    private MembersDB head;
 }

@@ -23,5 +23,6 @@ public class MembersDB {
     @Column(name = "gender")
     private Gender gender;
     @Column(name = "family_id")
-    private long familyId;
+    @OneToOne(mappedBy = "id")
+    private FamilyDB familyId;
 }
