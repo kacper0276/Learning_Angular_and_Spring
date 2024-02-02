@@ -37,7 +37,8 @@ public class RestTemplateApi {
 //        URI api_url = new URI("?category=happiness");
         HttpHeaders headers = new HttpHeaders();
         headers.set("X-Api-Key", "VOCI7sIXVR5rNp8Z2WW5cw==nDwd2CCndNPW1FH6");
-        HttpEntity<String> request = new HttpEntity<>(headers);
+        FamilyDB familyDB = new FamilyDB(13, "Test", "origin", null);
+        HttpEntity<FamilyDB> request = new HttpEntity<>(familyDB, headers);
         ResponseEntity<String> response = restTemplate.exchange(api_url, HttpMethod.GET, request, String.class);
         return response.getBody();
     }
