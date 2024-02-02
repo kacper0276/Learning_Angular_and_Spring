@@ -8,7 +8,11 @@ import org.mapstruct.Mappings;
 public abstract class FamilyMapper {
     @Mappings({
             @Mapping(target = "name", source = "name"),
-            @Mapping(target = "uid", source = "id"),
+            @Mapping(target = "uid", expression = "java(getUid(familyDB.getId()))"),
     })
     public abstract Family FamilyDbToFamily(FamilyDB familyDB);
+
+    public String getUid(long id) {
+        return Long.toString(id);
+    }
 }
