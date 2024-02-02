@@ -22,7 +22,7 @@ public class MembersDB {
     @Enumerated(EnumType.STRING)
     @Column(name = "gender")
     private Gender gender;
-    @Column(name = "family_id")
-    @OneToOne(mappedBy = "id")
+    @OneToOne
+    @JoinColumn(name = "family_id")
     private FamilyDB familyId;
 }

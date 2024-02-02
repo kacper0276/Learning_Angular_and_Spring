@@ -178,4 +178,19 @@ public class FamilyController {
         };
     }
 
+    @GetMapping("createFamilyDB")
+    public void craeteFamilyDB() {
+        FamilyDB familyDB = new FamilyDB(13, "Mostowiak", "Polska", null);
+        familyRepository.save(familyDB);
+    }
+
+    @GetMapping("getFamilyDB")
+    public FamilyDB getFamilyDB() {
+        return familyRepository.findById(5L).orElseGet(null);
+    }
+
+    @GetMapping("removeFamilyDB")
+    public void removeFamilyDB() {
+        familyRepository.deleteById(5L);
+    }
 }
