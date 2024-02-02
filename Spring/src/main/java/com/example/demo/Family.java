@@ -1,14 +1,15 @@
 package com.example.demo;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 
-@Getter
-@Setter
-@AllArgsConstructor
+//@Getter
+//@Setter
+//@AllArgsConstructor
+//@NoArgsConstructor
+@Data // - tworzy wszystkie 4 rzeczy w jednej
+@ToString
 public class Family {
     private final String uid;
     private String name;
