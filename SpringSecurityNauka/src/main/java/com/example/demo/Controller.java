@@ -6,13 +6,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class Controller {
 
-    @GetMapping("/")
-    public String get() {
-        return "Witaj świecie";
+    @GetMapping("/login")
+    public String login() {
+        return "Zalogowano";
     }
 
-    @GetMapping("/h1")
-    public String get1() {
-        return "Witaj świecie1";
+    @GetMapping("/logout")
+    public String logout() {
+        return "Wylogowano";
     }
 }

@@ -13,7 +13,8 @@ public class ConfigSecurity {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> {
-            authorizationManagerRequestMatcherRegistry.anyRequest().authenticated();
+            authorizationManagerRequestMatcherRegistry.requestMatchers("/login").permitAll();
+            authorizationManagerRequestMatcherRegistry.anyRequest().authenticated(); // Musisz być zalogowany
         }).build();
     }
 }
