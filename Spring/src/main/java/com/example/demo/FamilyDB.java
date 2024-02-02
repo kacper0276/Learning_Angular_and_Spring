@@ -20,5 +20,6 @@ public class FamilyDB {
     private String origin;
     @Column(name = "head", nullable = true)
     @OneToOne(mappedBy = "id")
+//  @JoinColumn(name = "head")
     private MembersDB head;
 }
