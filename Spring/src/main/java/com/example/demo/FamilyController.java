@@ -5,6 +5,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.core.io.InputStreamResource;
@@ -26,12 +27,13 @@ import java.util.*;
 
 @RestController
 @RequestMapping(value = "/api/v1/family")
+@Slf4j // private static final Logger logger = LogManager.getLogger(FamilyController.class); - taką zmienną tworzy tylko nazwa to log
 public class FamilyController {
     ArrayList<Family> families = new ArrayList<>();
     ArrayList<Member> members = new ArrayList<>();
 //    @Autowired - zamiast konstruktora
     FamilyRepository familyRepository;
-    private static final Logger logger = LogManager.getLogger(FamilyController.class);
+//    private static final Logger logger = LogManager.getLogger(FamilyController.class);
 
     // LUB
     public FamilyController(FamilyRepository familyRepository) {
@@ -182,11 +184,11 @@ public class FamilyController {
     @GetMapping("createFamilyDB")
     @Transactional // Albo wykona się wszystko, albo zmiany zostaną wycofane
     public void craeteFamilyDB() {
-        logger.info("Tworzenie rodziny");
-        FamilyDB familyDB = new FamilyDB(13, "Mostowiak", "Polska", null); //
-        logger.info("Utworzono rodzinę o id: {} oraz o nazwie: {}", familyDB.getId(), familyDB.getName());
+        log.info("Tworzenie rodziny");
+        FamilyDB familyDB = new FamilyDB(13, "Mostowiak", "Polska", null);
+        log.info("Utworzono rodzinę o id: {} oraz o nazwie: {}", familyDB.getId(), familyDB.getName());
         familyRepository.save(familyDB);
-        logger.warn("Zapisano rodzine");
+        log.warn("Zapisano rodzine");
     }
 
     @GetMapping("getFamilyDB")
