@@ -8,6 +8,7 @@ import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -35,6 +36,10 @@ public class FamilyController {
 //    @Autowired - zamiast konstruktora
     FamilyRepository familyRepository;
     RestTemplateApi restTemplateApi;
+
+    @Autowired
+    FamilyMapper familyMapper;
+
 //    private static final Logger logger = LogManager.getLogger(FamilyController.class);
 
     // LUB
@@ -195,8 +200,10 @@ public class FamilyController {
     }
 
     @GetMapping("getFamilyDB")
-    public String getFamilyDB() throws URISyntaxException {
-          return restTemplateApi.getQuotes();
+    public Family getFamilyDB() throws URISyntaxException    {
+          Family family = familyMapper.FamilyDbToFamily(familyRepository.findById(6L).get());
+          return family;
+//        return restTemplateApi.getQuotes();
 //        return familyRepository.findByname("Mostowiak","Polska");
     }
 
