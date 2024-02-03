@@ -10,10 +10,12 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -21,6 +23,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @RequiredArgsConstructor
 public class ConfigSecurity {
     private final UserEntityRepository userEntityRepository;
+    private final JwtAuthFilter jwtAuthFilter;
 
     @Bean
     public UserDetailsService userDetailsService() {
@@ -28,11 +31,25 @@ public class ConfigSecurity {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http.authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> {
-            authorizationManagerRequestMatcherRegistry.requestMatchers("/login").permitAll();
-            authorizationManagerRequestMatcherRegistry.anyRequest().authenticated(); // Musisz być zalogowany
-        }).build();
+    public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
+//        return http.authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> {
+//            authorizationManagerRequestMatcherRegistry.requestMatchers("/login").permitAll();
+//            authorizationManagerRequestMatcherRegistry.anyRequest().authenticated(); // Musisz być zalogowany
+//        }).build();
+        http.csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(authorizeRequests ->
+                    authorizeRequests
+                            .requestMatchers("/hello", "/new", "/authenticate").permitAll()
+                            .anyRequest().authenticated()
+                )
+                .sessionManagement(sessionManagment ->
+                        sessionManagment
+                                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                )
+                .authenticationProvider(authenticationProvider())
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+
+                return http.build();
     }
 
     @Bean
