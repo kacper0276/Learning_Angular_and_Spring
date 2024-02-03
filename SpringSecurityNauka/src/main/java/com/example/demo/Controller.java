@@ -37,7 +37,7 @@ public class Controller {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
     public UserEntity getProductById(@PathVariable long id) {
         return userEntityRepository.findById(id).orElseThrow(RuntimeException::new);
     }
