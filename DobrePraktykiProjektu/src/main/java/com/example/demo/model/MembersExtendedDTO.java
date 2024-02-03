@@ -9,8 +9,6 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class MembersDTO {
-    private String name;
-    private int age;
-    private Gender gender;
+public class MembersExtendedDTO extends MembersDTO {
+    private FamilyDTO family;
 }

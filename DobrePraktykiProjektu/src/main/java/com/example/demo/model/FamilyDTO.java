@@ -12,5 +12,4 @@ import lombok.Setter;
 public class FamilyDTO {
     private String name;
     private String origin;
-    private MembersDTO head;
 }
