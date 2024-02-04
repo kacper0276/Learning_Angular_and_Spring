@@ -5,6 +5,7 @@ import com.example.demo.model.FamilyDTO;
 import com.example.demo.model.FamilyExtendedDTO;
 import com.example.demo.services.FamilyService;
 import com.example.demo.translator.TranslatorFamilyDBtoFamilyDTO;
+import com.example.demo.translator.TranslatorFamilyDTOtoFamilyDB;
 import com.example.demo.translator.TranslatorMemberDBToMemberDTO;
 import org.springframework.stereotype.Component;
 
@@ -12,21 +13,23 @@ import org.springframework.stereotype.Component;
 public class Mediator{
     TranslatorMemberDBToMemberDTO translatorMemberDBToMemberDTO;
     TranslatorFamilyDBtoFamilyDTO translatorFamilyDBtoFamilyDTO;
+    TranslatorFamilyDTOtoFamilyDB translatorFamilyDTOtoFamilyDB;
     FamilyService familyService;
 
-    public Mediator(TranslatorMemberDBToMemberDTO translatorMemberDBToMemberDTO, TranslatorFamilyDBtoFamilyDTO translatorFamilyDBtoFamilyDTO, FamilyService familyService) {
+    public Mediator(TranslatorMemberDBToMemberDTO translatorMemberDBToMemberDTO, TranslatorFamilyDBtoFamilyDTO translatorFamilyDBtoFamilyDTO, FamilyService familyService, TranslatorFamilyDTOtoFamilyDB translatorFamilyDTOtoFamilyDB) {
         this.translatorMemberDBToMemberDTO = translatorMemberDBToMemberDTO;
         this.translatorFamilyDBtoFamilyDTO = translatorFamilyDBtoFamilyDTO;
+        this.translatorFamilyDTOtoFamilyDB = translatorFamilyDTOtoFamilyDB;
         this.familyService = familyService;
     }
 
     public void saveFamily(FamilyDTO familyDTO) {
-        FamilyDB familyDB = new FamilyDB();
+        FamilyDB familyDB = translatorFamilyDTOtoFamilyDB.ToFamilyDB(familyDTO);
         familyService.save(familyDB);
     }
 
     public void updateFamily(FamilyExtendedDTO familyExtendedDTO) {
-        FamilyDB familyDB = new FamilyDB();
+        FamilyDB familyDB = translatorFamilyDTOtoFamilyDB.toFamilyDB(familyExtendedDTO);
         familyService.save(familyDB);
     }
 }
