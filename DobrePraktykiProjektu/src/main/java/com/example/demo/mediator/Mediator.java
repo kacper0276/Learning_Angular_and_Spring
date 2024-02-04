@@ -1,14 +1,12 @@
 package com.example.demo.mediator;
 
-import com.example.demo.model.FamilyDB;
-import com.example.demo.model.FamilyDTO;
-import com.example.demo.model.FamilyExtendedDTO;
-import com.example.demo.model.MembersDTO;
+import com.example.demo.model.*;
 import com.example.demo.services.FamilyService;
 import com.example.demo.services.MemberService;
 import com.example.demo.translator.TranslatorFamilyDBtoFamilyDTO;
 import com.example.demo.translator.TranslatorFamilyDTOtoFamilyDB;
 import com.example.demo.translator.TranslatorMemberDBToMemberDTO;
+import com.example.demo.translator.TranslatorMemberDTOtoMemberDB;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -16,13 +14,15 @@ public class Mediator{
     TranslatorMemberDBToMemberDTO translatorMemberDBToMemberDTO;
     TranslatorFamilyDBtoFamilyDTO translatorFamilyDBtoFamilyDTO;
     TranslatorFamilyDTOtoFamilyDB translatorFamilyDTOtoFamilyDB;
+    TranslatorMemberDTOtoMemberDB translatorMemberDTOtoMemberDB;
     FamilyService familyService;
     MemberService memberService;
 
-    public Mediator(TranslatorMemberDBToMemberDTO translatorMemberDBToMemberDTO, TranslatorFamilyDBtoFamilyDTO translatorFamilyDBtoFamilyDTO, FamilyService familyService, TranslatorFamilyDTOtoFamilyDB translatorFamilyDTOtoFamilyDB, MemberService memberService) {
+    public Mediator(TranslatorMemberDBToMemberDTO translatorMemberDBToMemberDTO, TranslatorFamilyDBtoFamilyDTO translatorFamilyDBtoFamilyDTO, FamilyService familyService, TranslatorFamilyDTOtoFamilyDB translatorFamilyDTOtoFamilyDB, MemberService memberService, TranslatorMemberDTOtoMemberDB translatorMemberDTOtoMemberDB) {
         this.translatorMemberDBToMemberDTO = translatorMemberDBToMemberDTO;
         this.translatorFamilyDBtoFamilyDTO = translatorFamilyDBtoFamilyDTO;
         this.translatorFamilyDTOtoFamilyDB = translatorFamilyDTOtoFamilyDB;
+        this.translatorMemberDTOtoMemberDB = translatorMemberDTOtoMemberDB;
         this.familyService = familyService;
         this.memberService = memberService;
     }
@@ -38,11 +38,12 @@ public class Mediator{
     }
 
     public void saveMember(MembersDTO membersDTO) {
-
-        memberService.save(null);
+        MembersDB membersDB = translatorMemberDTOtoMemberDB.toMemberDB(membersDTO);
+        memberService.save(membersDB);
     }
 
-    public void updateMember(MembersDTO membersDTO) {
-        memberService.save(null);
+    public void updateMember(MembersExtendedDTO MembersExtendedDTO) {
+        MembersDB membersDB = translatorMemberDTOtoMemberDB.toMemberDB(MembersExtendedDTO);
+        memberService.save(membersDB);
     }
 }
