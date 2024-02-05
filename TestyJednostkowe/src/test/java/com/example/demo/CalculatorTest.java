@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 //import org.mockito.internal.util.reflection.Whitebox;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,8 +15,14 @@ import static org.mockito.Mockito.when;
 
 @SpringBootTest
 public class CalculatorTest {
-    Fibonacci fibonacci = mock(Fibonacci.class);
-    Calculator calculator = new Calculator(fibonacci);
+    Fibonacci fibonacci;
+    Calculator calculator;
+
+    @BeforeEach
+    void init() {
+        fibonacci = mock(Fibonacci.class);
+        calculator = new Calculator(fibonacci);
+    }
 
     @Test
     void sumTest() {
