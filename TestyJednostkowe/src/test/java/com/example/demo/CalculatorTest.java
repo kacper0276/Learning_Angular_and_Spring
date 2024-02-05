@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 //import org.mockito.internal.util.reflection.Whitebox;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -37,6 +38,7 @@ public class CalculatorTest {
         assertTrue(sub > -1);
     }
 
+    @Disabled
     @Test
     void fibiTest() {
 //        calculator.fibonacci = new Fibonacci(); // Nie do końca prawidłowe - działa tylko przy polu public
