@@ -1,13 +1,10 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet"
-          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-          crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" th:href="@{/style/style.css}"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/style/style.css}">
     <script th:src="@{/scripts/main.js}"></script>
 </head>
 <body>
@@ -17,9 +14,7 @@
     <label class="col-sm">Naziwsko</label>
     <label class="col-sm">Ocena</label>
 </div>
-<div class="row text-center" th:id="${student.getUuid()}" th:each="student,interator: ${session.students}"
-     onclick="remove(this.id)"
-     th:if="${interator.index < 5}" th:style="${student.getGrade().equals('A')} ? 'color : red' : 'color: black'">
+<div class="row text-center" th:id="${student.getUuid()}" th:each="student,interator: ${session.students}" onclick="remove(this.id)" th:if="${interator.index < 5}" th:style="${student.getGrade().equals('A')} ? 'color : red' : 'color: black'">
     <label class="col-sm" th:text="${student.getName()}"></label>
     <label class="col-sm" th:text="${student.getSurname()}"></label>
     <label class="col-sm" th:text="${student.getGrade()}"></label>
