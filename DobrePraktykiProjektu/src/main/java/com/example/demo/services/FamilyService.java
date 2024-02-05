@@ -21,4 +21,8 @@ public class FamilyService {
     public List<FamilyDB> findByName(String name) {
         return (List<FamilyDB>) familyRepository.findByName(name);
     }
+
+    public List<FamilyDB> getAll() {
+        return familyRepository.findAll();
+    }
 }

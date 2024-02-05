@@ -23,4 +23,8 @@ public class MemberService {
     public List<MembersDB> getMemberDBByName(String name) {
         return (List<MembersDB>) memberRepository.findByName(name);
     }
+
+    public List<MembersDB> getAll() {
+        return memberRepository.findAll();
+    }
 }
