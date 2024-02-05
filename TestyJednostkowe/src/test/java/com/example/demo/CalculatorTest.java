@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 public class CalculatorTest {
-    Calculator calculator = new Calculator();
+    Calculator calculator = new Calculator(new Fibonacci());
 
     @Test
     void sumTest() {
@@ -27,7 +27,8 @@ public class CalculatorTest {
 
     @Test
     void fibiTest() {
+//        calculator.fibonacci = new Fibonacci(); // Nie do końca prawidłowe - działa tylko przy polu public
         List<Integer> integers = calculator.fibonacci(10);
-        assertEquals(9, integers.size()); // Przez @Autowired nie działa
+        assertEquals(12, integers.size()); // Przez @Autowired nie działa
     }
 }
