@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.internal.util.reflection.Whitebox;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
@@ -10,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 public class CalculatorTest {
-    Calculator calculator = new Calculator(new Fibonacci());
+    Calculator calculator = new Calculator();
 
     @Test
     void sumTest() {
@@ -30,5 +31,12 @@ public class CalculatorTest {
 //        calculator.fibonacci = new Fibonacci(); // Nie do końca prawidłowe - działa tylko przy polu public
         List<Integer> integers = calculator.fibonacci(10);
         assertEquals(12, integers.size()); // Przez @Autowired nie działa
+    }
+
+    @Test
+    void fibiTest1() {
+        Whitebox.setInternalState(calculator, "fibonacci", new Fibonacci());
+        List<Integer> integers = calculator.fibonacci(10);
+        assertEquals(12, integers.size());
     }
 }

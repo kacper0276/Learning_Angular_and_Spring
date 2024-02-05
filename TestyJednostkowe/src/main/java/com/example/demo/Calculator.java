@@ -9,7 +9,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class Calculator {
 
-    private final Fibonacci fibonacci;
+    private Fibonacci fibonacci;
 
     public int sum(int a, int b){
         return a+b;
