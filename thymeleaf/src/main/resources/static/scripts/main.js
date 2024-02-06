@@ -4,3 +4,7 @@ function remove(id) {
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send();
 }
+
+window.onload(() => {
+    console.log("TEST");
+})
