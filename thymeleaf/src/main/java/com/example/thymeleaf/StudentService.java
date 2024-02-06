@@ -28,4 +28,8 @@ public class StudentService {
     public Set<Student> getStudentSet() {
         return studentSet;
     }
+
+    public void addStudent(Student student) {
+        studentSet.add(student);
+    }
 }
