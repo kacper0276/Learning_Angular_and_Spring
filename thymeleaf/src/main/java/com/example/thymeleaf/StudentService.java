@@ -10,12 +10,22 @@ import java.util.UUID;
 public class StudentService {
     private Set<Student> studentSet = new HashSet<>();
 
-    public Set<Student> getStudentSet() {
+    public StudentService() {
         Student student = new Student();
         student.setName("Adam");
         student.setSurname("Mickiewicz");
         student.setGrade("A");
+
+        Student student1 = new Student();
+        student.setName("Juliusz");
+        student.setSurname("Słowacki");
+        student.setGrade("A+");
+
         studentSet.add(student);
+        studentSet.add(student1);
+    }
+
+    public Set<Student> getStudentSet() {
         return studentSet;
     }
 }

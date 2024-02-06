@@ -11,7 +11,16 @@
 </head>
 <body>
     <h1>Hello world</h1>
-    <label th:text="${students[0].getSurname()}"></label>
+    <div class="row text-center">
+        <label class="col-sm">Imię</label>
+        <label class="col-sm">Nazwisko</label>
+        <label class="col-sm">Ocena</label>
+    </div>
+    <div class="row text-center" th:each="student : ${students}">
+        <label class="col-sm" th:text="${student.getName()}"></label>
+        <label class="col-sm" th:text="${student.getSurname()}"></label>
+        <label class="col-sm" th:text="${student.getGrade()}"></label>
+    </div>
 </form>
 </body>
 </html>
