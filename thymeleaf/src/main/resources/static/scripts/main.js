@@ -5,6 +5,6 @@ function remove(id) {
     xhr.send();
 }
 
-window.onload(() => {
-    console.log("TEST");
-})
+window.onload = (event) => {
+  console.log("Test");
+};
