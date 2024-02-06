@@ -15,11 +15,13 @@ public class StudentService {
         student.setName("Adam");
         student.setSurname("Mickiewicz");
         student.setGrade("A");
+        student.setUuid(UUID.randomUUID().toString());
 
         Student student1 = new Student();
-        student.setName("Juliusz");
-        student.setSurname("Słowacki");
-        student.setGrade("A+");
+        student1.setName("Juliusz");
+        student1.setSurname("Słowacki");
+        student1.setGrade("A+");
+        student1.setUuid(UUID.randomUUID().toString());
 
         studentSet.add(student);
         studentSet.add(student1);
@@ -30,6 +32,11 @@ public class StudentService {
     }
 
     public void addStudent(Student student) {
+        student.setUuid(UUID.randomUUID().toString());
         studentSet.add(student);
+    }
+
+    public void remove(String uuid) {
+        studentSet.removeIf(value -> value.getUuid().equals(uuid));
     }
 }
