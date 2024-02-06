@@ -16,7 +16,7 @@
         <label class="col-sm">Nazwisko</label>
         <label class="col-sm">Ocena</label>
     </div>
-    <div class="row text-center" th:id="${student.getUuid()}" th:each="student,iterator: ${students}" th:if="${iterator.index < 5}"
+    <div class="row text-center" th:id="${student.getUuid()}" th:each="student,iterator: ${session.students}" th:if="${iterator.index < 5}"
          th:style="${student.getGrade().equals('A+')} ? 'color: red' : 'color: black'"
          onclick="remove(this.id)"
     >

@@ -19,10 +19,9 @@ public class Controller {
 
     @DeleteMapping
     public ResponseEntity<?> remove(@RequestParam String uuid, HttpSession session){
-//        Set<Student> studentSet = (Set<Student>) session.getAttribute("students");
-//        studentSet.removeIf(value->value.getUuid().equals(uuid));
-//        session.setAttribute("students",studentSet);
-        studentService.remove(uuid);
+        Set<Student> studentSet = (Set<Student>) session.getAttribute("students");
+        studentSet.removeIf(value->value.getUuid().equals(uuid));
+        session.setAttribute("students",studentSet);
         return ResponseEntity.ok().build();
     }
 }
