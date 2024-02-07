@@ -27,7 +27,8 @@
             "prefix": "app",
             "style": "kebab-case"
           }
-        ]
+        ],
+        "prettier/prettier": ["error", { "endOfLine": "auto" }]
       }
     },
     {
@@ -37,6 +38,10 @@
         "plugin:@angular-eslint/template/accessibility"
       ],
       "rules": {}
+    },
+    {
+      "files": ["*.ts"],
+      "extends": ["plugin:@ngrx/recommended"]
     }
   ]
 }
