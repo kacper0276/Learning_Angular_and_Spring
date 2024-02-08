@@ -1,6 +1,8 @@
 package com.example.demo.services;
 
 import com.example.demo.entity.*;
+import com.example.demo.exceptions.UserExistingWithMail;
+import com.example.demo.exceptions.UserExistingWithName;
 import com.example.demo.repository.UserRepository;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -59,7 +61,15 @@ public class UserService {
         }
 
     }
-    public void register(UserRegisterDTO userRegisterDTO) {
+    public void register(UserRegisterDTO userRegisterDTO) throws UserExistingWithName, UserExistingWithMail {
+        userRepository.findUserByLogin(userRegisterDTO.getLogin()).ifPresent((value) -> {
+            throw new UserExistingWithName("Użytkownik o nazwie już istnieje");
+        });
+
+        userRepository.findUserByEmail(userRegisterDTO.getEmail()).ifPresent((value) -> {
+            throw new UserExistingWithMail("Użytkownik o mailu już istnieje");
+        });
+
         User user = new User();
         user.setLogin(userRegisterDTO.getLogin());
         user.setPassword(userRegisterDTO.getPassword());
