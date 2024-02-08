@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.UUID;
 
 @Setter
-@NoArgsConstructor
 @Entity
 @Table(name = "users")
 public class User implements UserDetails {
@@ -28,6 +27,10 @@ public class User implements UserDetails {
     private Role role;
     private boolean isLocked;
     private boolean isEnabled;
+
+    public User() {
+        generateUuid();
+    }
 
     public User(long id, String uuid, String login, String email, String password, Role role, boolean isLocked, boolean isEnabled) {
         this.id = id;
