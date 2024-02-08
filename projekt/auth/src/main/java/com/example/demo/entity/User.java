@@ -86,4 +86,13 @@ public class User implements UserDetails {
             setUuid(UUID.randomUUID().toString());
         }
     }
+
+    public Role getRole(){
+        return this.role;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
 }

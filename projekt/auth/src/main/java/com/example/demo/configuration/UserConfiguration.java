@@ -33,7 +33,7 @@ public class UserConfiguration {
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
-                                .requestMatchers("/api/v1/auth/register").permitAll()
+                                .requestMatchers("/api/v1/auth/register", "/api/v1/auth/login","/api/v1/auth/validate").permitAll()
                 );
 
 
