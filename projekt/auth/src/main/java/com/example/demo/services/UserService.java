@@ -42,7 +42,7 @@ public class UserService {
     }
 
 
-    public void validateToken(HttpServletRequest request, HttpServletResponse response) throws ExpiredJwtException, IllegalArgumentException{
+    public void validateToken(HttpServletRequest request) throws ExpiredJwtException, IllegalArgumentException{
         String token = null;
         String refresh = null;
         for (Cookie value : Arrays.stream(request.getCookies()).toList()) {
@@ -56,36 +56,28 @@ public class UserService {
             jwtService.validateToken(token);
         }catch (IllegalArgumentException | ExpiredJwtException e){
             jwtService.validateToken(refresh);
-            Cookie refreshCookie = cookiService.generateCookie("refresh", jwtService.refreshToken(refresh, refreshExp), refreshExp);
-            Cookie cookie = cookiService.generateCookie("Authorization", jwtService.refreshToken(refresh, exp), exp);
-            response.addCookie(cookie);
-            response.addCookie(refreshCookie);
         }
 
     }
-
-
     public void register(UserRegisterDTO userRegisterDTO) {
         User user = new User();
         user.setLogin(userRegisterDTO.getLogin());
         user.setPassword(userRegisterDTO.getPassword());
         user.setEmail(userRegisterDTO.getEmail());
-        if(userRegisterDTO.getRole() != null) {
+        if (userRegisterDTO.getRole() != null) {
             user.setRole(userRegisterDTO.getRole());
         } else {
             user.setRole(Role.USER);
         }
-
         saveUser(user);
     }
-
     public ResponseEntity<?> login(HttpServletResponse response, User authRequest) {
         User user = userRepository.findUserByLogin(authRequest.getUsername()).orElse(null);
         if (user != null) {
             Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
             if (authenticate.isAuthenticated()) {
-                Cookie refresh = cookiService.generateCookie("refresh", generateToken(authRequest.getUsername(), refreshExp), refreshExp);
-                Cookie cookie = cookiService.generateCookie("Authorization", generateToken(authRequest.getUsername(), exp), exp);
+                Cookie refresh = cookiService.generateCookie("refresh", generateToken(authRequest.getUsername(),refreshExp), refreshExp);
+                Cookie cookie = cookiService.generateCookie("Authorization", generateToken(authRequest.getUsername(),exp), exp);
                 response.addCookie(cookie);
                 response.addCookie(refresh);
                 return ResponseEntity.ok(
@@ -101,5 +93,6 @@ public class UserService {
         }
         return ResponseEntity.ok(new AuthResponse(Code.A2));
     }
+
 
 }
