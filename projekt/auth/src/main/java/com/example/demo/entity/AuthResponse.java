@@ -5,8 +5,8 @@ import lombok.Data;
 
 import java.sql.Timestamp;
 
+//https://stormit.pl/lombok/#lombok-builder
 @Data
-@Builder
 public class AuthResponse {
     private final String timestamp;
     private final String message;
