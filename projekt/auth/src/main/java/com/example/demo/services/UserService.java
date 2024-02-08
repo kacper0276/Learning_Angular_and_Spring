@@ -36,7 +36,7 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.saveAndFlush(user); // Zapisuje i zwraca wynik z bazy danych
     }
-
+//
     private String generateToken(String username,int exp) {
         return jwtService.generateToken(username,exp);
     }
