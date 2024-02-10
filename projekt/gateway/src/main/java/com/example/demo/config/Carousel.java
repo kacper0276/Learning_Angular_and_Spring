@@ -17,7 +17,7 @@ public class Carousel {
         initAuthCarousel();
         events();
     }
-
+//
     public String getUriAuth(){
         StringBuilder stringBuilder = new StringBuilder();
         InstanceInfo instance = instances.get(currentIndex);
