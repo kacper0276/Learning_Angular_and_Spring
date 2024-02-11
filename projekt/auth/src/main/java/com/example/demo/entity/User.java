@@ -46,6 +46,11 @@ public class User implements UserDetails {
         generateUuid();
     }
 
+    public String getUuid(){
+        return this.uuid;
+    }
+
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
