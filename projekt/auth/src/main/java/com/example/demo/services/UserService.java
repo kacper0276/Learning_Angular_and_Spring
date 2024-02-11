@@ -158,4 +158,15 @@ public class UserService {
         throw new UserDontExistException("User dont exist");
     }
 
+    public void restPassword(ChangePasswordData changePasswordData) throws UserDontExistException{
+        User user = userRepository.findUserByUuid(changePasswordData.getUid()).orElse(null);
+        if (user != null){
+            user.setPassword(changePasswordData.getPassword());
+            saveUser(user);
+            return;
+        }
+        throw new UserDontExistException("User dont exist");
+    }
+
+
 }
