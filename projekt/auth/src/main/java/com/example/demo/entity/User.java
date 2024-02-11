@@ -50,6 +50,10 @@ public class User implements UserDetails {
         return this.uuid;
     }
 
+    public void setLock(boolean isLocked) {
+        this.isLocked = isLocked;
+    }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
