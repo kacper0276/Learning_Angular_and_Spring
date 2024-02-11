@@ -91,7 +91,7 @@ public class UserService {
         emailService.sendActivation(user);
     }
     public ResponseEntity<?> login(HttpServletResponse response, User authRequest) {
-        User user = userRepository.findUserByLogin(authRequest.getUsername()).orElse(null);
+        User user = userRepository.findUserByLoginAndLockAndEnabled(authRequest.getUsername()).orElse(null);
         if (user != null) {
             Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
             if (authenticate.isAuthenticated()) {
@@ -157,6 +157,16 @@ public class UserService {
         }
         throw new UserDontExistException("User dont exist");
     }
+
+    public void recoveryPassword(String email) throws UserDontExistException{
+        User user = userRepository.findUserByEmail(email).orElse(null);
+        if (user != null){
+            emailService.sendPasswordRecovery(user, user.getUuid());
+            return;
+        }
+        throw new UserDontExistException("User dont exist");
+    }
+
 
     public void restPassword(ChangePasswordData changePasswordData) throws UserDontExistException{
         User user = userRepository.findUserByUuid(changePasswordData.getUid()).orElse(null);
