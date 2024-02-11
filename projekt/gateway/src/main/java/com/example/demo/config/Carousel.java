@@ -33,7 +33,7 @@ public class Carousel {
         }
         return stringBuilder.toString();
     }
-
+//
     private void events(){
         eurekaClient.registerEventListener(eurekaEvent -> {
             initAuthCarousel();
