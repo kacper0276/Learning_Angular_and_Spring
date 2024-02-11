@@ -109,7 +109,6 @@ public class UserService {
         return ResponseEntity.ok(new AuthResponse(Code.A2));
     }
 
-
     public ResponseEntity<LoginResponse> loggedIn(HttpServletRequest request, HttpServletResponse response){
         try{
             validateToken(request, response);
@@ -118,6 +117,7 @@ public class UserService {
             return ResponseEntity.ok(new LoginResponse(false));
         }
     }
+
     public ResponseEntity<?> loginByToken(HttpServletRequest request, HttpServletResponse response){
         try {
             validateToken(request, response);
@@ -143,5 +143,4 @@ public class UserService {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new AuthResponse(Code.A3));
         }
     }
-
 }
