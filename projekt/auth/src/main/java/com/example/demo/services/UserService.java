@@ -4,6 +4,7 @@ import com.example.demo.entity.*;
 import com.example.demo.exceptions.UserDontExistException;
 import com.example.demo.exceptions.UserExistingWithMail;
 import com.example.demo.exceptions.UserExistingWithName;
+import com.example.demo.repository.ResetOperationsRepository;
 import com.example.demo.repository.UserRepository;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -31,6 +32,10 @@ public class UserService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
     private final CookieService cookiService;
+    private final ResetOperationService resetOperationService;
+    private final ResetOperationsRepository resetOperationsRepository;
+
+
     @Value("${jwt.exp}")
     private int exp;
     @Value("${jwt.refresh.exp}")
@@ -161,7 +166,8 @@ public class UserService {
     public void recoveryPassword(String email) throws UserDontExistException{
         User user = userRepository.findUserByEmail(email).orElse(null);
         if (user != null){
-            emailService.sendPasswordRecovery(user, user.getUuid());
+            ResetOperations resetOperations = resetOperationService.initResetOperation(user);
+            emailService.sendPasswordRecovery(user,resetOperations.getUid());
             return;
         }
         throw new UserDontExistException("User dont exist");
@@ -169,11 +175,16 @@ public class UserService {
 
 
     public void restPassword(ChangePasswordData changePasswordData) throws UserDontExistException{
-        User user = userRepository.findUserByUuid(changePasswordData.getUid()).orElse(null);
-        if (user != null){
-            user.setPassword(changePasswordData.getPassword());
-            saveUser(user);
-            return;
+        ResetOperations resetOperations = resetOperationsRepository.findByUid(changePasswordData.getUid()).orElse(null);
+        if (resetOperations != null){
+            User user = userRepository.findUserByUuid(resetOperations.getUser().getUuid()).orElse(null);
+
+            if (user != null){
+                user.setPassword(changePasswordData.getPassword());
+                saveUser(user);
+                resetOperationService.endOperation(resetOperations.getUid());
+                return;
+            }
         }
         throw new UserDontExistException("User dont exist");
     }
