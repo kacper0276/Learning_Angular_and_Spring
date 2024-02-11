@@ -46,7 +46,7 @@ public class JwtService {
                 .signWith(getSignKey(), SignatureAlgorithm.HS256).compact();
     }
 
-    private String getSubject(final String token) {
+    public String getSubject(final String token) {
         return Jwts
                 .parserBuilder()
                 .setSigningKey(SECRET)
