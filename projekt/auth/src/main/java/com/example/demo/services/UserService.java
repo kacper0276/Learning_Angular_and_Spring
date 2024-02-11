@@ -1,6 +1,7 @@
 package com.example.demo.services;
 
 import com.example.demo.entity.*;
+import com.example.demo.exceptions.UserDontExistException;
 import com.example.demo.exceptions.UserExistingWithMail;
 import com.example.demo.exceptions.UserExistingWithName;
 import com.example.demo.repository.UserRepository;
@@ -146,4 +147,15 @@ public class UserService {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new AuthResponse(Code.A3));
         }
     }
+
+    public void activateUser(String uid) throws UserDontExistException {
+        User user = userRepository.findUserByUuid(uid).orElse(null);
+        if (user != null){
+            user.setLock(false);
+            userRepository.save(user);
+            return;
+        }
+        throw new UserDontExistException("User dont exist");
+    }
+
 }

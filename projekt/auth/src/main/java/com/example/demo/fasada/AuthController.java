@@ -1,6 +1,7 @@
 package com.example.demo.fasada;
 
 import com.example.demo.entity.*;
+import com.example.demo.exceptions.UserDontExistException;
 import com.example.demo.exceptions.UserExistingWithMail;
 import com.example.demo.exceptions.UserExistingWithName;
 import com.example.demo.services.UserService;
@@ -58,6 +59,17 @@ public class AuthController {
             return ResponseEntity.status(401).body(new AuthResponse(Code.A3));
         }
     }
+
+    @RequestMapping(path = "/activate",method = RequestMethod.GET)
+    public ResponseEntity<AuthResponse> activateUser(@RequestParam String uid){
+        try{
+            userService.activateUser(uid);
+            return ResponseEntity.ok(new AuthResponse(Code.SUCCESS));
+        }catch (UserDontExistException e){
+            return ResponseEntity.status(400).body(new AuthResponse(Code.A6));
+        }
+    }
+
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)

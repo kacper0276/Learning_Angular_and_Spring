@@ -7,7 +7,9 @@ public enum Code {
     A2("Użytkownik o wskazanej nazwie nie istnieje"),
     A3("Wskazany token jest pusty lub nie ważny"),
     A4("Użytkownik o podanej nazwie już istnieje"),
-    A5("Użytkownik o podanym mailu już istnieje");
+    A5("Użytkownik o podanmym mailu juz istnieje"),
+    A6("Użytkownik nie istnieje");
+
 
 
 
