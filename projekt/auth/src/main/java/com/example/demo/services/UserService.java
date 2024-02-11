@@ -9,6 +9,7 @@ import com.example.demo.repository.UserRepository;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -173,7 +174,7 @@ public class UserService {
         throw new UserDontExistException("User dont exist");
     }
 
-
+    @Transactional
     public void restPassword(ChangePasswordData changePasswordData) throws UserDontExistException{
         ResetOperations resetOperations = resetOperationsRepository.findByUid(changePasswordData.getUid()).orElse(null);
         if (resetOperations != null){
