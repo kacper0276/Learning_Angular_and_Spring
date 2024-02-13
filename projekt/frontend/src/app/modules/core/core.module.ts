@@ -1,10 +1,11 @@
-import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { HeaderComponent } from './components/header/header.component';
+import { RouterLink, RouterLinkActive } from '@angular/router';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [HeaderComponent],
-  imports: [CommonModule],
+  imports: [RouterLink, RouterLinkActive, SharedModule],
   exports: [HeaderComponent],
 })
 export class CoreModule {}

@@ -2,5 +2,5 @@
 package-lock.json
 dist
 e2e/**
-karma.conf.json
-node_modules
+karma.conf.js
+commitlint.config.js

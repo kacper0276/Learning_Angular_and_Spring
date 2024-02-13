@@ -7,6 +7,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { StoreModule } from '@ngrx/store';
 import { CoreModule } from './modules/core/core.module';
 import { EffectsModule } from '@ngrx/effects';
+import { AuthModule } from './modules/auth/auth.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -14,6 +15,7 @@ import { EffectsModule } from '@ngrx/effects';
     BrowserModule,
     AppRoutingModule,
     CoreModule,
+    AuthModule,
     StoreModule.forRoot({}, {}),
     EffectsModule.forRoot([]),
   ],
