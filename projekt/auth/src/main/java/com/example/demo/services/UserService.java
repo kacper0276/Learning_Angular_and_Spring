@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +27,7 @@ import java.util.Arrays;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
@@ -52,6 +54,18 @@ public class UserService {
         return jwtService.generateToken(username,exp);
     }
 
+    public ResponseEntity<?> logout(HttpServletRequest request, HttpServletResponse response){
+        log.info("Delete all cookies");
+        Cookie cookie = cookiService.removeCookie(request.getCookies(),"Authorization");
+        if (cookie != null){
+            response.addCookie(cookie);
+        }
+        cookie = cookiService.removeCookie(request.getCookies(),"refresh");
+        if (cookie != null){
+            response.addCookie(cookie);
+        }
+        return  ResponseEntity.ok(new AuthResponse(Code.SUCCESS));
+    }
 
     public void validateToken(HttpServletRequest request,HttpServletResponse response) throws ExpiredJwtException, IllegalArgumentException{
         String token = null;
@@ -65,6 +79,7 @@ public class UserService {
                 }
             }
         } else {
+            log.info("Can't login beacose in token is empty");
             throw new IllegalArgumentException("Token can't be null");
         }
         try {
@@ -76,10 +91,12 @@ public class UserService {
     }
     public void register(UserRegisterDTO userRegisterDTO) throws UserExistingWithName, UserExistingWithMail {
         userRepository.findUserByLogin(userRegisterDTO.getLogin()).ifPresent((value) -> {
+            log.info("Users alredy exist with this name");
             throw new UserExistingWithName("Użytkownik o nazwie już istnieje");
         });
 
         userRepository.findUserByEmail(userRegisterDTO.getEmail()).ifPresent((value) -> {
+            log.info("Users alredy exist with this mail");
             throw new UserExistingWithMail("Użytkownik o mailu już istnieje");
         });
 
@@ -97,6 +114,7 @@ public class UserService {
         emailService.sendActivation(user);
     }
     public ResponseEntity<?> login(HttpServletResponse response, User authRequest) {
+        log.info("--START LoginService");
         User user = userRepository.findUserByLoginAndLockAndEnabled(authRequest.getUsername()).orElse(null);
         if (user != null) {
             Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
@@ -113,9 +131,12 @@ public class UserService {
                                 .role(user.getRole())
                                 .build());
             } else {
+                log.info("--STOP LoginService");
                 return ResponseEntity.ok(new AuthResponse(Code.A1));
             }
         }
+        log.info("User dont exist");
+        log.info("--STOP LoginService");
         return ResponseEntity.ok(new AuthResponse(Code.A2));
     }
 
@@ -148,8 +169,10 @@ public class UserService {
                                 .role(user.getRole())
                                 .build());
             }
+            log.info("Can't login user don't exist");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new AuthResponse(Code.A1));
         }catch (ExpiredJwtException|IllegalArgumentException e){
+            log.info("Can't login token is expired or null");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new AuthResponse(Code.A3));
         }
     }

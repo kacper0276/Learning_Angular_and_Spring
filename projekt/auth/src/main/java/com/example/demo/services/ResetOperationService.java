@@ -5,6 +5,7 @@ import com.example.demo.entity.User;
 import com.example.demo.repository.ResetOperationsRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 @EnableScheduling
+@Slf4j
 public class ResetOperationService {
 
     private final ResetOperationsRepository resetOperationsRepository;
@@ -23,6 +25,7 @@ public class ResetOperationService {
 
     @Transactional
     public ResetOperations initResetOperation(User user){
+        log.info("--START initResetOperation");
         ResetOperations resetOperations = new ResetOperations();
 
         resetOperations.setUid(UUID.randomUUID().toString());
@@ -31,6 +34,7 @@ public class ResetOperationService {
 
         resetOperationsRepository.deleteAllByUser(user);
 
+        log.info("--STOP initResetOperation");
         return resetOperationsRepository.saveAndFlush(resetOperations);
     }
 
@@ -41,6 +45,7 @@ public class ResetOperationService {
     @Scheduled(cron = "0 0/1 * * * *")
     protected void deleteExpireOperation(){
         List<ResetOperations> resetOperations = resetOperationsRepository.findExpiredOperations();
+        log.info("Find {} expired operations to delete",resetOperations.size());
         if (resetOperations != null && !resetOperations.isEmpty()){
             resetOperationsRepository.deleteAll(resetOperations);
         }
