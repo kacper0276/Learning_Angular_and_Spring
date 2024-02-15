@@ -11,6 +11,7 @@ public class ProductMediator {
     private final ProductService productService;
 
     public ResponseEntity<?> getProduct(int age, int limit) {
-        return null;
+        long totalCount = productService.countActiveProducts();
+        return ResponseEntity.ok().header("X-Total-Count", String.valueOf(totalCount)).body("");
     }
 }

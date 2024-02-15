@@ -10,6 +10,10 @@ import org.springframework.stereotype.Service;
 public class ProductService {
     private final ProductRepository productRepository;
 
+    public long countActiveProducts() {
+        return productRepository.countActiveProducts();
+    }
+
     public ProductDTO getProductDto() {
         return null;
     }
