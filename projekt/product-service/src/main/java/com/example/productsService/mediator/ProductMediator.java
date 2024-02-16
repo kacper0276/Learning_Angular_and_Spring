@@ -1,8 +1,10 @@
 package com.example.productsService.mediator;
 
+import com.example.productsService.entity.ProductDTO;
 import com.example.productsService.entity.ProductEntity;
 import com.example.productsService.entity.SimpleProductDTO;
 import com.example.productsService.service.ProductService;
+import com.example.productsService.translator.ProductEntityToProductDTO;
 import com.example.productsService.translator.ProductEntityToSimpleProduct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,7 @@ import java.net.URLDecoder;
 public class ProductMediator {
     private final ProductService productService;
     private final ProductEntityToSimpleProduct productEntityToSimpleProduct;
+    private final ProductEntityToProductDTO productEntityToProductDTO;
 
     public ResponseEntity<?> getProduct(int page, int limit, String name, String category, Float price_min, Float price_max, String data, String sort, String order) {
         List<ProductEntity> product = productService.getProduct(name,category,price_min,price_max,data, page, limit, sort, order);
@@ -37,8 +40,7 @@ public class ProductMediator {
             });
             return ResponseEntity.ok().header("X-Total-Count", String.valueOf(totalCount)).body(simpleProductDTOS);
         }
-        return ResponseEntity.ok().body(product);
-
-
+        ProductDTO productDTO = productEntityToProductDTO.toProductDTO(product.get(0));
+        return ResponseEntity.ok().body(productDTO);
     }
 }
