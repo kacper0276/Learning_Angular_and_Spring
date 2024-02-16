@@ -24,4 +24,8 @@ public class CategoryMediator {
         });
         return ResponseEntity.ok(categoryDTOS);
     }
+
+    public void createCategory(CategoryDTO categoryDTO) throws Exception {
+        categoryService.create(categoryDTO);
+    }
 }

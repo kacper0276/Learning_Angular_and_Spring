@@ -4,6 +4,7 @@ import com.example.productsService.entity.CategoryDTO;
 import com.example.productsService.mediator.CategoryMediator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,5 +21,15 @@ public class CategoryController {
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<CategoryDTO>> getCategory() {
         return categoryMediator.getCategory();
+    }
+
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity<?> createCategory(@RequestBody CategoryDTO categoryDTO) {
+        try {
+            categoryMediator.createCategory(categoryDTO);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return ResponseEntity.ok("");
     }
 }
