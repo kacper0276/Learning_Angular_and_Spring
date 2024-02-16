@@ -1,6 +1,7 @@
 package com.example.productsService.fasada;
 
 import com.example.productsService.entity.CategoryDTO;
+import com.example.productsService.exceptions.ObjectExistInDBException;
 import com.example.productsService.mediator.CategoryMediator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -27,8 +28,8 @@ public class CategoryController {
     public ResponseEntity<?> createCategory(@RequestBody CategoryDTO categoryDTO) {
         try {
             categoryMediator.createCategory(categoryDTO);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        } catch (ObjectExistInDBException e) {
+            return ResponseEntity.status(404).body("");
         }
         return ResponseEntity.ok("");
     }
