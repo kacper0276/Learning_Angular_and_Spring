@@ -9,6 +9,7 @@
         <module name="demo (2)" />
         <module name="demo" />
         <module name="demo (1)" />
+        <module name="fileservice" />
       </profile>
       <profile name="Annotation profile for productsService" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
@@ -29,6 +30,7 @@
       <module name="demo (1)" options="-parameters" />
       <module name="demo (2)" options="-parameters" />
       <module name="demo (3)" options="-parameters -Amapstruct.defaultComponentModel=spring" />
+      <module name="fileservice" options="-parameters" />
     </option>
   </component>
 </project>
