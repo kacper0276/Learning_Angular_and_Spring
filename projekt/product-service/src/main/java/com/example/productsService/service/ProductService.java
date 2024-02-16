@@ -34,7 +34,7 @@ public class ProductService {
         return entityManager.createQuery(query).getSingleResult();
     }
 
-    public List<ProductEntity> getProduct(String name, String category, Float price_min, Float price_max, String data){
+    public List<ProductEntity> getProduct(String name, String category, Float price_min, Float price_max, String data, int page, int limit){
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<ProductEntity> query = criteriaBuilder.createQuery(ProductEntity.class);
         Root<ProductEntity> root = query.from(ProductEntity.class);
@@ -44,10 +44,13 @@ public class ProductService {
             LocalDate date = LocalDate.parse(data, inputFormatter);
             return productRepository.findByNameAndCreateAt(name,date);
         }
+
+        if(page <= 0) page = 1;
+
         List<Predicate> predicates = prepareQuery(name, category, price_min, price_max, criteriaBuilder, root);
         query.where(predicates.toArray(new Predicate[0]));
 
-        return entityManager.createQuery(query).getResultList();
+        return entityManager.createQuery(query).setFirstResult((page - 1) * limit).setMaxResults(limit).getResultList();
     }
 
     private List<Predicate> prepareQuery(String name, String category, Float price_min, Float price_max, CriteriaBuilder criteriaBuilder, Root<ProductEntity> root ) {

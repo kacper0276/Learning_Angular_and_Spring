@@ -23,7 +23,7 @@ public class ProductController {
                                  @RequestParam(required = false) String _category,
                                  @RequestParam(required = false) Float price_min,
                                  @RequestParam(required = false) Float price_max,
-                                 @RequestParam(required = false,defaultValue = "0") int _page,
+                                 @RequestParam(required = false,defaultValue = "1") int _page,
                                  @RequestParam(required = false,defaultValue = "10") int _limit
                                  ) {
         return productMediator.getProduct(_page,_limit,name_like,_category,price_min,price_max,data);
