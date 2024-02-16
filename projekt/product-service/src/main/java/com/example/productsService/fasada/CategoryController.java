@@ -1,6 +1,7 @@
 package com.example.productsService.fasada;
 
 import com.example.productsService.entity.CategoryDTO;
+import com.example.productsService.entity.Response;
 import com.example.productsService.exceptions.ObjectExistInDBException;
 import com.example.productsService.mediator.CategoryMediator;
 import lombok.RequiredArgsConstructor;
@@ -29,8 +30,8 @@ public class CategoryController {
         try {
             categoryMediator.createCategory(categoryDTO);
         } catch (ObjectExistInDBException e) {
-            return ResponseEntity.status(404).body("");
+            return ResponseEntity.status(400).body(new Response("Object exist in DB"));
         }
-        return ResponseEntity.ok("");
+        return ResponseEntity.ok(new Response("Operation end Success"));
     }
 }
