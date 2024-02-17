@@ -1,6 +1,8 @@
 package com.example.fileservice.mediator;
 
+import com.example.fileservice.entity.ImageDTO;
 import com.example.fileservice.entity.ImageEntity;
+import com.example.fileservice.entity.ImageResponse;
 import com.example.fileservice.service.FtpService;
 import com.example.fileservice.service.ImageService;
 import lombok.AllArgsConstructor;
@@ -17,10 +19,13 @@ public class MediatorImage {
     public ResponseEntity<?> saveImage(MultipartFile file) {
         try {
             ImageEntity imageEntity = ftpService.uploadFileToFtp(file);
-            imageService.save(imageEntity);
-            return ResponseEntity.ok("");
+            imageEntity = imageService.save(imageEntity);
+            return ResponseEntity.ok(
+                    ImageDTO.builder()
+                            .uuid(imageEntity.getUuid())
+                            .createAt(imageEntity.getCreateAt()));
         } catch (RuntimeException e) {
-            return ResponseEntity.status(400).body("Nie udało sie");
+            return ResponseEntity.status(400).body(new ImageResponse("Can't save file"));
         }
     }
 }
