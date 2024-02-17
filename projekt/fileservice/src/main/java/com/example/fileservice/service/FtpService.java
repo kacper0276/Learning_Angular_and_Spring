@@ -76,4 +76,12 @@ public class FtpService {
         inputStream.close();
         return uploaded;
     }
+
+    public boolean deleteFile(String path) throws IOException {
+        FTPClient ftpClient = getFtpConnection();
+        boolean deleted = ftpClient.deleteFile(path);
+        ftpClient.logout();
+        ftpClient.disconnect();
+        return deleted;
+    }
 }

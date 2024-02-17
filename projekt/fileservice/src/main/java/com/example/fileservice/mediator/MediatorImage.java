@@ -27,11 +27,24 @@ public class MediatorImage {
                     ImageDTO.builder()
                             .uuid(imageEntity.getUuid())
                             .createAt(imageEntity.getCreateAt()));
-        } catch (FtpConnectionException e1){
+        } catch (FtpConnectionException e1) {
             return ResponseEntity.status(400).body(new ImageResponse("Cannot save file"));
         } catch (IOException e) {
             return ResponseEntity.status(400).body(new ImageResponse("File dont exist"));
         }
 
+    }
+
+    public ResponseEntity<ImageResponse> delete(String uuid) {
+        try {
+            ImageEntity imageEntity = imageService.findByUuid(uuid);
+            if (imageEntity != null) {
+                ftpService.deleteFile(imageEntity.getPath());
+                return ResponseEntity.ok(new ImageResponse("File deleted"));
+            }
+            return ResponseEntity.ok(new ImageResponse("File don't exist"));
+        } catch (IOException e) {
+            return ResponseEntity.status(400).body(new ImageResponse("File dont exist"));
+        }
     }
 }
