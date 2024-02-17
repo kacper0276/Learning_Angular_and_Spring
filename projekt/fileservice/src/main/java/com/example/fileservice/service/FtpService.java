@@ -16,11 +16,17 @@ import java.util.UUID;
 @Service
 public class FtpService {
 
+    @Value("${ftp.server}")
     private String FTP_SERVER;
+    @Value("${ftp.username}")
     private String FTP_USERNAME;
+    @Value("${ftp.password}")
     private String FTP_PASSWORD;
+    @Value("${ftp.origin}")
     private String FTP_ORIGIN_DIRECTORY;
+    @Value("${ftp.port}")
     private int FTP_PORT;
+
 
     public ImageEntity uploadFileToFtp(MultipartFile file) {
         try {
