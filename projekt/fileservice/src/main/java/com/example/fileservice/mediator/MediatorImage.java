@@ -7,6 +7,9 @@ import com.example.fileservice.exceptions.FtpConnectionException;
 import com.example.fileservice.service.FtpService;
 import com.example.fileservice.service.ImageService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -46,5 +49,16 @@ public class MediatorImage {
         } catch (IOException e) {
             return ResponseEntity.status(400).body(new ImageResponse("File dont exist"));
         }
+    }
+
+    public ResponseEntity<?> getImage(String uuid) throws IOException{
+        ImageEntity imageEntity = imageService.findByUuid(uuid);
+        if(imageEntity != null) {
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.IMAGE_PNG);
+            return new ResponseEntity<>(ftpService.getFile(imageEntity).toByteArray(), headers, HttpStatus.OK);
+        }
+
+        return null;
     }
 }
