@@ -7,19 +7,29 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.criteria.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import jakarta.transaction.Transactional;
+import org.springframework.web.client.RestTemplate;
 
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
+
 
 @Service
 @RequiredArgsConstructor
 public class ProductService {
     @PersistenceContext
     EntityManager entityManager;
+
+    @Value("${file-service.url}")
+    private String FILE_SERVICE;
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
 
@@ -101,11 +111,26 @@ public class ProductService {
             product.setUid(UUID.randomUUID().toString());
             product.setActivate(true);
             productRepository.save(product);
-            //TODO AKTYWACJA GRAFIK
+            for (String uuid: product.getImageUrls()) {
+                activateImage(uuid);
+            }
             return;
         }
         throw new RuntimeException();
     }
+
+    private void activateImage(String uuid){
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(FILE_SERVICE+"?uuid="+uuid))
+                .method("PATCH",HttpRequest.BodyPublishers.noBody())
+                .build();
+        try {
+            HttpClient.newHttpClient().send(request,HttpResponse.BodyHandlers.ofString());
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
 
 }
