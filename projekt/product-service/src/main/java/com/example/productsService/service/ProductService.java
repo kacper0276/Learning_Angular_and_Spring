@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -93,5 +94,18 @@ public class ProductService {
 
         return predicates;
     }
+
+    public void createProduct(ProductEntity product) {
+        if (product != null){
+            product.setCreateAt(LocalDate.now());
+            product.setUid(UUID.randomUUID().toString());
+            product.setActivate(true);
+            productRepository.save(product);
+            //TODO AKTYWACJA GRAFIK
+            return;
+        }
+        throw new RuntimeException();
+    }
+
 
 }
