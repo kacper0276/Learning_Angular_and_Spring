@@ -12,6 +12,6 @@ import java.util.Optional;
 public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
     @Query(nativeQuery = true, value = "SELECT count(*) from products where activate is true")
     long countActiveProducts();
-
     List<ProductEntity> findByNameAndCreateAt(String name, LocalDate createAt);
+    Optional<ProductEntity> findByUid(String uuid);
 }

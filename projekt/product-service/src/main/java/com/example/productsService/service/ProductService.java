@@ -131,6 +131,22 @@ public class ProductService {
         }
     }
 
+    @Transactional
+    public void delete(String uuid) {
+        productRepository.findByUid(uuid).ifPresentOrElse(value->{
+            value.setActivate(false);
+            productRepository.save(value);
+            for (String image:value.getImageUrls()) {
+                deleteImages(image);
+            }
 
+        },()->{
+            throw new RuntimeException();
+        });
+    }
 
+    private void deleteImages(String uuid){
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.delete(FILE_SERVICE+"?uuid="+uuid);
+    }
 }
