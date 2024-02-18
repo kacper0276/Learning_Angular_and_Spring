@@ -24,12 +24,15 @@ public class MediatorImage {
 
     public ResponseEntity<?> saveImage(MultipartFile file) {
         try {
-            ImageEntity imageEntity = ftpService.uploadFileToFtp(file);
-            imageEntity = imageService.save(imageEntity);
-            return ResponseEntity.ok(
-                    ImageDTO.builder()
-                            .uuid(imageEntity.getUuid())
-                            .createAt(imageEntity.getCreateAt()));
+            if(file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1).equals("png")) {
+                ImageEntity imageEntity = ftpService.uploadFileToFtp(file);
+                imageEntity = imageService.save(imageEntity);
+                return ResponseEntity.ok(
+                        ImageDTO.builder()
+                                .uuid(imageEntity.getUuid())
+                                .createAt(imageEntity.getCreateAt()));
+            }
+            return ResponseEntity.status(400).body(new ImageResponse("MediaType not supported"));
         } catch (FtpConnectionException e1) {
             return ResponseEntity.status(400).body(new ImageResponse("Cannot save file"));
         } catch (IOException e) {
@@ -59,6 +62,6 @@ public class MediatorImage {
             return new ResponseEntity<>(ftpService.getFile(imageEntity).toByteArray(), headers, HttpStatus.OK);
         }
 
-        return null;
+        return ResponseEntity.status(400).body(new ImageResponse("File don't exist"));
     }
 }
