@@ -131,7 +131,7 @@ public class ProductService {
         }
     }
 
-    @Transactional
+    @Transactional // Jeśli się nie uda to wycofuje wszystkie zmiany
     public void delete(String uuid) {
         productRepository.findByUid(uuid).ifPresentOrElse(value->{
             value.setActivate(false);
