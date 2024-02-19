@@ -57,58 +57,74 @@ public class AuthController {
         return userService.loggedIn(request, response);
     }
 
-    @RequestMapping(path = "/logout",method = RequestMethod.GET)
-    public ResponseEntity<?> logout( HttpServletResponse response,HttpServletRequest request){
+    @RequestMapping(path = "/logout", method = RequestMethod.GET)
+    public ResponseEntity<?> logout(HttpServletResponse response, HttpServletRequest request) {
         log.info("--TRY LOGOUT USER");
         return userService.logout(request, response);
     }
 
 
-    @RequestMapping(path = "/validate",method = RequestMethod.GET)
+    @RequestMapping(path = "/validate", method = RequestMethod.GET)
     public ResponseEntity<AuthResponse> validateToken(HttpServletRequest request, HttpServletResponse response) {
-        try{
-            userService.validateToken(request,response);
+        try {
+            userService.validateToken(request, response);
             return ResponseEntity.ok(new AuthResponse(Code.PERMIT));
-        }catch (IllegalArgumentException | ExpiredJwtException e){
+        } catch (IllegalArgumentException | ExpiredJwtException e) {
             return ResponseEntity.status(401).body(new AuthResponse(Code.A3));
         }
     }
 
-    @RequestMapping(path = "/activate",method = RequestMethod.GET)
-    public ResponseEntity<AuthResponse> activateUser(@RequestParam String uid){
-        try{
+    @RequestMapping(path = "/activate", method = RequestMethod.GET)
+    public ResponseEntity<AuthResponse> activateUser(@RequestParam String uid) {
+        try {
             userService.activateUser(uid);
             return ResponseEntity.ok(new AuthResponse(Code.SUCCESS));
-        }catch (UserDontExistException e){
+        } catch (UserDontExistException e) {
             return ResponseEntity.status(400).body(new AuthResponse(Code.A6));
         }
     }
 
-    @RequestMapping(path = "/reset-password",method = RequestMethod.POST)
-    public ResponseEntity<AuthResponse> sendMailRecovery(@RequestBody ResetPasswordData resetPasswordData){
-        try{
+    @RequestMapping(path = "/reset-password", method = RequestMethod.POST)
+    public ResponseEntity<AuthResponse> sendMailRecovery(@RequestBody ResetPasswordData resetPasswordData) {
+        try {
             userService.recoveryPassword(resetPasswordData.getEmail());
             return ResponseEntity.ok(new AuthResponse(Code.SUCCESS));
-        }catch (UserDontExistException e){
+        } catch (UserDontExistException e) {
             return ResponseEntity.status(400).body(new AuthResponse(Code.A6));
         }
     }
 
-    @RequestMapping(path = "/reset-password",method = RequestMethod.PATCH)
-    public ResponseEntity<AuthResponse> recoveryMail(@RequestBody ChangePasswordData changePasswordData){
-        try{
+    @RequestMapping(path = "/reset-password", method = RequestMethod.PATCH)
+    public ResponseEntity<AuthResponse> recoveryMail(@RequestBody ChangePasswordData changePasswordData) {
+        try {
             userService.restPassword(changePasswordData);
             return ResponseEntity.ok(new AuthResponse(Code.SUCCESS));
-        }catch (UserDontExistException e){
+        } catch (UserDontExistException e) {
             return ResponseEntity.status(400).body(new AuthResponse(Code.A6));
         }
     }
-
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ValidationMessage handleValidationExceptions(MethodArgumentNotValidException ex) {
         return new ValidationMessage(ex.getBindingResult().getAllErrors().get(0).getDefaultMessage());
+    }
+
+    @RequestMapping(path = "/authorize",method = RequestMethod.GET)
+    public ResponseEntity<AuthResponse> authorize(HttpServletRequest request,HttpServletResponse response) {
+        try{
+            log.info("--START authorize");
+            userService.validateToken(request,response);
+            userService.authorize(request);
+            log.info("--STOP authorize");
+            return ResponseEntity.ok(new AuthResponse(Code.PERMIT));
+        }catch (IllegalArgumentException | ExpiredJwtException e){
+            log.info("Token is not correct");
+            return ResponseEntity.status(401).body(new AuthResponse(Code.A3));
+        }catch (UserDontExistException e1){
+            log.info("User dont exist");
+            return ResponseEntity.status(401).body(new AuthResponse(Code.A1));
+        }
     }
 
 }
