@@ -35,4 +35,8 @@ public class ImageService {
             }
         });
     }
+
+    public void delete(ImageEntity imageEntity) {
+        imageRepository.delete(imageEntity);
+    }
 }
