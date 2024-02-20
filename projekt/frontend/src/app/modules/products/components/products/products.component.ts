@@ -1,12 +1,102 @@
 import { Component } from '@angular/core';
+import { Product } from '../../../core/models/product.model';
 
 @Component({
   selector: 'app-products',
-  standalone: true,
-  imports: [],
   templateUrl: './products.component.html',
-  styleUrl: './products.component.scss'
+  styleUrl: './products.component.scss',
 })
 export class ProductsComponent {
-
+  products: Product[] = [
+    {
+      uid: '1234',
+      name: 'Produkt1',
+      price: 200,
+      imageUrl: 'https://i.imgur.com/kHeKKij.jpg',
+      active: true,
+      category: 'Kategoria1',
+      shortId: 12345,
+    },
+    {
+      uid: '1234',
+      name: 'Produkt1',
+      price: 200,
+      imageUrl: 'https://i.imgur.com/kHeKKij.jpg',
+      active: true,
+      category: 'Kategoria1',
+      shortId: 12345,
+    },
+    {
+      uid: '1234',
+      name: 'Produkt1',
+      price: 200,
+      imageUrl: 'https://i.imgur.com/kHeKKij.jpg',
+      active: true,
+      category: 'Kategoria1',
+      shortId: 12345,
+    },
+    {
+      uid: '1234',
+      name: 'Produkt1',
+      price: 200,
+      imageUrl: 'https://i.imgur.com/kHeKKij.jpg',
+      active: true,
+      category: 'Kategoria1',
+      shortId: 12345,
+    },
+    {
+      uid: '1234',
+      name: 'Produkt1',
+      price: 200,
+      imageUrl: 'https://i.imgur.com/kHeKKij.jpg',
+      active: true,
+      category: 'Kategoria1',
+      shortId: 12345,
+    },
+    {
+      uid: '1234',
+      name: 'Produkt1',
+      price: 200,
+      imageUrl: 'https://i.imgur.com/kHeKKij.jpg',
+      active: true,
+      category: 'Kategoria1',
+      shortId: 12345,
+    },
+    {
+      uid: '1234',
+      name: 'Produkt1',
+      price: 200,
+      imageUrl: 'https://i.imgur.com/kHeKKij.jpg',
+      active: true,
+      category: 'Kategoria1',
+      shortId: 12345,
+    },
+    {
+      uid: '1234',
+      name: 'Produkt1',
+      price: 200,
+      imageUrl: 'https://i.imgur.com/kHeKKij.jpg',
+      active: true,
+      category: 'Kategoria1',
+      shortId: 12345,
+    },
+    {
+      uid: '1234',
+      name: 'Produkt1',
+      price: 200,
+      imageUrl: 'https://i.imgur.com/kHeKKij.jpg',
+      active: true,
+      category: 'Kategoria1',
+      shortId: 12345,
+    },
+    {
+      uid: '1234',
+      name: 'Produkt1',
+      price: 200,
+      imageUrl: 'https://i.imgur.com/kHeKKij.jpg',
+      active: true,
+      category: 'Kategoria1',
+      shortId: 12345,
+    },
+  ];
 }
