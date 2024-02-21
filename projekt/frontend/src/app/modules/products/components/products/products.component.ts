@@ -31,6 +31,8 @@ export class ProductsComponent implements OnInit, AfterViewInit, OnDestroy {
   sub = new Subscription();
 
   searchControl = new FormControl<string>('');
+  sortControl = new FormControl<string>('');
+  orderControl = new FormControl<string>('');
   filteredOptions!: Observable<PrimitiveProduct[]>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -74,10 +76,18 @@ export class ProductsComponent implements OnInit, AfterViewInit, OnDestroy {
             ? queryMap.get('nazwa')
             : null;
 
+          const sortElement = queryMap.get('sortuj_po')
+            ? queryMap.get('sortuj_po')
+            : null;
+
+          const order = queryMap.get('sortuj') ? queryMap.get('sortuj') : null;
+
           return this.productsService.getProducts(
             pageIndex,
             itemsPerPage,
             productName,
+            sortElement,
+            order,
           );
         }),
         map(({ products, totalCount }) => {
@@ -94,17 +104,7 @@ export class ProductsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.sub.add(
       this.paginator.page.subscribe({
         next: () => {
-          const pageIndex = this.paginator.pageIndex + 1;
-          const itemsPerPage = this.paginator.pageSize;
-
-          this.router.navigate([], {
-            relativeTo: this.route,
-            queryParams: {
-              strona: pageIndex,
-              limit: itemsPerPage,
-              nazwa: encodeURIComponent(this.searchControl.value as string),
-            },
-          });
+          this.navigateToSearchedParams();
         },
       }),
     );
@@ -117,13 +117,32 @@ export class ProductsComponent implements OnInit, AfterViewInit, OnDestroy {
   searchProducts() {
     this.paginator.pageIndex = 0;
     this.paginator.pageSize = 5;
+    this.navigateToSearchedParams();
+  }
+
+  navigateToSearchedParams() {
+    const queryParams: { [key: string]: string | number } = {
+      strona: this.paginator.pageIndex + 1,
+      limit: this.paginator.pageSize,
+    };
+
+    if (this.searchControl.value) {
+      queryParams['nazwa'] = encodeURIComponent(
+        this.searchControl.value as string,
+      );
+    }
+
+    if (this.sortControl.value) {
+      queryParams['sortuj_po'] = this.sortControl.value;
+    }
+
+    if (this.orderControl.value) {
+      queryParams['sortuj'] = this.orderControl.value;
+    }
+
     this.router.navigate([], {
       relativeTo: this.route,
-      queryParams: {
-        strona: this.paginator.pageIndex + 1,
-        limit: this.paginator.pageSize,
-        nazwa: encodeURIComponent(this.searchControl.value as string),
-      },
+      queryParams,
     });
   }
 }
