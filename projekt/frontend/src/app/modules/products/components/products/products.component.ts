@@ -1,20 +1,37 @@
-import { AfterViewInit, Component, OnDestroy, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { ProductsService } from '../../../core/services/products.service';
 import { PrimitiveProduct } from '../../../core/models/product.model';
 import { MatPaginator } from '@angular/material/paginator';
-import { Subscription, map, startWith, switchMap } from 'rxjs';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  map,
+  Observable,
+  Subscription,
+  switchMap,
+} from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss',
 })
-export class ProductsComponent implements AfterViewInit, OnDestroy {
+export class ProductsComponent implements OnInit, AfterViewInit, OnDestroy {
   products: PrimitiveProduct[] = [];
   totalCount = 0;
   errorMessage: string | null = null;
   sub = new Subscription();
+
+  searchControl = new FormControl<string>('');
+  filteredOptions!: Observable<PrimitiveProduct[]>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -23,6 +40,17 @@ export class ProductsComponent implements AfterViewInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
   ) {}
+
+  ngOnInit(): void {
+    this.filteredOptions = this.searchControl.valueChanges.pipe(
+      debounceTime(500),
+      distinctUntilChanged(), // Jeśli wartośc się nie zmieniła to nie ma ponownego zapytania
+      switchMap((value) => this.productsService.getProducts(1, 10, value)),
+      map(({ products }) => {
+        return [...products];
+      }),
+    );
+  }
 
   ngAfterViewInit(): void {
     // this.productsService.getProducts().subscribe({
@@ -41,7 +69,16 @@ export class ProductsComponent implements AfterViewInit, OnDestroy {
           const itemsPerPage = queryMap.get('limit')
             ? Number(queryMap.get('limit'))
             : this.paginator.pageSize;
-          return this.productsService.getProducts(pageIndex, itemsPerPage);
+
+          const productName = queryMap.get('nazwa')
+            ? queryMap.get('nazwa')
+            : null;
+
+          return this.productsService.getProducts(
+            pageIndex,
+            itemsPerPage,
+            productName,
+          );
         }),
         map(({ products, totalCount }) => {
           this.totalCount = totalCount;
@@ -65,6 +102,7 @@ export class ProductsComponent implements AfterViewInit, OnDestroy {
             queryParams: {
               strona: pageIndex,
               limit: itemsPerPage,
+              nazwa: encodeURIComponent(this.searchControl.value as string),
             },
           });
         },
@@ -74,5 +112,18 @@ export class ProductsComponent implements AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.sub.unsubscribe();
+  }
+
+  searchProducts() {
+    this.paginator.pageIndex = 0;
+    this.paginator.pageSize = 5;
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: {
+        strona: this.paginator.pageIndex + 1,
+        limit: this.paginator.pageSize,
+        nazwa: encodeURIComponent(this.searchControl.value as string),
+      },
+    });
   }
 }
