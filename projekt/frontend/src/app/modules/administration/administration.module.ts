@@ -8,6 +8,7 @@ import { AddProductFormComponent } from './components/administrator/manage-produ
 import { DeleteProductFormComponent } from './components/administrator/manage-products/delete-product-form/delete-product-form.component';
 import { UploadedImagesComponent } from './components/administrator/manage-products/add-product-form/uploaded-images/uploaded-images.component';
 import { AngularEditorModule } from '@kolkov/angular-editor';
+import { DeleteProductDialogComponent } from './components/administrator/manage-products/delete-product-form/delete-product-dialog/delete-product-dialog.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     AddProductFormComponent,
     DeleteProductFormComponent,
     UploadedImagesComponent,
+    DeleteProductDialogComponent,
   ],
   imports: [SharedModule, AdministrationRoutingModule, AngularEditorModule],
 })

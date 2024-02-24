@@ -33,7 +33,7 @@ export interface AddProductData {
   category: string;
 }
 
-export interface PostProductResponse {
+export interface ProductResponse {
   timestamp: string;
   message: string;
 }
