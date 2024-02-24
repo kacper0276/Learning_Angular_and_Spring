@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import {
   AddCategoryForm,
   LoginForm,
   PasswdRecoveryForm,
   PasswordsForm,
+  PostProduct,
 } from '../models/forms.model';
 import { RegisterForm } from '../models/forms.model';
 import { equivalentValidator } from '../../shared/validators/equivalent.validator';
@@ -19,6 +20,42 @@ export class FormService {
         validators: [Validators.required],
         nonNullable: true,
       }),
+    });
+  }
+  initAddProductForm(): FormGroup<PostProduct> {
+    return new FormGroup({
+      name: new FormControl('', {
+        validators: [Validators.required],
+        nonNullable: true,
+      }),
+      mainDesc: new FormControl('', {
+        validators: [Validators.required],
+        nonNullable: true,
+      }),
+      descHtml: new FormControl('', {
+        validators: [Validators.required],
+        nonNullable: true,
+      }),
+      price: new FormControl('', {
+        validators: [Validators.required],
+        nonNullable: true,
+      }),
+      category: new FormControl('', {
+        validators: [Validators.required],
+        nonNullable: true,
+      }),
+      parameters: new FormArray([
+        new FormGroup({
+          key: new FormControl('', {
+            validators: [Validators.required],
+            nonNullable: true,
+          }),
+          value: new FormControl('', {
+            validators: [Validators.required],
+            nonNullable: true,
+          }),
+        }),
+      ]),
     });
   }
   initPasswdRecoveryForm(): FormGroup<PasswdRecoveryForm> {

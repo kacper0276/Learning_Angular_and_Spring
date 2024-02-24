@@ -3,7 +3,9 @@ import { environment } from '../../../../environments/environment.development';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 import {
+  AddProductData,
   GetProductsResponse,
+  PostProductResponse,
   PrimitiveProduct,
   Product,
 } from '../models/product.model';
@@ -68,5 +70,15 @@ export class ProductsService {
           return { products: [...response.body], totalCount };
         }),
       );
+  }
+
+  addProduct(addProductData: AddProductData): Observable<PostProductResponse> {
+    return this.http.post<PostProductResponse>(
+      `${this.apiUrl}`,
+      addProductData,
+      {
+        withCredentials: true,
+      },
+    );
   }
 }

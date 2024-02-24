@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs';
 import { ProductsService } from '../../../../core/services/products.service';
 import { Product } from '../../../../core/models/product.model';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-product-details',
@@ -11,11 +12,13 @@ import { Product } from '../../../../core/models/product.model';
 })
 export class ProductDetailsComponent implements OnInit {
   product: Product | null = null;
+  htmlContent: null | SafeHtml = null;
   parameters: { [key: string]: string } | null = null;
 
   constructor(
     private route: ActivatedRoute,
     private productsService: ProductsService,
+    private sanitizer: DomSanitizer,
   ) {}
 
   ngOnInit(): void {
@@ -29,6 +32,9 @@ export class ProductDetailsComponent implements OnInit {
       .subscribe({
         next: (product) => {
           this.product = { ...product };
+          this.htmlContent = this.sanitizer.bypassSecurityTrustHtml(
+            product.descHtml,
+          );
           try {
             this.parameters = JSON.parse(product.parameters);
           } catch (e) {

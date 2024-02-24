@@ -6,6 +6,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSelectModule } from '@angular/material/select';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   exports: [
@@ -16,6 +17,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatAutocompleteModule,
     MatSelectModule,
     MatExpansionModule,
+    MatTooltipModule,
   ],
 })
 export class MaterialModule {}

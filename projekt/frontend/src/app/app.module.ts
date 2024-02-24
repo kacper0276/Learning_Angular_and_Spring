@@ -13,6 +13,7 @@ import { NotifierModule, NotifierOptions } from 'angular-notifier';
 import { AuthEffects } from './modules/auth/store/auth.effects';
 import localePl from '@angular/common/locales/pl';
 import { registerLocaleData } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const customNotifier: NotifierOptions = {
   position: {
@@ -38,6 +39,7 @@ registerLocaleData(localePl);
     AppRoutingModule,
     CoreModule,
     AuthModule,
+    BrowserAnimationsModule,
     StoreModule.forRoot({ auth: authReducer }),
     EffectsModule.forRoot([AuthEffects]),
     NotifierModule.withConfig(customNotifier),
