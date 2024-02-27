@@ -18,9 +18,9 @@ public class BasketItems {
     @SequenceGenerator(name = "basket_items_id_seq",sequenceName = "basket_items_id_seq",allocationSize = 1)
     private long id;
     private String uuid;
-    private long product;
+    private String product;
     @ManyToOne
     @JoinColumn(name = "basket")
     private Basket basket;
-    private double quantity;
+    private long quantity;
 }

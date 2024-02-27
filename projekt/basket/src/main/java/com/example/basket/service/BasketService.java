@@ -1,9 +1,6 @@
 package com.example.basket.service;
 
-import com.example.basket.entity.Basket;
-import com.example.basket.entity.BasketItemAddDTO;
-import com.example.basket.entity.BasketItems;
-import com.example.basket.entity.Product;
+import com.example.basket.entity.*;
 import com.example.basket.repository.BasketItemRepository;
 import com.example.basket.repository.BasketRepository;
 import jakarta.servlet.http.Cookie;
@@ -78,7 +75,7 @@ public class BasketService {
                     basketItems.setBasket(basket);
                     basketItems.setUuid(UUID.randomUUID().toString());
                     basketItems.setQuantity(basketItemAddDTO.getQuantity());
-                    basketItems.setProduct(product.getId());
+                    basketItems.setProduct(String.valueOf(product.getId()));
                     basketItemRepository.saveAndFlush(basketItems);
                 });
             }
@@ -95,4 +92,64 @@ public class BasketService {
         }
         return (Product) response.getBody();
     }
+
+    public ResponseEntity<Response> delete(String uuid, HttpServletRequest request) {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        List<Cookie> cookies = new ArrayList<>();
+        if (request.getCookies() != null) {
+            cookies.addAll(List.of(request.getCookies()));
+        }
+        cookies.stream().filter(value -> value.getName().equals("basket"))
+                .findFirst().ifPresentOrElse(value -> {
+                    basketRepository.findByUuid(value.getValue()).ifPresentOrElse(basket -> {
+                        deleteItem(uuid,basket);
+                        Long sum = basketItemRepository.sumBasketItems(basket.getId());
+                        if (sum == null) sum = 0L;
+                        httpHeaders.add("X-Total-Count", String.valueOf(sum));
+                    }, () -> {
+                        throw new RuntimeException();
+                    });
+                }, () -> {
+                    throw new RuntimeException();
+                });
+        return ResponseEntity.ok().headers(httpHeaders).body(new Response("Successful delete item from basket"));
+    }
+
+    private void deleteItem(String uuid,Basket basket){
+        basketItemRepository.findBasketItemsByUuid(uuid).ifPresentOrElse(basketItemRepository::delete,()->{
+            throw new RuntimeException();
+        });
+        Long sum = basketItemRepository.sumBasketItems(basket.getId());
+        if (sum==null || sum == 0) basketRepository.delete(basket);
+    }
+
+    public ResponseEntity<?> getItems(HttpServletRequest request) {
+        List<Cookie> cookies = new ArrayList<>();
+        if (request.getCookies() != null) {
+            cookies.addAll(List.of(request.getCookies()));
+        }
+        ListBasketItemDTO listBasketItemDTO = new ListBasketItemDTO();
+        listBasketItemDTO.setItems(new ArrayList<>());
+        cookies.stream().filter(value -> value.getName().equals("basket"))
+                .findFirst().ifPresentOrElse(value->{
+                    Basket basket = basketRepository.findByUuid(value.getValue()).orElseThrow(RuntimeException::new);
+                    basketItemRepository.findBasketItemsByBasket(basket).forEach(item->{
+                        try {
+                            Product product = getProduct(item.getProduct());
+                            listBasketItemDTO.getItems().add(new BasketItemDTO(product.getUid(),
+                                    product.getName(),
+                                    item.getQuantity(),
+                                    product.getImageUrls()[0],
+                                    product.getPrice()));
+                            listBasketItemDTO.setPrice(listBasketItemDTO.getPrice()+ (item.getQuantity()*product.getPrice()));
+                        } catch (URISyntaxException e) {
+                            throw new RuntimeException(e);
+                        }
+                    });
+                },()->{
+
+                });
+        return ResponseEntity.ok(listBasketItemDTO);
+    }
+
 }

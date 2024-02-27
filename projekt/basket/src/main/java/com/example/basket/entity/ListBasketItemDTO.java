@@ -12,6 +12,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ListBasketItemDTO {
-    private List<BasketItemDTO> basketProducts;
-    private double summaryPrice;
+    private List<BasketItemDTO> items;
+    private double price;
 }
