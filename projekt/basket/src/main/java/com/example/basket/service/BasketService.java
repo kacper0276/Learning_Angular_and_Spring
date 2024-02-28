@@ -1,6 +1,8 @@
 package com.example.basket.service;
 
 import com.example.basket.entity.*;
+import com.example.basket.exceptions.BasketItemDontExistException;
+import com.example.basket.exceptions.NoBasketInfoException;
 import com.example.basket.repository.BasketItemRepository;
 import com.example.basket.repository.BasketRepository;
 import jakarta.servlet.http.Cookie;
@@ -107,17 +109,17 @@ public class BasketService {
                         if (sum == null) sum = 0L;
                         httpHeaders.add("X-Total-Count", String.valueOf(sum));
                     }, () -> {
-                        throw new RuntimeException();
+                        throw new NoBasketInfoException("Brak informacji o koszyku");
                     });
                 }, () -> {
-                    throw new RuntimeException();
+                    throw new NoBasketInfoException("Brak informacji o koszyku");
                 });
         return ResponseEntity.ok().headers(httpHeaders).body(new Response("Successful delete item from basket"));
     }
 
-    private void deleteItem(String uuid,Basket basket){
+    private void deleteItem(String uuid,Basket basket) throws BasketItemDontExistException{
         basketItemRepository.findBasketItemsByUuid(uuid).ifPresentOrElse(basketItemRepository::delete,()->{
-            throw new RuntimeException();
+            throw new BasketItemDontExistException("Brak przedmiotu w koszyku");
         });
         Long sum = basketItemRepository.sumBasketItems(basket.getId());
         if (sum==null || sum == 0) basketRepository.delete(basket);
