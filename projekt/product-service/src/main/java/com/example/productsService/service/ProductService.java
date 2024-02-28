@@ -86,6 +86,10 @@ public class ProductService {
         return entityManager.createQuery(query).setFirstResult((page - 1) * limit).setMaxResults(limit).getResultList();
     }
 
+    public Optional<ProductEntity> getProductByUuid(String uuid) {
+        return productRepository.findByUid(uuid);
+    }
+
     private List<Predicate> prepareQuery(String name, String category, Float price_min, Float price_max, CriteriaBuilder criteriaBuilder, Root<ProductEntity> root ) {
         List<Predicate> predicates = new ArrayList<>();
         if (name != null && !name.trim().equals("")) {
