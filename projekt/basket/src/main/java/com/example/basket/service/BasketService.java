@@ -134,7 +134,7 @@ public class BasketService {
         listBasketItemDTO.setItems(new ArrayList<>());
         cookies.stream().filter(value -> value.getName().equals("basket"))
                 .findFirst().ifPresentOrElse(value->{
-                    Basket basket = basketRepository.findByUuid(value.getValue()).orElseThrow(RuntimeException::new);
+                    Basket basket = basketRepository.findByUuid(value.getValue()).orElseThrow(NoBasketInfoException::new);
                     basketItemRepository.findBasketItemsByBasket(basket).forEach(item->{
                         try {
                             Product product = getProduct(item.getProduct());
@@ -149,7 +149,7 @@ public class BasketService {
                         }
                     });
                 },()->{
-
+                    throw new NoBasketInfoException("Brak informacji o koszyku");
                 });
         return ResponseEntity.ok(listBasketItemDTO);
     }
