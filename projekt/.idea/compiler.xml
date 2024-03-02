@@ -8,9 +8,10 @@
         <outputRelativeToContentRoot value="true" />
         <module name="demo (2)" />
         <module name="RegisterEndpointInformation" />
-        <module name="demo" />
         <module name="demo (1)" />
         <module name="gatway" />
+        <module name="demo (4)" />
+        <module name="demo" />
         <module name="fileservice" />
       </profile>
       <profile name="Annotation profile for productsService" enabled="true">
@@ -32,6 +33,7 @@
       <module name="demo (1)" options="-parameters" />
       <module name="demo (2)" options="-parameters" />
       <module name="demo (3)" options="-parameters -Amapstruct.defaultComponentModel=spring" />
+      <module name="demo (4)" options="-parameters" />
       <module name="fileservice" options="-parameters" />
       <module name="gatway" options="-parameters" />
     </option>
