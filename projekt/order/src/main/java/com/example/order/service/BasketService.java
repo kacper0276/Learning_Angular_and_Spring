@@ -22,24 +22,24 @@ public class BasketService {
 
     public ListBasketItemDTO getBasket(Cookie value) {
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Cookie", value.getName()+"="+value.getValue());
+        headers.add("Cookie", value.getName() + "=" + value.getValue());
         ResponseEntity<ListBasketItemDTO> response;
-        try{
-            response =restTemplate.exchange(BASKET_URL,
+        try {
+            response = restTemplate.exchange(BASKET_URL,
                     HttpMethod.GET,
                     new HttpEntity<String>(headers),
                     ListBasketItemDTO.class);
-        }catch (HttpClientErrorException e){
+        } catch (HttpClientErrorException e) {
             throw new RuntimeException("Basket don't exist");
         }
         if (response.getStatusCode().isError()) throw new RuntimeException("Basket don't exist");
         return response.getBody();
     }
 
-    public void removeBasket(Cookie value,String uuid) {
+    public void removeBasket(Cookie value, String uuid) {
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Cookie", value.getName()+"="+value.getValue());
-        restTemplate.exchange(BASKET_URL+"?uuid="+uuid,
+        headers.add("Cookie", value.getName() + "=" + value.getValue());
+        restTemplate.exchange(BASKET_URL + "?uuid=" + uuid,
                 HttpMethod.DELETE,
                 new HttpEntity<String>(headers),
                 String.class);
