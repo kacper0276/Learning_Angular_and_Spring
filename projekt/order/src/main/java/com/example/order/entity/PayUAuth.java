@@ -15,3 +15,4 @@ public class PayUAuth {
     private long expires_in;
     private String grant_type;
 }
+
