@@ -27,6 +27,7 @@ public class OrderService {
     private final ItemService itemService;
     private final PayUService payUService;
     private final BasketItemDTOToOrderItems basketItemDTOToItems;
+    private final EmailService emailService;
 
     private Order save(Order order) {
         Deliver deliver = deliverRepository.findByUuid(order.getDeliver().getUuid()).orElseThrow(RuntimeException::new);
@@ -62,7 +63,7 @@ public class OrderService {
             result.set(payUService.createOrder(finalOrder, items));
             value.setMaxAge(0);
             response.addCookie(value);
-//            emailService.sendActivation(order.getEmail(),order.getUuid());
+            emailService.sendActivation(order.getEmail(),order.getUuid());
         }, () -> {
             throw new RuntimeException();
         });
