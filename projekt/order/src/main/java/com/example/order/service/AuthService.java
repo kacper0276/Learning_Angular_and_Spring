@@ -23,12 +23,16 @@ public class AuthService {
         cookies.forEach(value -> {
             cookieString.append(value.getName()).append("=").append(value.getValue()).append(";");
         });
-        if (cookieString.length() == 0) throw new RuntimeException("Bład");
+        if (cookieString.length() <= 0) return null;
 
         cookieString.deleteCharAt(cookieString.length() - 1);
         httpHeaders.add("Cookie", cookieString.toString());
         HttpEntity<Void> requestEntity = new HttpEntity<>(httpHeaders);
-        ResponseEntity<UserRegisterDTO> response = restTemplate.exchange(auth_url, HttpMethod.GET, requestEntity, UserRegisterDTO.class);
-        return response.getStatusCode().isError() ? null : response.getBody();
+        try {
+            ResponseEntity<UserRegisterDTO> response = restTemplate.exchange(auth_url, HttpMethod.GET, requestEntity, UserRegisterDTO.class);
+            return response.getStatusCode().isError() ? null : response.getBody();
+        } catch (HttpClientErrorException e) {
+            return null;
+        }
     }
 }

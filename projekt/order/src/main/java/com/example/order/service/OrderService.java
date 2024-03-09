@@ -52,12 +52,10 @@ public class OrderService {
                         value.getName().equals("Authorization") || value.getName().equals("refresh"))
                 .toList();
 
-        try {
-            UserRegisterDTO userRegisterDTO = authService.getUserDetails(cookies);
-            if (userRegisterDTO != null) {
-                order.setClient(userRegisterDTO.getLogin());
-            }
-        } catch (HttpClientErrorException e) { }
+        UserRegisterDTO userRegisterDTO = authService.getUserDetails(cookies);
+        if (userRegisterDTO != null) {
+            order.setClient(userRegisterDTO.getLogin());
+        }
 
         Order finalOrder = save(order);
         AtomicReference<String> result = new AtomicReference<>();
