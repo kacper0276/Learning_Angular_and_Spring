@@ -10,7 +10,6 @@
         <module name="RegisterEndpointInformation" />
         <module name="demo (1)" />
         <module name="gatway" />
-        <module name="demo (5)" />
         <module name="demo" />
         <module name="fileservice" />
       </profile>
@@ -23,6 +22,7 @@
           <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct-processor/1.5.0.Final/mapstruct-processor-1.5.0.Final.jar" />
           <entry name="$MAVEN_REPOSITORY$/org/mapstruct/mapstruct/1.5.0.Final/mapstruct-1.5.0.Final.jar" />
         </processorPath>
+        <module name="demo (5)" />
         <module name="demo (4)" />
         <module name="demo (3)" />
       </profile>
@@ -34,8 +34,8 @@
       <module name="demo (1)" options="-parameters" />
       <module name="demo (2)" options="-parameters" />
       <module name="demo (3)" options="-parameters -Amapstruct.defaultComponentModel=spring" />
-      <module name="demo (4)" options="-parameters -Amapstruct.defaultComponentModel=spring" />
-      <module name="demo (5)" options="-parameters" />
+      <module name="demo (4)" options="-parameters" />
+      <module name="demo (5)" options="-parameters -Amapstruct.defaultComponentModel=spring" />
       <module name="fileservice" options="-parameters" />
       <module name="gatway" options="-parameters" />
     </option>
