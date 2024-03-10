@@ -2,6 +2,7 @@ package com.example.order.controller;
 
 import com.example.order.entity.OrderDTO;
 import com.example.order.entity.Response;
+import com.example.order.entity.notify.Notify;
 import com.example.order.exception.*;
 import com.example.order.mediator.OrderMediator;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,6 +22,12 @@ public class OrderController {
     public ResponseEntity<?> createOrder(@RequestBody OrderDTO order, HttpServletRequest request, HttpServletResponse response) {
         return orderMediator.createOrder(order, response, request);
     }
+
+    @RequestMapping(method = RequestMethod.POST,value = "/notification")
+    public ResponseEntity<Response> notifyOrder(@RequestBody Notify notify, HttpServletRequest request){
+        return orderMediator.handleNotify(notify,request);
+    }
+
 
     @ResponseStatus(HttpStatus.BAD_REQUEST) // Jaki status wysyłamy
     @ExceptionHandler(EmptyBasketException.class)
