@@ -2,6 +2,7 @@ package com.example.order.service;
 
 import com.example.order.entity.*;
 //import com.example.order.exception.PayUException;
+import com.example.order.exception.PayUException;
 import com.example.order.translators.OrderItemsToPayuProduct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -49,7 +50,7 @@ public class PayUService {
                         HttpMethod.POST,
                         entity,
                         PayUAuth.class);
-        if (response.getStatusCode().isError()) throw new RuntimeException();
+        if (response.getStatusCode().isError()) throw new PayUException();
         token = "Bearer " + response.getBody().getAccess_token();
     }
 
