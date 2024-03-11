@@ -4,8 +4,8 @@ import com.example.order.entity.Order;
 import com.example.order.entity.OrderItems;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.Optional;
+import java.util.List;
 
 public interface ItemRepository extends JpaRepository<OrderItems, Long> {
-    Optional<OrderItems> findOrderItemsByOrder(Order order);
+    List<OrderItems> findOrderItemsByOrder(Order order);
 }

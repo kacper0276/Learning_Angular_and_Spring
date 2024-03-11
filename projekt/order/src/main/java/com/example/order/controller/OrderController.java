@@ -23,41 +23,49 @@ public class OrderController {
         return orderMediator.createOrder(order, response, request);
     }
 
-    @RequestMapping(method = RequestMethod.POST,value = "/notification")
-    public ResponseEntity<Response> notifyOrder(@RequestBody Notify notify, HttpServletRequest request){
-        return orderMediator.handleNotify(notify,request);
+    @RequestMapping(method = RequestMethod.POST, value = "/notification")
+    public ResponseEntity<Response> notifyOrder(@RequestBody Notify notify, HttpServletRequest request) {
+        return orderMediator.handleNotify(notify, request);
+    }
+
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<?> get(@RequestParam(required = false) String uuid, HttpServletRequest request) {
+        return orderMediator.getOrder(uuid, request);
     }
 
 
     @ResponseStatus(HttpStatus.BAD_REQUEST) // Jaki status wysyłamy
     @ExceptionHandler(EmptyBasketException.class)
-    public Response handleValidationExceptions(EmptyBasketException ex){
+    public Response handleValidationExceptions(EmptyBasketException ex) {
         return new Response("Basket is empty");
     }
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(BasketDontExistException.class)
-    public Response handleValidationExceptions(BasketDontExistException ex){
+    public Response handleValidationExceptions(BasketDontExistException ex) {
         return new Response("Basket dont exist for this session");
     }
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(PayUException.class)
-    public Response handleValidationExceptions(PayUException ex){
+    public Response handleValidationExceptions(PayUException ex) {
         return new Response("Server error contact with administrator");
     }
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(UknowDeliverTypException.class)
-    public Response handleValidationExceptions(UknowDeliverTypException ex){
+    public Response handleValidationExceptions(UknowDeliverTypException ex) {
         return new Response("Deliver don't exist with this uuid");
     }
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(UserDontLoginException.class)
-    public Response handleValidationExceptions(UserDontLoginException ex){
+    public Response handleValidationExceptions(UserDontLoginException ex) {
         return new Response("User is not logged in");
     }
-//    @ResponseStatus(HttpStatus.BAD_REQUEST)
-//    @ExceptionHandler(OrderDontExistException.class)
-//    public Response handleValidationExceptions(OrderDontExistException ex){
-//        return new Response("Order don't exist");
-//    }
-
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(OrderDontExistException.class)
+    public Response handleValidationExceptions(OrderDontExistException ex){
+        return new Response("Order don't exist");
+    }
 }

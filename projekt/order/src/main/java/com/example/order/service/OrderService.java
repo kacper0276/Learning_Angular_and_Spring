@@ -92,4 +92,13 @@ public class OrderService {
         });
     }
 
+    public Order getOrderByUuid(String uuid) {
+        return orderRepository.findOrderByUuid(uuid).orElseThrow(OrderDontExistException::new);
+    }
+
+    public List<Order> getOrdersByClient(String login) {
+        return orderRepository.findOrderByClient(login);
+    }
+
+
 }
