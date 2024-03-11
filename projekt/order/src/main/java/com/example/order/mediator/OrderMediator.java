@@ -52,7 +52,7 @@ public class OrderMediator {
             return ResponseEntity.badRequest().body(new Response("Bad signature"));
         }catch (OrderDontExistException e1){
             return ResponseEntity.badRequest().body(new Response("Order don't exist"));
-        };
+        }
         return ResponseEntity.ok(new Response("Notification handle success"));
 
     }
@@ -66,9 +66,7 @@ public class OrderMediator {
                 UserRegisterDTO user = authService.getUserDetails(cookies);
                 if (user!=null){
                     List<OrderDTO> orderDTOList = new ArrayList<>();
-                    orderService.getOrdersByClient(user.getLogin()).forEach(value->{
-                        orderDTOList.add(orderToOrderDTO.toOrderDTO(value));
-                    });
+                    orderService.getOrdersByClient(user.getLogin()).forEach(value-> orderDTOList.add(orderToOrderDTO.toOrderDTO(value)));
                     return ResponseEntity.ok(orderDTOList);
                 }
                 throw new OrderDontExistException();

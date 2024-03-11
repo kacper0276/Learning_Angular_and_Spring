@@ -34,7 +34,7 @@
       <module name="demo (1)" options="-parameters" />
       <module name="demo (2)" options="-parameters" />
       <module name="demo (3)" options="-parameters -Amapstruct.defaultComponentModel=spring" />
-      <module name="demo (4)" options="-parameters" />
+      <module name="demo (4)" options="-parameters -Amapstruct.defaultComponentModel=spring" />
       <module name="demo (5)" options="-parameters -Amapstruct.defaultComponentModel=spring" />
       <module name="fileservice" options="-parameters" />
       <module name="gatway" options="-parameters" />
