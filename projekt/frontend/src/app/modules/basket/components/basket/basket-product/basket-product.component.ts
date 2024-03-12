@@ -1,12 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { BasketProduct } from '../../../../core/models/basket.model';
 
 @Component({
   selector: 'app-basket-product',
-  standalone: true,
-  imports: [],
   templateUrl: './basket-product.component.html',
-  styleUrl: './basket-product.component.scss'
+  styleUrl: './basket-product.component.scss',
 })
 export class BasketProductComponent {
-
+  @Input() basketProduct!: BasketProduct;
 }
