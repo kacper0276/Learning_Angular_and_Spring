@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import {
   AddCategoryForm,
+  AddressForm,
   CustomerForm,
+  DeliveryForm,
   LoginForm,
   PasswdRecoveryForm,
   PasswordsForm,
@@ -95,6 +97,36 @@ export class FormService {
     });
   }
 
+  initAddressForm(): FormGroup<AddressForm> {
+    return new FormGroup({
+      city: new FormControl('', {
+        validators: [Validators.required],
+        nonNullable: true,
+      }),
+      street: new FormControl('', {
+        validators: [Validators.required],
+        nonNullable: true,
+      }),
+      number: new FormControl('', {
+        validators: [Validators.required],
+        nonNullable: true,
+      }),
+      postCode: new FormControl('', {
+        validators: [Validators.required, Validators.pattern(/^\d{2}-\d{3}$/)],
+        nonNullable: true,
+      }),
+    });
+  }
+
+  initDeliveryForm(): FormGroup<DeliveryForm> {
+    return new FormGroup({
+      uuid: new FormControl('', {
+        validators: [Validators.required],
+        nonNullable: true,
+      }),
+    });
+  }
+
   initPasswordsForm(): FormGroup<PasswordsForm> {
     return new FormGroup(
       {
@@ -176,6 +208,13 @@ export class FormService {
   getErrorMessage(control: FormControl): string {
     if (control.hasError('required')) {
       return 'Ta kontrolka jest wymagana';
+    }
+
+    if (
+      control.hasError('pattern') &&
+      control.errors?.['pattern']?.['requiredPattern'] === '/^\\d{2}-\\d{3}$/'
+    ) {
+      return 'Podano kod pocztowy w niepoprawnym formacie.';
     }
 
     if (control.hasError('minlength')) {
