@@ -10,6 +10,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   exports: [
@@ -24,6 +25,7 @@ import { MatRadioModule } from '@angular/material/radio';
     MatDialogModule,
     MatIconModule,
     MatRadioModule,
+    MatListModule,
   ],
 })
 export class MaterialModule {}
