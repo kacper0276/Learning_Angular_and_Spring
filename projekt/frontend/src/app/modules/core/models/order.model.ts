@@ -7,3 +7,12 @@ export interface PostOrder {
   address: Address;
   deliver: PostDelivery;
 }
+
+export interface PostOrderResponse {
+  status: {
+    statusCode: string;
+  };
+  redirectUri: string;
+  orderId: string;
+  extOrderId: string;
+}

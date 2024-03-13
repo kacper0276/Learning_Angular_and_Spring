@@ -16,4 +16,10 @@
       Zamawiam i płacę
     </button>
   </div>
+
+  <app-alert
+    *ngIf="errorMsg"
+    [alertType]="'warning'"
+    [message]="errorMsg"
+  ></app-alert>
 </section>
