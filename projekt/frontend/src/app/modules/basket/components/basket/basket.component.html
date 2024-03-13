@@ -21,7 +21,13 @@
       <p class="text-center">Koszt bez dostawy:</p>
       <p class="text-center">{{ summaryPrice | currency: 'zł' }}</p>
       <div class="d-flex justify-content-center">
-        <button mat-raised-button color="primary">Przejdź do zakupu</button>
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="navigateToCreateOrder()"
+        >
+          Przejdź do zakupu
+        </button>
       </div>
     </div>
   </div>
