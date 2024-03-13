@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { BasketProduct } from '../../../../core/models/basket.model';
-import { BasketService } from '../../../../core/services/basket.service';
+import { BasketProduct } from '../../../core/models/basket.model';
+import { BasketService } from '../../../core/services/basket.service';
 import { NotifierService } from 'angular-notifier';
 
 @Component({
@@ -10,7 +10,7 @@ import { NotifierService } from 'angular-notifier';
 })
 export class BasketProductComponent {
   @Input() basketProduct!: BasketProduct;
-
+  @Input() basketView = true;
   @Output() deleteProductUuid = new EventEmitter<string>();
 
   constructor(

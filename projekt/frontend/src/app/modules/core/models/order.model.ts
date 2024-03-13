@@ -1,6 +1,18 @@
 import { Address } from './address.model';
+import { BasketProduct } from './basket.model';
 import { Customer } from './customer.model';
-import { PostDelivery } from './delivery.model';
+import { GetDelivery, PostDelivery } from './delivery.model';
+
+export interface GetOrderResponse {
+  uuid: string;
+  orders: string;
+  status: string;
+  customerDetails: Customer;
+  address: Address;
+  deliver: GetDelivery;
+  items: BasketProduct[];
+  summaryPrice: number;
+}
 
 export interface PostOrder {
   customerDetails: Customer;
