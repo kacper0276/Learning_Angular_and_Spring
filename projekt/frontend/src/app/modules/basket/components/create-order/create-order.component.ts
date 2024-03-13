@@ -1,6 +1,7 @@
 import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { CustomerFormComponent } from './customer-form/customer-form.component';
 
 @Component({
   selector: 'app-create-order',
@@ -8,6 +9,8 @@ import { Router } from '@angular/router';
   styleUrl: './create-order.component.scss',
 })
 export class CreateOrderComponent implements OnInit {
+  @ViewChild(CustomerFormComponent) customerFormComp!: CustomerFormComponent;
+
   // Dzięki location możemy odbierać state który wysyłamy
   constructor(
     private location: Location,
@@ -23,5 +26,9 @@ export class CreateOrderComponent implements OnInit {
     if (!locationState.summaryPrice) {
       this.router.navigate(['']);
     }
+  }
+
+  order() {
+    console.log(this.customerFormComp.customerForm.getRawValue());
   }
 }

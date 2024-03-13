@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import {
   AddCategoryForm,
+  CustomerForm,
   LoginForm,
   PasswdRecoveryForm,
   PasswordsForm,
@@ -22,6 +23,7 @@ export class FormService {
       }),
     });
   }
+
   initAddProductForm(): FormGroup<PostProduct> {
     return new FormGroup({
       name: new FormControl('', {
@@ -58,10 +60,36 @@ export class FormService {
       ]),
     });
   }
+
   initPasswdRecoveryForm(): FormGroup<PasswdRecoveryForm> {
     return new FormGroup({
       email: new FormControl('', {
         validators: [Validators.required, Validators.email],
+        nonNullable: true,
+      }),
+    });
+  }
+
+  initCustomerForm(): FormGroup<CustomerForm> {
+    return new FormGroup({
+      firstName: new FormControl('', {
+        validators: [Validators.required],
+        nonNullable: true,
+      }),
+      lastName: new FormControl('', {
+        validators: [Validators.required],
+        nonNullable: true,
+      }),
+      email: new FormControl('', {
+        validators: [Validators.required, Validators.email],
+        nonNullable: true,
+      }),
+      phone: new FormControl('', {
+        validators: [
+          Validators.required,
+          Validators.minLength(9),
+          Validators.maxLength(9),
+        ],
         nonNullable: true,
       }),
     });
