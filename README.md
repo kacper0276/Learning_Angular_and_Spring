@@ -1,5 +1,5 @@
-# NaukaAngular
+# Nauka Angular oraz Spring
 
 ---
 
-# Nauka frameworka Angular, aplikacja todo
+# Nauka frameworka Angular oraz Spring
