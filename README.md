@@ -29,12 +29,12 @@ To set up the project locally:
 
 1. **Clone the repository**:
     ```bash
-    git clone https://github.com/kacper0276/Nauka-Angular-oraz-Spring.git
+    git clone https://github.com/kacper0276/Learning_Angular_and_Spring.git
     ```
 
 2. **Navigate to the backend directory (Spring)**:
     ```bash
-    cd Nauka-Angular-oraz-Spring/backend
+    cd Learning_Angular_and_Spring/backend
     ```
 
 3. **Update the application configuration (if necessary)**:
